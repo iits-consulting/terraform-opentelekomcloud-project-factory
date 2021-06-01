@@ -61,3 +61,8 @@ variable "public_ip_bandwidth" {
   default     = 300
   description = "The bandwidth size. The value ranges from 1 to 300 Mbit/s."
 }
+variable "cce_version" {
+  type = string
+  default = null
+  description = "Set this to a specific kubernetes version if you do not want the newest one."
+}

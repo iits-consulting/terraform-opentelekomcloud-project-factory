@@ -61,6 +61,12 @@ variable "tags" {
   }
 }
 
+variable cce_version {
+  type = string
+  default = null
+  description = "Set this to a specific kubernetes version if you do not want the newest one."
+}
+
 data "opentelekomcloud_identity_project_v3" "otc_stage_project" {
   name = var.otc_project_name
 }
@@ -71,4 +77,8 @@ locals {
     2 = var.cce_node_spec_default
   }
   otc_project_id = data.opentelekomcloud_identity_project_v3.otc_stage_project.id
+}
+
+output "cce" {
+  value = module.cce
 }

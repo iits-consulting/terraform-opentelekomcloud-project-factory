@@ -8,6 +8,8 @@
 module "keypair" {
   source     = "modules/keypair"
   stage_name = var.stage_name
+  context    = var.context_name
+  region     = var.region
 }
 
 module "vpc" {

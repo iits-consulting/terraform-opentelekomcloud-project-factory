@@ -21,6 +21,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   description            = "Kubernetes Cluster for ${var.context_name} for the Stage ${var.stage_name}"
   region                 = var.region
   eip                    = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
+  cluster_version        = var.cce_version
 
   timeouts {
     create = "60m"
