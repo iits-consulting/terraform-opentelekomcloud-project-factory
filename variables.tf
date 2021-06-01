@@ -7,17 +7,17 @@ variable "tf_remote_state_bucket_name" {
 }
 
 variable "tf_remote_state_bucket_endpoint" {
-  type = string
+  type    = string
   default = "obs.eu-de.otc.t-systems.com"
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "eu-de"
 }
 
 variable "context_name" {
-  default=string
+  type        = string
   description = "Short descriptive, readable label of the project you are working on. Is utilized as a part of resource names."
 }
 
@@ -49,7 +49,7 @@ variable "cce_node_spec_default" {
 }
 
 variable "cce_vpc_flavor_id" {
-  default = "cce.s1.small"
+  default     = "cce.s1.small"
   description = ""
 }
 

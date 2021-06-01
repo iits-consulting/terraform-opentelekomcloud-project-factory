@@ -1,4 +1,4 @@
-resource "opentelekomcloud_vpc_eip_v1" "kubectl_eip" {
+resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
   bandwidth {
     charge_mode = "traffic"
     name        = "bandwidth-kubectl-${var.context_name}-${var.stage_name}"
@@ -20,7 +20,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   container_network_type = var.container_network_type
   description            = "Kubernetes Cluster for ${var.context_name} for the Stage ${var.stage_name}"
   region                 = var.region
-  eip                    = opentelekomcloud_vpc_eip_v1.kubectl_eip.publicip[0].ip_address
+  eip                    = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
 
   timeouts {
     create = "60m"
