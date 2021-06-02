@@ -6,6 +6,6 @@ resource opentelekomcloud_cce_addon_v3 metrics {
   values {
     basic = {
     }
+    custom = {}
   }
-  custom = {}
 }

@@ -4,7 +4,6 @@
 # - OS_DOMAIN_NAME
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
-
 module "keypair" {
   source     = "modules/keypair"
   stage_name = var.stage_name
@@ -25,7 +24,7 @@ module "vpc" {
 module "cce_autocreation" {
   source   = "modules/cce_auto_creation"
   projects = [
-    var.otc_project_name]
+    data.opentelekomcloud_identity_project_v3.otc_project.name]
 }
 
 module "cce" {
@@ -38,7 +37,7 @@ module "cce" {
   vpc_flavor_id = var.cce_vpc_flavor_id
   vpc_id        = module.vpc.vpc_id
   vpc_cidr      = var.vpc_cidr
-  nodes         = local.node_spec
+  nodes         = local.node_specs
   tags          = var.tags
   context_name  = var.context_name
 }

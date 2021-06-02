@@ -1,5 +1,5 @@
 variable "context_name" {
-  type    = string
+  type = string
 }
 variable "stage_name" {}
 variable "vpc_flavor_id" {}
@@ -62,7 +62,7 @@ variable "public_ip_bandwidth" {
   description = "The bandwidth size. The value ranges from 1 to 300 Mbit/s."
 }
 variable "cce_version" {
-  type = string
-  default = null
+  type        = string
+  default     = null
   description = "Set this to a specific kubernetes version if you do not want the newest one."
 }
