@@ -14,13 +14,13 @@ locals {
           insecure-skip-tls-verify = true
           server                   = local.kubectl_external_server
         }
-        name = "externalCluster-${var.stage_name}"
+        name = "cluster-${var.context_name}-${var.stage_name}"
       },
     ]
     contexts = [
       {
         context = {
-          cluster = "externalCluster-${var.stage_name}"
+          cluster = "cluster-${var.context_name}-${var.stage_name}"
           user    = "terraform"
         }
         name = var.stage_name
