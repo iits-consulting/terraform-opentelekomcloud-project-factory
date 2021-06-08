@@ -6,7 +6,7 @@ These are commonly usable Terraform Modules for the [Open Telekom Cloud](https:/
 # Usage:
 You can utilize the modules individually (recommended for production scenarios) or import this whole repo as one module (as a quickstart or showcase).
 
-## Importing modules individually
+## Importing Modules Individually
 ```terraform
 module "vpc" {
   source                = "iits/otc//modules/vpc"
@@ -18,6 +18,16 @@ module "vpc" {
   vpc_subnet_gateway_ip = local.vpc_subnet_gateway_ip
 }
 ```
+
+## Importing the Showcase Environment
+```terraform
+module "iits-otc-demo" {
+  source                = "iits/otc"
+  version               = "0.1.0"
+  ...
+}
+```
+
 
 # Common Concepts behind the modules
 
