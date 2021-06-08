@@ -1,6 +1,6 @@
 # terraform-otc-modules
 These are commonly usable Terraform Modules for the Opentelekom Cloud: https://open-telekom-cloud.com
-Developed by iits-consulting: https://iits-consulting.de/
+Developed by [iits-consulting](https://iits-consulting.de/) - your Cloud-native Innovation Teams as a Service! 
 
 # Usage:
 You can utilize the modules individually (recommended for production scenarios) or import this whole repo as one module (as a quickstart or showcase).
