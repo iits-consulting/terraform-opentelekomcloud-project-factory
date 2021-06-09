@@ -1,23 +1,7 @@
-variable "subnet_id" {}
-variable "stage_name" {}
-//variable "loadbalancer_ip_address" {}
-variable "context_name" {
-  default = "otc-customer-success"
-  type    = string
-}
-
-variable "bandwidth" {
-  type        = number
-  default     = 300
-  description = "The bandwidth size. The value ranges from 1 to 300 Mbit/s."
-}
-
 resource "opentelekomcloud_lb_loadbalancer_v2" "elb" {
-  name          = "elb_${var.stage_name}"
-  description   = "ELB for ${var.stage_name}"
+  name          = "elb_${var.context_name}_${var.stage_name}"
+  description   = "ELB for project ${var.context_name} (${var.stage_name})"
   vip_subnet_id = var.subnet_id
-
-  //  vip_address = var.loadbalancer_ip_address
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "ingress_eip" {

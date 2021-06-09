@@ -4,10 +4,10 @@
 # - OS_DOMAIN_NAME
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
-module "keypair" {
-  source     = "modules/keypair"
+module "tls_keypair" {
+  source     = "modules/ssh_keypair"
   stage_name = var.stage_name
-  context    = var.context_name
+  context_name    = var.context_name
   region     = var.region
 }
 
@@ -31,7 +31,7 @@ module "cce" {
   depends_on    = [
     module.cce_autocreation]
   source        = "modules/cce"
-  key_pair_id   = module.keypair.keypair_name
+  key_pair_id   = module.tls_keypair.keypair_name
   stage_name    = var.stage_name
   subnet_id     = module.vpc.subnet_network_id
   vpc_flavor_id = var.cce_vpc_flavor_id
@@ -46,4 +46,5 @@ module "loadbalancer" {
   source     = "modules/loadbalancer"
   stage_name = var.stage_name
   subnet_id  = module.vpc.subnet_id
+  context_name = var.context_name
 }

@@ -14,6 +14,7 @@ variable "tf_remote_state_bucket_endpoint" {
 variable "region" {
   type    = string
   default = "eu-de"
+  description = "Region in which to create the cloud resources."
 }
 
 variable "context_name" {
@@ -52,6 +53,7 @@ variable "tags" {
   description = "Key/Value pairs with the tags to associate with created resources."
   default     = {
     managedWith = "Terraform"
+    moduleProvidedBy = "iits"
   }
 }
 
