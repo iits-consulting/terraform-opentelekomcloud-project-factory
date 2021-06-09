@@ -51,7 +51,7 @@ variable "node_pool_node_count_max" {
   default = 4
 }
 
-variable "scale_down_cooldown_time" {
+variable "scale_down_cooldown_time_minutes" {
   type        = number
   default     = 5
   description = "minutes"
