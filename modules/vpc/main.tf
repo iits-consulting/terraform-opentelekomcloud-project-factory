@@ -1,6 +1,10 @@
 variable "vpc_cidr" {}
 variable "vpc_name" {}
-variable "stage_name" {}
+variable "stage_name" {
+  default     = "dev"
+  type        = string
+  description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
+}
 variable "vpc_subnet_cidr" {}
 variable "vpc_subnet_gateway_ip" {}
 variable "tags" {

@@ -1,7 +1,12 @@
 variable "context_name" {
-  type = string
+  type        = string
+  description = "Short descriptive, readable label of the project you are working on. Is utilized as a part of resource names."
 }
-variable "stage_name" {}
+variable "stage_name" {
+  default     = "dev"
+  type        = string
+  description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
+}
 variable "vpc_flavor_id" {}
 variable "subnet_id" {}
 variable "vpc_id" {}

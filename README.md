@@ -34,7 +34,7 @@ module "iits-otc-demo" {
 There are some variables that occur on multiple modules. The ideas behind them are explained here.
 
 ## Context
-The "context" variable should be a human-readable name of the project you are working on or the team you are provisioning infrastructure for.
+The "context_name" variable should be a human-readable name of the project you are working on or the team you are provisioning infrastructure for.
 
 ## Stage
 The "stage" variable is utilized to distinguish between multiple mostly equal, but separate environments like "dev", "test", "qa", "prod".
