@@ -1,19 +1,6 @@
-variable "kms_key_id" {
-  type = string
-}
-
-variable "tf_remote_state_bucket_name" {
-  type = string
-}
-
-variable "tf_remote_state_bucket_endpoint" {
-  type    = string
-  default = "obs.eu-de.otc.t-systems.com"
-}
-
 variable "region" {
-  type    = string
-  default = "eu-de"
+  type        = string
+  default     = "eu-de"
   description = "Region in which to create the cloud resources."
 }
 
@@ -52,7 +39,7 @@ variable "tags" {
   type        = map(string)
   description = "Key/Value pairs with the tags to associate with created resources."
   default     = {
-    managedWith = "Terraform"
+    managedWith      = "Terraform"
     moduleProvidedBy = "iits"
   }
 }
@@ -79,10 +66,10 @@ variable cce_node_count {
 
 locals {
   node_specs = {for i in range(var.cce_node_count+1) :
-     i => var.cce_node_spec_default}
+  i => var.cce_node_spec_default}
 }
 
 output "cce" {
-value = module.cce
+  value = module.cce
 }
 
