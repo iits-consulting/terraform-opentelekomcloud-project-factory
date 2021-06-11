@@ -71,3 +71,7 @@ variable "cce_version" {
   default     = null
   description = "Set this to a specific kubernetes version if you do not want the newest one."
 }
+
+variable "cce_authentication_mode" {
+  default = "rbac"
+}

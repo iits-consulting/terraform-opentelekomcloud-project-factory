@@ -5,7 +5,7 @@ resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
     share_type  = "PER"
     size        = var.public_ip_bandwidth
   }
-  tags        = var.tags
+  tags = var.tags
   publicip {
     type = "5_bgp"
   }
@@ -22,6 +22,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   region                 = var.region
   eip                    = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
   cluster_version        = var.cce_version
+  authentication_mode    = var.cce_authentication_mode
 
   timeouts {
     create = "60m"
