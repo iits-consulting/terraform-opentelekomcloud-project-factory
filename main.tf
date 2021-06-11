@@ -5,14 +5,14 @@
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
 module "tls_keypair" {
-  source     = "modules/ssh_keypair"
-  stage_name = var.stage_name
-  context_name    = var.context_name
-  region     = var.region
+  source       = "./modules/ssh_keypair"
+  stage_name   = var.stage_name
+  context_name = var.context_name
+  region       = var.region
 }
 
 module "vpc" {
-  source                = "modules/vpc"
+  source                = "./modules/vpc"
   vpc_cidr              = var.vpc_cidr
   vpc_name              = "vpc-${var.context_name}-${var.stage_name}"
   stage_name            = var.stage_name
@@ -22,7 +22,7 @@ module "vpc" {
 }
 
 module "cce_autocreation" {
-  source   = "modules/cce_auto_creation"
+  source   = "./modules/cce_auto_creation"
   projects = [
     data.opentelekomcloud_identity_project_v3.otc_project.name]
 }
@@ -30,7 +30,7 @@ module "cce_autocreation" {
 module "cce" {
   depends_on    = [
     module.cce_autocreation]
-  source        = "modules/cce"
+  source        = "./modules/cce"
   key_pair_id   = module.tls_keypair.keypair_name
   stage_name    = var.stage_name
   subnet_id     = module.vpc.subnet_network_id
@@ -43,8 +43,8 @@ module "cce" {
 }
 
 module "loadbalancer" {
-  source     = "modules/loadbalancer"
-  stage_name = var.stage_name
-  subnet_id  = module.vpc.subnet_id
+  source       = "./modules/loadbalancer"
+  stage_name   = var.stage_name
+  subnet_id    = module.vpc.subnet_id
   context_name = var.context_name
 }
