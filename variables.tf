@@ -68,8 +68,3 @@ locals {
   node_specs = {for i in range(var.cce_node_count+1) :
   i => var.cce_node_spec_default}
 }
-
-output "cce" {
-  value = module.cce
-}
-
