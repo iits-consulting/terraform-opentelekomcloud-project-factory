@@ -22,9 +22,8 @@ module "vpc" {
 }
 
 module "cce_autocreation" {
-  source   = "./modules/cce_auto_creation"
-  projects = [
-    data.opentelekomcloud_identity_project_v3.otc_project.name]
+  source  = "./modules/cce_auto_creation"
+  project = data.opentelekomcloud_identity_project_v3.otc_project.name
 }
 
 module "cce" {
