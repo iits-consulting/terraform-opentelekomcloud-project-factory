@@ -48,23 +48,3 @@ module "loadbalancer" {
   subnet_id    = module.vpc.subnet_id
   context_name = var.context_name
 }
-
-output "tls_keypair" {
-  value = module.tls_keypair
-}
-
-output "vpc" {
-  value = module.vpc
-}
-
-output "cce" {
-  value = module.cce
-}
-
-output "cce_autocreation" {
-  value = module.cce_autocreation
-}
-
-output "loadbalancer" {
-  value = module.loadbalancer
-}
