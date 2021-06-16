@@ -9,7 +9,7 @@ resource "opentelekomcloud_kms_key_v1" "s3_kms_key" {
       key_description,
       pending_days,
       is_enabled,
-      realm]
+    realm]
   }
 }
 
@@ -27,23 +27,23 @@ resource "opentelekomcloud_obs_bucket" "tf_remote_state" {
 resource "opentelekomcloud_obs_bucket_policy" "only_encrypted" {
   bucket = opentelekomcloud_obs_bucket.tf_remote_state.id
   policy = jsonencode({
-    Version   = "2008-10-17"
+    Version = "2008-10-17"
     Statement = [
       {
-        Sid       = "EnforceEncryption"
-        Effect    = "Deny"
+        Sid    = "EnforceEncryption"
+        Effect = "Deny"
         Principal = {
           "AWS" : [
-            "*"]
+          "*"]
         }
-        Action    = [
-          "s3:PutObject"],
-        Resource  = [
-          "arn:aws:s3:::${opentelekomcloud_obs_bucket.tf_remote_state.bucket}/*"]
+        Action = [
+        "s3:PutObject"],
+        Resource = [
+        "arn:aws:s3:::${opentelekomcloud_obs_bucket.tf_remote_state.bucket}/*"]
         Condition = {
           StringNotEquals = {
             "s3:x-amz-server-side-encryption" = [
-              "aws:kms"]
+            "aws:kms"]
           }
         }
       }

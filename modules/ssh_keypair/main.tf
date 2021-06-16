@@ -5,8 +5,8 @@ variable "stage_name" {
 }
 
 resource "tls_private_key" "keypair" {
-  algorithm   = "RSA"
-  rsa_bits = var.rsa_bits
+  algorithm = "RSA"
+  rsa_bits  = var.rsa_bits
 }
 
 resource "opentelekomcloud_compute_keypair_v2" "ssh_keypair" {

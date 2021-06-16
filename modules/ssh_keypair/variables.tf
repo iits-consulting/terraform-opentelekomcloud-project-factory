@@ -1,5 +1,5 @@
 variable "region" {
-  type = string
+  type        = string
   description = "Region in which to create the cloud resources."
 }
 
