@@ -26,7 +26,7 @@ variable "vpc_subnet_gateway_ip" {
   description = "Can be set to specify the exact IP address of the gateway. By default it will just use the first IP address in the subnet cidr"
 }
 
-variable "cce_node_spec_default" {
+variable "cce_node_spec" {
   default     = "s3.large.4"
   type        = string
   description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about virtual machine flavors (ECS) and associated prices."
@@ -70,6 +70,6 @@ variable "cce_node_count" {
 
 locals {
   node_specs = [for i in range(var.cce_node_count + 1) :
-  var.cce_node_spec_default]
+  var.cce_node_spec]
   vpc_subnet_gateway_ip = var.vpc_subnet_gateway_ip == null ? cidrhost(var.vpc_cidr, 1) : var.vpc_subnet_gateway_ip
 }
