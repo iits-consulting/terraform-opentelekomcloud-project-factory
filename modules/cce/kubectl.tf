@@ -40,15 +40,3 @@ locals {
     ]
   })
 }
-
-output "kubectl_config" {
-  value = local.kubectl_config
-}
-
-output "kubernetes_host" {
-  value = local.kubectl_external_server
-}
-
-output "kubernetes_ca_cert" {
-  value = local.cluster_certificate_authority_data
-}
