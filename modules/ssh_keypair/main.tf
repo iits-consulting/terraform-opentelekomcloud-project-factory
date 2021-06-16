@@ -10,7 +10,7 @@ resource "tls_private_key" "keypair" {
 }
 
 resource "opentelekomcloud_compute_keypair_v2" "ssh_keypair" {
-  name       = "keypair-cce-${var.context_name}-${var.stage_name}"
+  name       = local.name
   region     = var.region
   public_key = tls_private_key.keypair.public_key_openssh
 }

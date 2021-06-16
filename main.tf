@@ -17,8 +17,9 @@ module "vpc" {
   vpc_name              = "vpc-${var.context_name}-${var.stage_name}"
   stage_name            = var.stage_name
   vpc_subnet_cidr       = var.vpc_cidr
-  vpc_subnet_gateway_ip = var.vpc_subnet_gateway_ip
+  vpc_subnet_gateway_ip = local.vpc_subnet_gateway_ip
   tags                  = var.tags
+  region                = var.region
 }
 
 module "cce_autocreation" {

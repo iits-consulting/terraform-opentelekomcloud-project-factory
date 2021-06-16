@@ -7,13 +7,19 @@ variable "stage_name" {
   type        = string
   description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
 }
-variable "vpc_flavor_id" {}
+
+variable "cce_vpc_flavor_id" {
+  default     = "cce.s1.small"
+  description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about vpc flavors and associated prices."
+}
+
 variable "subnet_id" {}
 variable "vpc_id" {}
 variable "vpc_cidr" {}
 variable "key_pair_id" {}
 variable "nodes" {
-  type = map(string)
+  type        = list(string)
+  description = "List of node specs like [s3.xlarge.2, s3.xlarge.4]. The number of entries in the list determines the number of worker nodes in the cluster. See https://open-telekom-cloud.com/en/prices/price-calculator for information about virtual machine flavors (ECS) and associated prices."
 }
 
 variable "nodes_root_volume_size" {
@@ -54,17 +60,19 @@ variable "postinstall-script" {
   type    = string
 }
 variable "tags" {
-  type    = map(string)
-  default = null
+  type        = map(string)
+  default     = null
+  description = ""
 }
 variable "region" {
-  type    = string
-  default = "eu-de"
+  type        = string
+  default     = "eu-de"
+  description = "Region in which to create the cloud resources."
 }
 variable "public_ip_bandwidth" {
   type        = number
   default     = 300
-  description = "The bandwidth size. The value ranges from 1 to 300 Mbit/s."
+  description = "The bandwidth size. The value ranges from 1 to 1000 Mbit/s."
 }
 variable "cce_version" {
   type        = string

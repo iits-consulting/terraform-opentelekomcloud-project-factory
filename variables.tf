@@ -21,18 +21,20 @@ variable "vpc_cidr" {
 }
 
 variable "vpc_subnet_gateway_ip" {
-  default = "192.168.0.1"
-  type    = string
+  default     = null
+  type        = string
+  description = "Can be set to specify the exact IP address of the gateway. By default it will just use the first IP address in the subnet cidr"
 }
 
 variable "cce_node_spec_default" {
-  default = "s3.large.4"
-  type    = string
+  default     = "s3.large.4"
+  type        = string
+  description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about virtual machine flavors (ECS) and associated prices."
 }
 
 variable "cce_vpc_flavor_id" {
   default     = "cce.s1.small"
-  description = ""
+  description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about vpc flavors and associated prices."
 }
 
 variable "tags" {
@@ -52,7 +54,8 @@ variable "cce_version" {
 
 variable "otc_project_name" {
   type        = string
-  description = "Name for the Project to create for the resources. See IAM -> projects."
+  default     = "eu-de"
+  description = "Name of the Project in which the resources should be created. See IAM -> projects."
 }
 
 data "opentelekomcloud_identity_project_v3" "otc_project" {
@@ -60,11 +63,13 @@ data "opentelekomcloud_identity_project_v3" "otc_project" {
 }
 
 variable "cce_node_count" {
-  type    = number
-  default = 2
+  type        = number
+  default     = 2
+  description = "The number of worker nodes in the Kubernetes cluster."
 }
 
 locals {
-  node_specs = { for i in range(var.cce_node_count + 1) :
-  i => var.cce_node_spec_default }
+  node_specs = [for i in range(var.cce_node_count + 1) :
+  var.cce_node_spec_default]
+  vpc_subnet_gateway_ip = var.vpc_subnet_gateway_ip == null ? cidrhost(var.vpc_cidr, 1) : var.vpc_subnet_gateway_ip
 }

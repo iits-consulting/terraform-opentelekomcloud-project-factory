@@ -11,5 +11,5 @@ variable "context_name" {
 variable "bandwidth" {
   type        = number
   default     = 300
-  description = "The bandwidth size. The value ranges from 1 to 300 Mbit/s."
+  description = "The bandwidth size. The value ranges from 1 to 1000 Mbit/s."
 }
