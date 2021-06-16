@@ -15,7 +15,7 @@ module (as a quickstart or showcase).
 
 ```terraform
 module "vpc" {
-  source                = "iits/otc//modules/vpc"
+  source                = "iits/project-factory/opentelekomcloud//modules/vpc"
   version               = "0.1.0"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
@@ -33,7 +33,7 @@ module "vpc" {
 
 ```terraform
 module "iits-otc-demo" {
-  source  = "iits/otc"
+  source  = "iits/project-factory/opentelekomcloud"
   version = "0.1.0"
   ...
 }
