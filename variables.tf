@@ -38,19 +38,19 @@ variable "cce_vpc_flavor_id" {
 variable "tags" {
   type        = map(string)
   description = "Key/Value pairs with the tags to associate with created resources."
-  default     = {
+  default = {
     managedWith      = "Terraform"
     moduleProvidedBy = "iits"
   }
 }
 
-variable cce_version {
+variable "cce_version" {
   type        = string
   default     = null
   description = "Set this to a specific kubernetes version if you do not want the newest one."
 }
 
-variable otc_project_name {
+variable "otc_project_name" {
   type        = string
   description = "Name for the Project to create for the resources. See IAM -> projects."
 }
@@ -59,12 +59,12 @@ data "opentelekomcloud_identity_project_v3" "otc_project" {
   name = var.otc_project_name
 }
 
-variable cce_node_count {
+variable "cce_node_count" {
   type    = number
   default = 2
 }
 
 locals {
-  node_specs = {for i in range(var.cce_node_count+1) :
-  i => var.cce_node_spec_default}
+  node_specs = { for i in range(var.cce_node_count + 1) :
+  i => var.cce_node_spec_default }
 }
