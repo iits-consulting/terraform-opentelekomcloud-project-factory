@@ -18,6 +18,12 @@ variable "name" {
   default     = null
 }
 
+variable "stage_name" {
+  default     = "dev"
+  type        = string
+  description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
+}
+
 locals {
   name = var.name == null ? "keypair-${var.context_name}-${var.stage_name}" : var.name
 }

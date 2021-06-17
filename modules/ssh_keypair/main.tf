@@ -1,9 +1,3 @@
-variable "stage_name" {
-  default     = "dev"
-  type        = string
-  description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
-}
-
 resource "tls_private_key" "keypair" {
   algorithm = "RSA"
   rsa_bits  = var.rsa_bits

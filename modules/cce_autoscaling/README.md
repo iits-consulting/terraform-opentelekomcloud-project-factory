@@ -1,10 +1,12 @@
-## Autoscaling How-To
+## CCE Autoscaling How-To
 
-This How-To expects that you have Terraform set-up successfully with a non-local state and kubectl connected with a Kubernetes Cluster.
+This How-To expects that you have Terraform set-up successfully with a non-local state and kubectl connected with a
+Kubernetes Cluster.
 
 In this example we begin with a CCE instance with one default node pool that has 2 nodes.
 
 #### Create Autoscaling Node pool with Terraform
+
 ```hcl-terraform
 resource "opentelekomcloud_cce_node_pool_v3" "node_pool_autoscale" {
   cluster_id         = var.cluster_id
@@ -18,7 +20,8 @@ resource "opentelekomcloud_cce_node_pool_v3" "node_pool_autoscale" {
   scale_enable             = true
   min_node_count           = 1
   max_node_count           = 4
-  scale_down_cooldown_time = 30 # minutes
+  scale_down_cooldown_time = 30
+  # minutes
   priority                 = 1
 
   root_volume {
@@ -31,13 +34,16 @@ resource "opentelekomcloud_cce_node_pool_v3" "node_pool_autoscale" {
   }
 }
 ```
-Apply this script with Terraform. Make sure that the availability zone, cluster_id and key_pair_id match the settings of your CCE.
-The node flavor can differ from the nodes in your default node pool and should be chosen with the specific workloads in mind.
+
+Apply this script with Terraform. Make sure that the availability zone, cluster_id and key_pair_id match the settings of
+your CCE. The node flavor can differ from the nodes in your default node pool and should be chosen with the specific
+workloads in mind.
 
 After Terraform yields success, verify success in Web Console:
 ![](img/nodepool_webconsole.jpg)
 
 #### Create Cluster Autoscaler Addon with Terraform
+
 ```hcl-terraform
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
   template_name    = "autoscaler"
@@ -45,7 +51,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
   cluster_id       = var.cluster_id
 
   values {
-    basic = {
+    basic  = {
       "cceEndpoint": "https://cce.eu-de.otc.t-systems.com",
       "ecsEndpoint": "https://ecs.eu-de.otc.t-systems.com",
       "euleros_version": "2.2.5",
@@ -65,11 +71,14 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       # Max scaled up memory(GB).
       "memoryTotal": 128000,
       # The time after scale-up that the scale-down evaluation will resume.
-      "scaleDownDelayAfterAdd": 10, # minutes
+      "scaleDownDelayAfterAdd": 10,
+      # minutes
       # The time after node deletion that the scale-down evaluation will resume.
-      "scaleDownDelayAfterDelete": 10, # minutes
+      "scaleDownDelayAfterDelete": 10,
+      # minutes
       # The time after a scale-down failure that the scale-down evaluation will resume.
-      "scaleDownDelayAfterFailure": 3, # minutes
+      "scaleDownDelayAfterFailure": 3,
+      # minutes
       "scaleDownEnabled": true,
       # The time of node is not used, default 10min.
       "scaleDownUnneededTime": 10,
@@ -82,20 +91,22 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       # Scale up when the utilization thresholds above are exceeded.
       "scaleUpUtilizationEnabled": true,
       # The timeout before autoscaler checks again the node that could not be previously removed.
-      "unremovableNodeRecheckTimeout": 5 # minutes
+      "unremovableNodeRecheckTimeout": 5
+      # minutes
     }
   }
 }
 ```
 
 A few things to check:
-* The tenant_id to give to the autoscaler addon must be the Project ID that you can find in the Web Console under "IAM" and "Projects"
-* You can enable scale-up and scale-down independently 
-* If your loads are fluctuating frequently, you should be careful about not scale down too soon. 
+
+* The tenant_id to give to the autoscaler addon must be the Project ID that you can find in the Web Console under "IAM"
+  and "Projects"
+* You can enable scale-up and scale-down independently
+* If your loads are fluctuating frequently, you should be careful about not scale down too soon.
 
 Again, we verify the success in the Web Console:
 ![](img/autoscaler_webconsole.jpg)
-
 
 #### Testing Scaling up and down
 
@@ -130,11 +141,13 @@ spec:
 ```
 
 We can scale the deployment and see how the cluster responds:
+
 ```shell script
 > kubectl scale deployment/autoscale-test-deployment --replicas=40
 ```
 
-Since the 40 replicas utilize 10 CPUs, these do not fit on the nodes in the default node pool. Therefore the autoscaler will kick in and create an additional node.
+Since the 40 replicas utilize 10 CPUs, these do not fit on the nodes in the default node pool. Therefore the autoscaler
+will kick in and create an additional node.
 
 ```shell script
 > kubectl get pods
@@ -185,6 +198,7 @@ In the Web Console, we see that the Scale Up event takes place:
 ![](img/scale_up_event.jpg)
 
 And then we also see the started nodes, 2 in the default node pool and 4 in the autoscale node pool:
+
 ```shell script
 > kubectl get nodes -L cce.cloud.com/cce-nodepool
 NAME              STATUS   ROLES    AGE     VERSION                             CCE-NODEPOOL
@@ -197,6 +211,7 @@ NAME              STATUS   ROLES    AGE     VERSION                             
 ```
 
 Scaling down again...
+
 ```shell script
 > kubectl scale deployment/autoscale-test-deployment --replicas=1
 ```
