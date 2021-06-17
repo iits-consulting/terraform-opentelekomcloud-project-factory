@@ -1,0 +1,64 @@
+HELP.md
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+build
+.kube/infrastructure
+.kube/dev
+.kube/qa
+.kube/prod
+.DS_STORE
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.terraform
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+*/out
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Helm ###
+/**/.terraform.tfstate.lock.info
+/**/terraform.tfstate
+/**/terraform.tfstate.d/dev/terraform.tfstate
+/**/terraform.tfstate.backup
+/**/terraform.tfstate.d/dev/terraform.tfstate.backup
+/**/.terraform/plugins/linux_amd64/lock.json
+/**/.terraform/environment
+/**/terraform.tfvars
+/**/*.backup
+/**/cp-helm-charts
+
+**/staging/**/charts
+**/requirements.lock
+**/.kube/*
+
+**/staging/deployment/**/values.yaml
+**/staging/deployment/**/templates/*
+**/staging/deployment/**/Chart_template.yaml
+**/staging/deployment/**/Chart.yaml
+**/staging/**/Chart.lock
+**/staging/deployment/**/README.md
+**/staging/deployment/**/README.MD
+**/staging/deployment/elk/**
+**/staging/deployment/**/elk-alert/*
