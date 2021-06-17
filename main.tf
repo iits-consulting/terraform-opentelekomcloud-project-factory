@@ -4,6 +4,10 @@
 # - OS_DOMAIN_NAME
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
+module "cloud_tracing_service" {
+  source = "./modules/cloud_tracing_service"
+}
+
 module "tls_keypair" {
   source       = "./modules/ssh_keypair"
   stage_name   = var.stage_name
