@@ -12,16 +12,18 @@ Service!*
 
 ## Usage:
 
-You can import this whole repo as one module (quickstart) or utilize the modules individually (recommended for production).
+You can import this whole repo as one module (quickstart) or utilize the modules individually (recommended for
+production).
 
 ## Quickstart
 
 1. We recommend this kind of terraform folder structure:
-   
-   ![terraform-architecture](docs/terraform-architecture.png)
-   
-2. (optional) [Set up a secure remote terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state).
-   Copy the backend output of that module to your settings.tf
+
+   ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
+
+2. (
+   optional) [Set up a secure remote terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state)
+   . Copy the backend output of that module to your settings.tf
 2. Add the project factory module
 
 ```terraform
