@@ -1,7 +1,6 @@
 # Common Terraform Modules for Open Telekom Cloud
 
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/blob/master/LICENSE)
-![Terraform Lint](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/workflows/terraform-lint/badge.svg)
 ![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/terraform-opentelekomcloud-project-factory.svg)
 
 These are commonly usable Terraform Modules for the [Open Telekom Cloud](https://open-telekom-cloud.com) based on the
