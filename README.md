@@ -1,12 +1,16 @@
 # Common Terraform Modules for Open Telekom Cloud
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](hhttps://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/blob/main/LICENSE)
+![Terraform Lint](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/workflows/terraform-lint/badge.svg)
+![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/terraform-opentelekomcloud-project-factory.svg)
+
 These are commonly usable Terraform Modules for the [Open Telekom Cloud](https://open-telekom-cloud.com) based on the
 awesome [Terraform OTC Provider](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs).
 
 *These modules are developed by [iits-consulting](https://iits-consulting.de/) - your Cloud-Native Innovation Teams as a
 Service!*
 
-# Usage:
+## Usage:
 
 You can import this whole repo as one module (quickstart) or utilize the modules individually (recommended for production).
 
