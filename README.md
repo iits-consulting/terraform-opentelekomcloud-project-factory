@@ -8,34 +8,43 @@ Service!*
 
 # Usage:
 
-You can utilize the modules individually (recommended for production scenarios) or import this whole repo as one
-module (as a quickstart or showcase).
+You can import this whole repo as one module (quickstart) or utilize the modules individually (recommended for production).
+
+## Quickstart
+
+1. We recommend this kind of terraform folder structure:
+   
+   ![terraform-architecture](docs/terraform-architecture.png?raw=true "Title")
+   
+2. (optional) [Set up a secure remote terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state).
+   Copy the backend output of that module to your settings.tf
+2. Add the project factory module
+
+```terraform
+# System variables that have to be set for this example environment:
+# - OS_ACCESS_KEY
+# - OS_SECRET_KEY
+# - OS_DOMAIN_NAME
+# - OS_TENANT_NAME or OS_PROJECT_NAME
+
+module "iits-otc-demo" {
+  source  = "iits/project-factory/opentelekomcloud"
+  version = "1.0.0"
+  ...
+}
+```
 
 ## Importing Modules Individually
 
 ```terraform
 module "vpc" {
   source                = "iits/project-factory/opentelekomcloud//modules/vpc"
-  version               = "0.1.0"
+  version               = "1.0.0"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
   stage_name            = "dev"
   vpc_subnet_cidr       = local.vpc_cidr
   vpc_subnet_gateway_ip = local.vpc_subnet_gateway_ip
-}
-```
-
-## Importing the whole Showcase Environment
-
-1. (optional) Set up remote terrafom state with obs_tf_state module. Copy the backend output of that module to the
-   settings.tf.
-2. Create the showcase environment with a VPC, loadbalancer and CCE.
-
-```terraform
-module "iits-otc-demo" {
-  source  = "iits/project-factory/opentelekomcloud"
-  version = "0.1.0"
-  ...
 }
 ```
 
