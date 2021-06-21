@@ -14,7 +14,7 @@ resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
 resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   name                   = "${var.context_name}-${var.stage_name}"
   cluster_type           = "VirtualMachine"
-  flavor_id              = var.cce_vpc_flavor_id
+  flavor_id              = var.cce_flavor_id
   vpc_id                 = var.vpc_id
   subnet_id              = var.subnet_id
   container_network_type = var.container_network_type

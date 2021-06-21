@@ -8,9 +8,9 @@ variable "stage_name" {
   description = "Utilized to distinguish separate, but mostly equal environments within the same project. Usually dev, test, qa, prod."
 }
 
-variable "cce_vpc_flavor_id" {
+variable "cce_flavor_id" {
   default     = "cce.s1.small"
-  description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about vpc flavors and associated prices."
+  description = "See https://open-telekom-cloud.com/en/prices/price-calculator for information about cce flavors and associated prices."
 }
 
 variable "subnet_id" {}
