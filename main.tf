@@ -8,7 +8,7 @@ module "cloud_tracing_service" {
   source = "./modules/cloud_tracing_service"
 }
 
-module "tls_keypair" {
+module "ssh_keypair" {
   source       = "./modules/ssh_keypair"
   stage_name   = var.stage_name
   context_name = var.context_name
@@ -32,10 +32,10 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  depends_on = [
-  module.cce_autocreation]
+  depends_on    = [
+    module.cce_autocreation]
   source        = "./modules/cce"
-  key_pair_id   = module.tls_keypair.keypair_name
+  key_pair_id   = module.ssh_keypair.keypair_name
   stage_name    = var.stage_name
   subnet_id     = module.vpc.subnet_network_id
   vpc_flavor_id = var.cce_vpc_flavor_id
