@@ -32,8 +32,8 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  depends_on    = [
-    module.cce_autocreation]
+  depends_on = [
+  module.cce_autocreation]
   source        = "./modules/cce"
   key_pair_id   = module.ssh_keypair.keypair_name
   stage_name    = var.stage_name
