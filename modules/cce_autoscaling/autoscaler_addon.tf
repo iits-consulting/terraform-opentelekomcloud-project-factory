@@ -12,7 +12,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       "cceEndpoint" : "https://cce.eu-de.otc.t-systems.com",
       "ecsEndpoint" : "https://ecs.eu-de.otc.t-systems.com",
       "euleros_version" : "2.2.5",
-      "region" : "eu-de",
+      "region" : data.opentelekomcloud_cce_cluster_v3.cluster.region,
       "swr_addr" : "100.125.7.25:20202",
       "swr_user" : "hwofficial"
     }

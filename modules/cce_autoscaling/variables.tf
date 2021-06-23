@@ -11,11 +11,6 @@ variable "node_flavor" {
   type    = string
 }
 
-variable "region" {
-  type        = string
-  description = "Region in which to create the cloud resources."
-}
-
 variable "ssh_key_pair_id" {}
 
 variable "project_id" {
