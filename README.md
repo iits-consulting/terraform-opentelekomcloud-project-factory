@@ -33,8 +33,8 @@ production).
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
 module "iits-otc-demo" {
-  source  = "iits/project-factory/opentelekomcloud"
-  version = "1.0.0"
+  source  = "iits-consulting/project-factory/opentelekomcloud"
+  version = "1.0.2"
   ...
 }
 ```
@@ -43,8 +43,8 @@ module "iits-otc-demo" {
 
 ```terraform
 module "vpc" {
-  source                = "iits/project-factory/opentelekomcloud//modules/vpc"
-  version               = "1.0.0"
+  source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  version               = "1.0.2"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
   stage_name            = "dev"
