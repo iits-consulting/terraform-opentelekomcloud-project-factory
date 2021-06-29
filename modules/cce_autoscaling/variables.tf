@@ -84,6 +84,12 @@ variable "nodes_os" {
   type    = string
 }
 
+variable "node_data_encryption_key_id" {
+  type        = string
+  default     = null
+  description = "KMS Key ID for the encryption of CCE node data volumes."
+}
+
 locals {
   node_pool_name = var.node_pool_name == null ? "${var.cce_name}-node-pool-autoscale" : var.node_pool_name
 }

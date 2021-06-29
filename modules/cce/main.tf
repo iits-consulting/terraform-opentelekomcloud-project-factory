@@ -44,6 +44,7 @@ resource "opentelekomcloud_cce_node_v3" "nodes" {
   data_volumes {
     size       = var.nodes_data_volume_size
     volumetype = var.nodes_data_volume_type
+    kms_id     = var.node_data_encryption_key_id
   }
   root_volume {
     size       = var.nodes_root_volume_size
