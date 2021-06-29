@@ -83,3 +83,9 @@ variable "cce_version" {
 variable "cce_authentication_mode" {
   default = "rbac"
 }
+
+variable "node_data_encryption_key_id" {
+  type        = string
+  default     = null
+  description = "KMS Key ID for the encryption of CCE node data volumes."
+}
