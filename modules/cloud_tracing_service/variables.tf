@@ -3,16 +3,16 @@ variable "bucket_name" {
 }
 
 variable "file_prefix" {
-  type = string
+  type    = string
   default = "cts"
 }
 
 variable "project_name" {
-  type = string
+  type    = string
   default = "eu-de"
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "eu-de"
 }
