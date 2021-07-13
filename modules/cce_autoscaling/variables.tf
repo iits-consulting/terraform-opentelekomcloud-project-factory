@@ -3,7 +3,8 @@ variable "cce_name" {
 }
 
 variable "availability_zone" {
-  type = string
+  default = null
+  type    = string
 }
 
 variable "node_flavor" {

@@ -39,13 +39,13 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  depends_on = [
-  module.cce_autocreation]
+  depends_on    = [
+    module.cce_autocreation]
   source        = "./modules/cce"
   key_pair_id   = module.ssh_keypair.keypair_name
   stage_name    = var.stage_name
   subnet_id     = module.vpc.subnet_network_id
-  vpc_flavor_id = var.cce_vpc_flavor_id
+  cce_flavor_id = var.cce_vpc_flavor_id
   vpc_id        = module.vpc.vpc_id
   vpc_cidr      = var.vpc_cidr
   nodes         = local.node_specs
@@ -58,4 +58,12 @@ module "loadbalancer" {
   stage_name   = var.stage_name
   subnet_id    = module.vpc.subnet_id
   context_name = var.context_name
+}
+
+module "cce-autoscaler" {
+  source          = "iits-consulting/project-factory/opentelekomcloud//modules/cce_autoscaling"
+  version         = "1.0.2"
+  cce_name        = module.cce.cce_name
+  ssh_key_pair_id = module.tls_keypair.keypair_name
+  project_id      = "eu-de"
 }

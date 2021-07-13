@@ -218,3 +218,19 @@ Scaling down again...
 
 yields removed nodes in the Web Console.
 ![](img/scaledown_event.jpg)
+
+### Utilizing the Autoscaling Module
+
+Now that you have seen how the method works under the hood, you can just use our predefined Terraform modules for a
+faster setup and maintenance. Instead of defining the node pool and the autoscaler, you can just instantiate the module
+below:
+
+```hcl-terraform
+module "cce-autoscaler" {
+  source          = "iits-consulting/project-factory/opentelekomcloud//modules/cce_autoscaling"
+  version         = "1.0.2"
+  cce_name        = module.cce.cce_name
+  ssh_key_pair_id = module.tls_keypair.keypair_name
+  project_id      = "eu-de"
+}
+```
