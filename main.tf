@@ -62,8 +62,7 @@ module "loadbalancer" {
 }
 
 module "cce-autoscaler" {
-  source          = "iits-consulting/project-factory/opentelekomcloud//modules/cce_autoscaling"
-  version         = "1.0.2"
+  source          = "./modules/cce_autoscaling"
   cce_name        = module.cce.cce_name
   ssh_key_pair_id = module.ssh_keypair.keypair_name
   project_id      = "eu-de"
