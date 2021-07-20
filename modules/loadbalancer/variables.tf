@@ -13,3 +13,28 @@ variable "bandwidth" {
   default     = 300
   description = "The bandwidth size. The value ranges from 1 to 1000 Mbit/s."
 }
+variable "enable_l7" {
+  type        = bool
+  default     = true
+  description = "Enables or disable CC Defense"
+}
+variable "traffic_pos_id" {
+  type        = number
+  default     = 9
+  description = "Traffic Cleaning Threshold"
+}
+variable "http_request_pos_id" {
+  type        = number
+  default     = 12
+  description = "HTTP Request Threshold"
+}
+variable "cleaning_access_pos_id" {
+  type        = number
+  default     = 8
+  description = "Number of Calls"
+}
+variable "app_type_id" {
+  type        = number
+  default     = 0
+  description = "Currently unknown"
+}

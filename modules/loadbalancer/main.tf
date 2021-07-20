@@ -17,6 +17,15 @@ resource "opentelekomcloud_vpc_eip_v1" "ingress_eip" {
   }
 }
 
+resource "opentelekomcloud_antiddos_v1" "broadband_anti_ddos" {
+  floating_ip_id         = opentelekomcloud_vpc_eip_v1.ingress_eip.id
+  enable_l7              = var.enable_l7
+  traffic_pos_id         = var.traffic_pos_id
+  http_request_pos_id    = var.http_request_pos_id
+  cleaning_access_pos_id = var.cleaning_access_pos_id
+  app_type_id            = var.app_type_id
+}
+
 output "elb_id" {
   value = opentelekomcloud_lb_loadbalancer_v2.elb.id
 }
