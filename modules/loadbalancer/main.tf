@@ -17,7 +17,7 @@ resource "opentelekomcloud_vpc_eip_v1" "ingress_eip" {
   }
 }
 
-resource "opentelekomcloud_antiddos_v1" "broadband_anti_ddos" {
+resource "opentelekomcloud_antiddos_v1" "anti_ddos" {
   floating_ip_id         = opentelekomcloud_vpc_eip_v1.ingress_eip.id
   enable_l7              = var.enable_l7
   traffic_pos_id         = var.traffic_pos_id
