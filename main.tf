@@ -52,6 +52,7 @@ module "cce" {
   nodes         = local.node_specs
   tags          = var.tags
   context_name  = var.context_name
+  cce_version   = var.cce_version
 }
 
 module "loadbalancer" {
@@ -66,4 +67,10 @@ module "cce-autoscaler" {
   cce_name        = module.cce.cce_name
   ssh_key_pair_id = module.ssh_keypair.keypair_name
   project_id      = "eu-de"
+  cce = {
+    id     = module.cce.cce_id
+    name   = module.cce.cce_name
+    region = var.region
+  }
+  autoscaler_version = var.cce_version
 }
