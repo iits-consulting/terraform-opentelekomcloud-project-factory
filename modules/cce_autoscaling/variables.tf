@@ -1,3 +1,12 @@
+variable "cce" {
+  type = object(
+    {
+      id     = string,
+      name   = string,
+      region = string
+  })
+}
+
 variable "cce_name" {
   type = string
 }
@@ -9,6 +18,11 @@ variable "availability_zone" {
 
 variable "node_flavor" {
   default = "s2.xlarge.2"
+  type    = string
+}
+
+variable "autoscaler_version" {
+  default = "1.19.1"
   type    = string
 }
 

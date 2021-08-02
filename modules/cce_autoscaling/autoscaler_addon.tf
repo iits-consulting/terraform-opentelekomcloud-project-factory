@@ -1,23 +1,19 @@
-data "opentelekomcloud_cce_cluster_v3" "cluster" {
-  name = var.cce_name
-}
-
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
   template_name    = "autoscaler"
-  template_version = "1.19.1"
-  cluster_id       = data.opentelekomcloud_cce_cluster_v3.cluster.id
+  template_version = var.autoscaler_version
+  cluster_id       = var.cce.id
 
   values {
     basic = {
       "cceEndpoint" : "https://cce.eu-de.otc.t-systems.com",
       "ecsEndpoint" : "https://ecs.eu-de.otc.t-systems.com",
       "euleros_version" : "2.2.5",
-      "region" : data.opentelekomcloud_cce_cluster_v3.cluster.region,
+      "region" : var.cce.region,
       "swr_addr" : "100.125.7.25:20202",
       "swr_user" : "hwofficial"
     }
     custom = {
-      "cluster_id" : data.opentelekomcloud_cce_cluster_v3.cluster.id,
+      "cluster_id" : var.cce.id,
       "tenant_id" : var.project_id,
       "coresTotal" : 1000,
       "maxEmptyBulkDeleteFlag" : 11,

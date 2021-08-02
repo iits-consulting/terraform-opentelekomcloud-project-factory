@@ -1,5 +1,5 @@
 resource "opentelekomcloud_cce_node_pool_v3" "node_pool_autoscale" {
-  cluster_id         = data.opentelekomcloud_cce_cluster_v3.cluster.id
+  cluster_id         = var.cce.id
   name               = local.node_pool_name
   flavor             = var.node_flavor
   initial_node_count = var.node_pool_node_count_initial

@@ -36,7 +36,7 @@ resource "opentelekomcloud_vpc_subnet_v1" "subnet" {
   region        = var.region
   dhcp_enable   = true
   primary_dns   = "100.125.4.25"
-  secondary_dns = "8.8.8.8"
+  secondary_dns = "100.125.129.199"
   tags          = var.tags
 }
 
