@@ -48,7 +48,7 @@ variable "tags" {
 
 variable "cce_version" {
   type        = string
-  default     = "1.19.1"
+  default     = "v1.19.8-r0"
   description = "Set this to a specific kubernetes version if you do not want the newest one."
 }
 
