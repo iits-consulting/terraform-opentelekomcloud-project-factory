@@ -68,6 +68,12 @@ variable "cce_node_count" {
   description = "The number of worker nodes in the Kubernetes cluster."
 }
 
+variable "enable_cce_autocreation" {
+  type        = bool
+  default     = true
+  description = "Controls whether the agency for enabling CCE access for this project should be created. If false and no agency exists, you must access the OTC Console and do this manually by acknowledging the popup that shows up on the CCE page. After this click, the agency is created and you can apply the terraform script."
+}
+
 locals {
   node_specs = [for i in range(var.cce_node_count + 1) :
   var.cce_node_spec]

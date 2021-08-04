@@ -35,6 +35,7 @@ module "vpc" {
 }
 
 module "cce_autocreation" {
+  count   = var.enable_cce_autocreation ? 1 : 0
   source  = "./modules/cce_auto_creation"
   project = data.opentelekomcloud_identity_project_v3.otc_project.name
 }
