@@ -9,13 +9,6 @@ module "cloud_tracing_service" {
   bucket_name = "${var.otc_project_name}-cloud-tracing-service-bucket"
 }
 
-module "enable_cce_auto_creation" {
-  source = "./modules/agency/cce_auto_creation"
-  projects = [
-    "eu-de",
-  ]
-}
-
 module "ssh_keypair" {
   source       = "./modules/ssh_keypair"
   stage_name   = var.stage_name
