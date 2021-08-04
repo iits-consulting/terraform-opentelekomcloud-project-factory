@@ -54,7 +54,7 @@ variable "cce_version" {
 
 variable "cce_autoscaler_version" {
   type        = string
-  default     = "v1.19.1"
+  default     = "1.19.1"
   description = "Set this to a specific kubernetes autoscaler addon version if you do not want the newest one. Has to fit to the CCE version."
 }
 
