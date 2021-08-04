@@ -66,5 +66,5 @@ module "cce-autoscaler" {
     name   = module.cce.cce_name
     region = var.region
   }
-  autoscaler_version = var.cce_version
+  autoscaler_version = var.cce_autoscaler_version
 }

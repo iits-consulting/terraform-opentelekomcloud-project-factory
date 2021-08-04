@@ -52,6 +52,12 @@ variable "cce_version" {
   description = "Set this to a specific kubernetes version if you do not want the newest one."
 }
 
+variable "cce_autoscaler_version" {
+  type        = string
+  default     = "v1.19.1"
+  description = "Set this to a specific kubernetes autoscaler addon version if you do not want the newest one. Has to fit to the CCE version."
+}
+
 variable "otc_project_name" {
   type        = string
   default     = "eu-de"

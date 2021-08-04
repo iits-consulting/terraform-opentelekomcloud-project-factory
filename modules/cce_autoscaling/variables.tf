@@ -22,7 +22,7 @@ variable "node_flavor" {
 }
 
 variable "autoscaler_version" {
-  default = "1.19.1"
+  default = "v1.19.1"
   type    = string
 }
 
