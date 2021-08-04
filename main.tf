@@ -6,7 +6,7 @@
 
 module "cloud_tracing_service" {
   source      = "./modules/cloud_tracing_service"
-  bucket_name = "${var.otc_project_name}-cloud-tracing-service-bucket"
+  bucket_name = "${replace(var.otc_project_name, "_", "-")}-cloud-tracing-service-bucket"
 }
 
 module "ssh_keypair" {
@@ -50,10 +50,11 @@ module "cce" {
 }
 
 module "loadbalancer" {
-  source       = "./modules/loadbalancer"
-  stage_name   = var.stage_name
-  subnet_id    = module.vpc.subnet_id
-  context_name = var.context_name
+  source               = "./modules/loadbalancer"
+  stage_name           = var.stage_name
+  subnet_id            = module.vpc.subnet_id
+  context_name         = var.context_name
+  anti_ddos_protection = var.anti_ddos_protection
 }
 
 module "cce-autoscaler" {
