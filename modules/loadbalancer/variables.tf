@@ -38,3 +38,8 @@ variable "app_type_id" {
   default     = 0
   description = "Currently unknown"
 }
+variable "anti_ddos_protection" {
+  type        = bool
+  default     = false
+  description = "Controls whether or not to use anti-ddos protection for the EIP address. Disabled because it needs a manual import step first."
+}

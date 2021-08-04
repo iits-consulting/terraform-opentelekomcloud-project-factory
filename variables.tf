@@ -80,6 +80,12 @@ variable "enable_cce_autocreation" {
   description = "Controls whether the agency for enabling CCE access for this project should be created. If false and no agency exists, you must access the OTC Console and do this manually by acknowledging the popup that shows up on the CCE page. After this click, the agency is created and you can apply the terraform script."
 }
 
+variable "anti_ddos_protection" {
+  type        = bool
+  default     = false
+  description = "Controls whether or not to use anti-ddos protection for the EIP address. Disabled because it needs a manual import step first."
+}
+
 locals {
   node_specs = [for i in range(var.cce_node_count + 1) :
   var.cce_node_spec]
