@@ -3,7 +3,7 @@
    ```terraform
 module "otc_aom_icagent_installer" {
   source          = "iits-consulting/project-factory/opentelekomcloud//modules/otc-monitoring"
-  version         = "1.0.2"
+  version         = "1.1.3"
   otc_project_id  = data.opentelekomcloud_identity_project_v3.otc_stage_project.id
   otc_tenant_name = "eu-de"
 }
@@ -42,7 +42,7 @@ resource "opentelekomcloud_cce_node_v3" "nodes" {
 # Or in a CCE module
 module "cce" {
   source  = "iits-consulting/project-factory/opentelekomcloud//modules/cce"
-  version = "1.0.2"
+  version = "1.1.3"
 
   key_pair_id        = module.ssh_keypair.keypair_name
   stage_name         = var.stage_name

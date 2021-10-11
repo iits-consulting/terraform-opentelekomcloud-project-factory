@@ -226,11 +226,15 @@ faster setup and maintenance. Instead of defining the node pool and the autoscal
 below:
 
 ```hcl-terraform
+data "opentelekomcloud_identity_project_v3" "eu_de" {
+  name = "eu-de"
+}
+
 module "cce-autoscaler" {
   source          = "iits-consulting/project-factory/opentelekomcloud//modules/cce_autoscaling"
-  version         = "1.0.2"
+  version         = "1.1.3"
   cce_name        = module.cce.cce_name
   ssh_key_pair_id = module.tls_keypair.keypair_name
-  project_id      = "eu-de"
+  project_id      = data.opentelekomcloud_identity_project_v3.eu_de.id
 }
 ```

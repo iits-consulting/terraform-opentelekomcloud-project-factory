@@ -34,7 +34,7 @@ production).
 
 module "iits-otc-demo" {
   source  = "iits-consulting/project-factory/opentelekomcloud"
-  version = "1.0.2"
+  version = "1.1.3"
   ...
 }
 ```
@@ -44,7 +44,7 @@ module "iits-otc-demo" {
 ```terraform
 module "vpc" {
   source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
-  version               = "1.0.2"
+  version               = "1.1.3"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
   stage_name            = "dev"
