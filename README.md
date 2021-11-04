@@ -16,14 +16,14 @@ production).
 
 ## Quickstart
 
-1. We recommend this kind of terraform folder structure:
+1. We recommend this kind of Terraform folder structure:
 
    ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
 
 2. (
-   optional) [Set up a secure remote terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state)
-   . Copy the backend output of that module to your settings.tf
-2. Add the project factory module
+   optional) [Set up a secure remote Terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state)
+   . Copy the backend output of that module to your `settings.tf` file
+3. Add a `project-factory` module
 
 ```terraform
 # System variables that have to be set for this example environment:
@@ -53,16 +53,11 @@ module "vpc" {
 }
 ```
 
-# Common Concepts behind the modules
+## Common Concepts behind the modules
 
 There are some variables that occur on multiple modules. The ideas behind them are explained here.
 
-## Context
-
-The "context_name" variable should be a human-readable name of the project you are working on or the team you are
-provisioning infrastructure for.
-
-## Stage
-
-The "stage" variable is utilized to distinguish between multiple mostly equal, but separate environments like "dev", "
-test", "qa", "prod".
+| Variable       | Description                          | Example                       |
+|:---------------|:-------------------------------------|:------------------------------|
+| `context_name` | A human-readable name of the project | `website`, `payments-service` |
+| `stage   `     | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
