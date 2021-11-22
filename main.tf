@@ -5,8 +5,8 @@
 # - OS_TENANT_NAME or OS_PROJECT_NAME
 
 module "cloud_tracing_service" {
-  source      = "./modules/cloud_tracing_service"
-  bucket_name = "${replace(var.otc_project_name, "_", "-")}-cloud-tracing-service-bucket"
+  source       = "./modules/cloud_tracing_service"
+  bucket_name  = "${replace(var.otc_project_name, "_", "-")}-cloud-tracing-service-bucket"
   project_name = var.otc_project_name
 }
 
