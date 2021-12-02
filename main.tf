@@ -55,7 +55,6 @@ module "loadbalancer" {
   stage_name           = var.stage_name
   subnet_id            = module.vpc.subnet_id
   context_name         = var.context_name
-  anti_ddos_protection = var.anti_ddos_protection
 }
 
 module "cce-autoscaler" {
