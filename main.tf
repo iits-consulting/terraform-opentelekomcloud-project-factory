@@ -51,10 +51,10 @@ module "cce" {
 }
 
 module "loadbalancer" {
-  source               = "./modules/loadbalancer"
-  stage_name           = var.stage_name
-  subnet_id            = module.vpc.subnet_id
-  context_name         = var.context_name
+  source       = "./modules/loadbalancer"
+  stage_name   = var.stage_name
+  subnet_id    = module.vpc.subnet_id
+  context_name = var.context_name
 }
 
 module "cce-autoscaler" {
