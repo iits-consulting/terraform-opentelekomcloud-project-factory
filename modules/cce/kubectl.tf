@@ -21,9 +21,9 @@ locals {
       {
         context = {
           cluster = "cluster-${var.context_name}-${var.stage_name}"
-          user    = "terraform"
+          user    = "${var.context_name}-${var.stage_name}"
         }
-        name = var.stage_name
+        name = "${var.context_name}-${var.stage_name}"
       },
     ]
     current-context = var.stage_name
@@ -31,7 +31,7 @@ locals {
     preferences     = {}
     users = [
       {
-        name = "terraform"
+        name = "${var.context_name}-${var.stage_name}"
         user = {
           client-certificate-data = local.client_certificate_data
           client-key-data         = local.client_key_data
