@@ -26,7 +26,7 @@ locals {
         name = "${var.context_name}-${var.stage_name}"
       },
     ]
-    current-context = var.stage_name
+    current-context = "${var.context_name}-${var.stage_name}"
     kind            = "Config"
     preferences     = {}
     users = [
