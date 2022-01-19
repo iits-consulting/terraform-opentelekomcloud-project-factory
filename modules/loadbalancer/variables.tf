@@ -13,3 +13,9 @@ variable "bandwidth" {
   default     = 300
   description = "The bandwidth size. The value ranges from 1 to 1000 Mbit/s."
 }
+
+variable "fixed_ip_address" {
+  type        = bool
+  description = "When set to true it prevents the `terraform destroy` command from deleting an EIP. It can be useful to avoid adjusting DNS settings too often"
+  default     = false
+}
