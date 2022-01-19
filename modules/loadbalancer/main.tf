@@ -15,10 +15,6 @@ resource "opentelekomcloud_vpc_eip_v1" "ingress_eip" {
     type    = "5_bgp"
     port_id = opentelekomcloud_lb_loadbalancer_v2.elb.vip_port_id
   }
-
-  lifecycle {
-    prevent_destroy = var.fixed_ip_address
-  }
 }
 
 output "elb_id" {
