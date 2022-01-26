@@ -1,4 +1,3 @@
-variable "subnet_id" {}
 variable "stage_name" {
   default     = "dev"
   type        = string
@@ -12,4 +11,8 @@ variable "bandwidth" {
   type        = number
   default     = 300
   description = "The bandwidth size. The value ranges from 1 to 1000 Mbit/s."
+}
+variable "subnet_id" {
+  type        = string
+  description = "Subnet where the elastic load balancer will be created."
 }
