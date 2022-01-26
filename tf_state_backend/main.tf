@@ -8,26 +8,43 @@ terraform {
   }
 }
 
+variable "bucket_name" {
+  type        = string
+  description = "Project name or context"
+}
+
+variable "region" {
+  type        = string
+  description = "OTC region for the project: eu-de(default) or eu-nl"
+  default     = "eu-de"
+  validation {
+    condition     = contains(["eu-de", "eu-nl", ""], var.region)
+    error_message = "Allowed values for region are \"eu-de\" and \"eu-nl\"."
+  }
+}
+
+locals {
+  bucket_name = replace(lower(var.bucket_name), "_", "-")
+}
+
 provider "opentelekomcloud" {
   auth_url    = "https://iam.eu-de.otc.t-systems.com/v3"
-  domain_name = var.domain
   tenant_name = var.region
 }
 
 resource "opentelekomcloud_obs_bucket" "tf_remote_state" {
-  bucket     = "${local.context}-tfstate-bucket"
+  bucket     = local.bucket_name
   acl        = "private"
   versioning = true
   server_side_encryption {
     algorithm  = "aws:kms"
     kms_key_id = opentelekomcloud_kms_key_v1.tf_remote_state_bucket_kms_key.id
   }
-  tags = local.common_tags
 }
 
 resource "opentelekomcloud_kms_key_v1" "tf_remote_state_bucket_kms_key" {
-  key_alias       = "${local.context}-tfstate-bucket-key"
-  key_description = "${local.context}-tfstate-bucket encryption key"
+  key_alias       = "${local.bucket_name}-key"
+  key_description = "${local.bucket_name} encryption key"
   pending_days    = 7
   is_enabled      = "true"
 }

@@ -15,22 +15,16 @@ and paste into your settings.tf
 Set your AK/SK and source such a bash file
 
 ```bash
-export ACCESS_KEY="REPLACE_ME" 
-export SECRET_KEY="REPLACE_ME" 
-export AWS_SECRET_ACCESS_KEY=$SECRET_KEY 
-export AWS_ACCESS_KEY_ID=$ACCESS_KEY 
-export OS_ACCESS_KEY=$ACCESS_KEY 
-export OS_SECRET_KEY=$SECRET_KEY
-export TF_PLUGIN_CACHE_DIR="<path_to_project>/plugins" # Optional: allows plugin caching for terraform
+export OS_ACCESS_KEY="<replace-me>"      # OTC Access Key ID (e.g. WTN5W8OLNKNJKVFVCY01)
+export OS_SECRET_KEY="<replace-me>"      # OTC Secret Access Key (e.g. aFrR9bt7hXGIVbDcO73cnAlpUla06xZ4nytPOQZF)
+export OS_DOMAIN_NAME="<replace-me"      # OTC domain for the project (e.g. OTC-EU-DE-00000000001000012345)
+export TF_VAR_bucket_name="<replace-me"  # Bucket name to store terraform state (e.g iits-project-factory-tfstate-bucket)
+export AWS_ACCESS_KEY_ID=$OS_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=$OS_SECRET_KEY
 ```
 
-Copy the directory [tf_state_backend](.) to your project. And configure the parameters in [config.auto.tfvars](./config.auto.tfvars) for your project.
-```hcl
-context  = "iits-project-factory"
-customer = "IITS"
-domain   = "<replace-me>"
-# region   = "eu-de" // Optional: accepted values are eu-de(default) and eu-nl
-```
+Create a new directory in your project copy the code from [main.tf](./main.tf) into it.
+
 ## Example Output:
 ```hcl
 backend "s3" {
