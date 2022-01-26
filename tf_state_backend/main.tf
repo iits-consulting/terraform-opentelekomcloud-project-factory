@@ -10,8 +10,8 @@ terraform {
 
 provider "opentelekomcloud" {
   auth_url    = "https://iam.eu-de.otc.t-systems.com/v3"
-  domain_name = var.project.domain
-  tenant_name = var.project.region
+  domain_name = var.domain
+  tenant_name = var.region
 }
 
 resource "opentelekomcloud_obs_bucket" "tf_remote_state" {

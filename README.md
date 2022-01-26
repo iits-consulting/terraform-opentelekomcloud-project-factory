@@ -21,7 +21,7 @@ production).
    ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
 
 2. (
-   optional) [Set up a secure remote Terraform state](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state)
+   optional) [Set up a secure remote Terraform state](./tf_state_backend/README.md)
    . Copy the backend output of that module to your `settings.tf` file
 3. Add a `project-factory` module
 
