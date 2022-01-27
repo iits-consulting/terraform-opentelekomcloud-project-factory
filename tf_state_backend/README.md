@@ -1,10 +1,5 @@
 # Encrypted Remote State Bucket
 
-[![Apache-2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?)](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state/blob/master/LICENSE)
-![Terraform Lint](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-tf-state/workflows/terraform-lint/badge.svg)
-![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/terraform-opentelekomcloud-obs-tf-state.svg)
-
-
 Creates an encrypted OBS Bucket for your terraform remote state.
 
 After the creation it prints out the right backend s3 terraform settings which you can copy
