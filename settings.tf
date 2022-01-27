@@ -1,5 +1,5 @@
 terraform {
-  required_version = "v0.14.8"
+  required_version = "1.1.4"
   required_providers {
     external = {
       source  = "hashicorp/external"

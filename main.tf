@@ -1,5 +1,3 @@
-# System variables from set-env.sh needs to be set for this example
-
 module "cloud_tracing_service" {
   source       = "./modules/cloud_tracing_service"
   bucket_name  = "${replace(var.otc_project_name, "_", "-")}-cloud-tracing-service-bucket"
@@ -67,8 +65,9 @@ module "cce-autoscaler" {
 }
 
 module "stage_secrets_to_encrypted_s3_bucket" {
-  source      = "./modules/encrypted_bucket"
-  bucket_name = "${var.context_name}-${var.stage_name}-stage-secrets"
+  source            = "./modules/obs_secrets_writer"
+  bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
+  bucket_object_key = "terraform-secrets-test"
   secrets = {
     kubectlConfig               = module.cce.kubectl_config
     elbId                       = module.loadbalancer.elb_id
@@ -78,4 +77,20 @@ module "stage_secrets_to_encrypted_s3_bucket" {
     kubernetesClientKey         = base64decode(module.cce.client-key)
     kubernetesCaCert            = base64decode(module.cce.client-key)
   }
+}
+
+module "stage_secrets_from_encrypted_s3_bucket" {
+  source            = "./modules/obs_secrets_reader"
+  bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
+  bucket_object_key = "terraform-secrets-test"
+  required_secrets = [
+    "kubectlConfig",
+    "elbId",
+    "elbPublicIp",
+    "kubernetesEndpoint",
+    "kubernetesClientCertificate",
+    "kubernetesClientKey",
+    "kubernetesCaCert",
+  ]
+  depends_on = [module.stage_secrets_to_encrypted_s3_bucket]
 }
