@@ -4,6 +4,7 @@ variable "bucket_name" {
 
 variable "secrets" {
   type = map(string)
+  sensitive = true
 }
 
 variable "bucket_object_name" {

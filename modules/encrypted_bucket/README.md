@@ -2,13 +2,22 @@
 
 This modules creates a OBS Bucket and one file with default encryption.
 
+Please remember that OBS and KMS work only on top level projects (eu-de or eu-nl) !!!
+
 Use this module if you need to store your dynamic secrets somewhere secure and can not use more secure mechanism like
 HashiCorp Vault.
 
 ### Usage example
 
 ```hcl
+provider "opentelekomcloud" {
+  auth_url    = "https://iam.eu-de.otc.t-systems.com/v3"
+  tenant_name = var.region
+  alias = "top_level_project"
+}
+
 module "stage_secrets_to_encrypted_s3_bucket" {
+  providers = {opentelekomcloud=opentelekomcloud.top_level_project}
   source        = "iits-consulting/project-factory/opentelekomcloud//modules/encrypted_bucket"
   version       = "1.2.0"
   bucket_name   = "${var.context_name}-${var.stage_name}-stage-secrets"
@@ -42,4 +51,3 @@ provider "kubernetes" {
   client_key         = local.stage_secrets["kubernetesClientKey"]
 }
 ```
-
