@@ -3,17 +3,17 @@ variable "bucket_name" {
 }
 
 variable "secrets" {
-  type = map(string)
+  type      = map(string)
   sensitive = true
 }
 
 variable "bucket_object_name" {
-  type = string
+  type    = string
   default = "terraform-secrets"
 }
 
 variable "tags" {
-  type = map(string)
+  type    = map(string)
   default = null
 }
 
