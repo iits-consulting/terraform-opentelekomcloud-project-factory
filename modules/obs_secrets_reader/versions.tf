@@ -4,7 +4,7 @@ terraform {
       source = "opentelekomcloud/opentelekomcloud"
     }
     errorcheck = {
-      source  = "rhythmictech/errorcheck"
+      source = "rhythmictech/errorcheck"
     }
   }
 }
