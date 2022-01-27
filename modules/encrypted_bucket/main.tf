@@ -12,14 +12,20 @@ resource "opentelekomcloud_obs_bucket" "secrets" {
   acl = "private"
   versioning = true
   tags = var.tags
+  region = var.region
   server_side_encryption {
     algorithm  = "aws:kms"
     kms_key_id = opentelekomcloud_kms_key_v1.encrypted_secrets_key.id
   }
 }
 
+resource "random_id" "id" {
+  byte_length = 4
+}
+
+
 resource "opentelekomcloud_kms_key_v1" "encrypted_secrets_key" {
-  key_alias = "${var.bucket_name}-key"
+  key_alias = "${var.bucket_name}-key-${random_id.id.hex}"
   key_description = "x${var.bucket_name} encryption key"
   pending_days = 7
   is_enabled = "true"

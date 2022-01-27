@@ -42,8 +42,12 @@ resource "opentelekomcloud_obs_bucket" "tf_remote_state" {
   }
 }
 
+resource "random_id" "id" {
+  byte_length = 4
+}
+
 resource "opentelekomcloud_kms_key_v1" "tf_remote_state_bucket_kms_key" {
-  key_alias       = "${local.bucket_name}-key"
+  key_alias       = "${local.bucket_name}-key-${random_id.id.hex}"
   key_description = "${local.bucket_name} encryption key"
   pending_days    = 7
   is_enabled      = "true"
