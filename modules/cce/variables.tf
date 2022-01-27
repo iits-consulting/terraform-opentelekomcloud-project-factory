@@ -89,3 +89,9 @@ variable "node_data_encryption_key_id" {
   default     = null
   description = "KMS Key ID for the encryption of CCE node data volumes."
 }
+
+variable "addon_metric_server_version" {
+  type        = string
+  default     = "1.0.6"
+  description = "Version for Metric-Server addon."
+}
