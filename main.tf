@@ -1,8 +1,4 @@
-# System variables that have to be set for this example environment:
-# - OS_ACCESS_KEY
-# - OS_SECRET_KEY
-# - OS_DOMAIN_NAME
-# - OS_TENANT_NAME or OS_PROJECT_NAME
+# System variables from set-env.sh needs to be set for this example
 
 module "cloud_tracing_service" {
   source       = "./modules/cloud_tracing_service"
@@ -68,4 +64,18 @@ module "cce-autoscaler" {
     region = var.region
   }
   autoscaler_version = var.cce_autoscaler_version
+}
+
+module "stage_secrets_to_encrypted_s3_bucket" {
+  source = "./modules/encrypted_bucket"
+  bucket_name = "${var.context_name}-${var.stage_name}-stage-secrets"
+  secrets = {
+    kubectlConfig = module.cce.kubectl_config
+    elbId = module.loadbalancer.elb_id
+    elbPublicIp = module.loadbalancer.elb_public_ip
+    kubernetesEndpoint = module.cce.kube_api_endpoint
+    kubernetesClientCertificate = base64decode(module.cce.client-certificate)
+    kubernetesClientKey = base64decode(module.cce.client-key)
+    kubernetesCaCert = base64decode(module.cce.client-key)
+  }
 }

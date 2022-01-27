@@ -16,27 +16,43 @@ production).
 
 ## Quickstart
 
-1. We recommend this kind of Terraform folder structure:
+Set environment variables for the quickstart
 
-   ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
+```shell
+# Either your ACCESS_KEY and SECRET_KEY or from a serviceaccount
+export OS_ACCESS_KEY="REPLACE_ME"
+export OS_SECRET_KEY="REPLACE_ME"
+export AWS_ACCESS_KEY_ID=$OS_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=$OS_SECRET_KEY
 
-2. (
-   optional) [Set up a secure remote Terraform state](./tf_state_backend/README.md)
-   . Copy the backend output of that module to your `settings.tf` file
-3. Add a `project-factory` module
+export OS_DOMAIN_NAME="OTC-EU-DE-REPLACE_ME"
+export OS_PROJECT_NAME="eu-de"
+export TF_VAR_project_name=${OS_PROJECT_NAME}
 
-```terraform
-# System variables that have to be set for this example environment:
-# - OS_ACCESS_KEY
-# - OS_SECRET_KEY
-# - OS_DOMAIN_NAME
-# - OS_TENANT_NAME or OS_PROJECT_NAME
+export TF_VAR_region="eu-de"
 
+# Current Stage you are working on for example dev,qa, prod etc.
+export TF_VAR_stage_name="dev"
+#Current Context you are working on can be customer name or cloud name etc.
+export TF_VAR_context_name="showcase"
+```
+
+
+Add a `project-factory` module
+
+```shell
 module "iits-otc-demo" {
   source  = "iits-consulting/project-factory/opentelekomcloud"
-  version = "1.1.3"
+  version = "1.2.2"
   ...
 }
+```
+
+Apply the module
+
+```shell
+terraform init
+terraform apply
 ```
 
 ## Importing Modules Individually
@@ -44,7 +60,7 @@ module "iits-otc-demo" {
 ```terraform
 module "vpc" {
   source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
-  version               = "1.1.3"
+  version               = "1.2.2"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
   stage_name            = "dev"
@@ -61,3 +77,13 @@ There are some variables that occur on multiple modules. The ideas behind them a
 |:---------------|:-------------------------------------|:------------------------------|
 | `context_name` | A human-readable name of the project | `website`, `payments-service` |
 | `stage   `     | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
+
+
+## Recommendations
+
+1. We recommend this kind of Terraform folder structure:
+
+   ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
+
+2. [Set up a secure remote Terraform state](./tf_state_backend/README.md)
+   . Copy the backend output of that module to your `settings.tf` file
