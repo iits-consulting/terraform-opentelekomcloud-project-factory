@@ -43,7 +43,7 @@ Add a `project-factory` module
 ```shell
 module "iits-otc-demo" {
   source  = "iits-consulting/project-factory/opentelekomcloud"
-  version = "1.2.2"
+  version = "1.3.1"
   ...
 }
 ```
@@ -60,7 +60,7 @@ terraform apply
 ```terraform
 module "vpc" {
   source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
-  version               = "1.2.2"
+  version               = "1.3.1"
   vpc_cidr              = local.vpc_cidr
   vpc_name              = "vpc-otc-demo-dev"
   stage_name            = "dev"

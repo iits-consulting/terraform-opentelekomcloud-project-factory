@@ -42,7 +42,7 @@ resource "opentelekomcloud_cce_node_v3" "nodes" {
 # Or in a CCE module
 module "cce" {
   source  = "iits-consulting/project-factory/opentelekomcloud//modules/cce"
-  version = "1.1.3"
+  version = "1.3.1"
 
   key_pair_id        = module.ssh_keypair.keypair_name
   stage_name         = var.stage_name
