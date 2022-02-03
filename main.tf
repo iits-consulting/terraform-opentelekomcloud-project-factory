@@ -61,7 +61,7 @@ module "loadbalancer" {
 module "stage_secrets_to_encrypted_s3_bucket" {
   source            = "./modules/obs_secrets_writer"
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
-  bucket_object_key = "terraform-secrets-test"
+  bucket_object_key = "terraform-secrets"
   secrets = {
     elb_id                  = module.loadbalancer.elb_id
     elb_public_ip               = module.loadbalancer.elb_public_ip
