@@ -12,14 +12,14 @@ module "ssh_keypair" {
 }
 
 module "vpc" {
-  source                = "./modules/vpc"
-  vpc_cidr              = var.vpc_cidr
-  vpc_name              = "vpc-${var.context_name}-${var.stage_name}"
-  stage_name            = var.stage_name
-  vpc_subnet_cidr       = var.vpc_cidr
-  vpc_subnet_gateway_ip = local.vpc_subnet_gateway_ip
-  tags                  = var.tags
-  region                = var.region
+  source     = "./modules/vpc"
+  cidr_block = var.vpc_cidr
+  name       = "vpc-${var.context_name}-${var.stage_name}"
+  subnets    = {
+    "subnet-${var.stage_name}" = "default_cidr"
+  }
+  tags       = {}
+  region = var.region
 }
 
 module "cce_autocreation" {
@@ -29,39 +29,33 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  depends_on = [
-  module.cce_autocreation]
-  source        = "./modules/cce"
-  key_pair_id   = module.ssh_keypair.keypair_name
-  stage_name    = var.stage_name
-  subnet_id     = module.vpc.subnet_network_id
-  cce_flavor_id = var.cce_vpc_flavor_id
-  vpc_id        = module.vpc.vpc_id
-  vpc_cidr      = var.vpc_cidr
-  nodes         = local.node_specs
-  tags          = var.tags
-  context_name  = var.context_name
-  cce_version   = var.cce_version
+  source             = "./modules/cce"
+  context            = var.context_name
+  stage              = var.stage_name
+  autoscaling_config = {
+    nodes_max = 8
+  }
+  cluster_config     = {
+    vpc_id            = module.vpc.vpc.id
+    subnet_id         = values(module.vpc.subnets)[0].id
+    cluster_version   = var.cce_version
+    high_availability = false
+    enable_scaling    = true
+  }
+  node_config        = {
+    availability_zones = ["eu-de-03", "eu-de-01"]
+    node_count         = 3
+    node_flavor        = var.cce_node_spec
+    node_storage_type  = "SSD"
+    node_storage_size  = 100
+  }
 }
 
 module "loadbalancer" {
   source       = "./modules/loadbalancer"
   stage_name   = var.stage_name
-  subnet_id    = module.vpc.subnet_id
+  subnet_id    = values(module.vpc.subnets)[0].subnet_id
   context_name = var.context_name
-}
-
-module "cce-autoscaler" {
-  source          = "./modules/cce_autoscaling"
-  cce_name        = module.cce.cce_name
-  ssh_key_pair_id = module.ssh_keypair.keypair_name
-  project_id      = "eu-de"
-  cce = {
-    id     = module.cce.cce_id
-    name   = module.cce.cce_name
-    region = var.region
-  }
-  autoscaler_version = var.cce_autoscaler_version
 }
 
 module "stage_secrets_to_encrypted_s3_bucket" {
@@ -69,13 +63,15 @@ module "stage_secrets_to_encrypted_s3_bucket" {
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_key = "terraform-secrets-test"
   secrets = {
-    kubectlConfig               = module.cce.kubectl_config
-    elbId                       = module.loadbalancer.elb_id
-    elbPublicIp                 = module.loadbalancer.elb_public_ip
-    kubernetesEndpoint          = module.cce.kube_api_endpoint
-    kubernetesClientCertificate = base64decode(module.cce.client-certificate)
-    kubernetesClientKey         = base64decode(module.cce.client-key)
-    kubernetesCaCert            = base64decode(module.cce.client-key)
+    elb_id                  = module.loadbalancer.elb_id
+    elb_public_ip               = module.loadbalancer.elb_public_ip
+    kubectl_config          = module.cce.cluster_credentials.kubectl_config
+    kubernetes_ca_cert      = module.cce.cluster_credentials.cluster_certificate_authority_data
+    client_certificate_data = module.cce.cluster_credentials.client_certificate_data
+    kube_api_endpoint       = module.cce.cluster_credentials.kubectl_external_server
+    client_key_data         = module.cce.cluster_credentials.client_key_data
+    cce_id                  = module.cce.cluster_name
+    cce_name                = module.cce.cluster_id
   }
 }
 
@@ -84,13 +80,13 @@ module "stage_secrets_from_encrypted_s3_bucket" {
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_key = "terraform-secrets-test"
   required_secrets = [
-    "kubectlConfig",
-    "elbId",
-    "elbPublicIp",
-    "kubernetesEndpoint",
-    "kubernetesClientCertificate",
-    "kubernetesClientKey",
-    "kubernetesCaCert",
+    "elb_id",
+    "elb_public_ip",
+    "kubectl_config",
+    "kubernetes_ca_cert",
+    "client_certificate_data",
+    "kube_api_endpoint",
+    "client_key_data",
   ]
   depends_on = [module.stage_secrets_to_encrypted_s3_bucket]
 }

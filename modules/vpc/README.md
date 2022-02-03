@@ -1,4 +1,15 @@
-## VPC
+##Module to auto create VPC and multiple Subnet
 
-This module manages a VPC with one subnet. It is especially helpful if you have one main subnet for you kubernetes
-cluster in a slim architecture.
+Usage example
+```hcl
+module "vpc" {
+  source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  version               = "2.0.0-alpha"
+  cidr_block = local.vpc_cidr
+  name       = "vpc-demo-${local.stage_name}"
+  subnets    = {
+    "subnet-${local.stage_name}" = "default_cidr"
+  }
+  tags       = {}
+}
+```
