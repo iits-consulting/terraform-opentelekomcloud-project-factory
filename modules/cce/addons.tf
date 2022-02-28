@@ -1,5 +1,5 @@
 data "opentelekomcloud_identity_project_v3" "project" {
-  name = var.region
+  name = var.project == "" ? var.region : var.project
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {

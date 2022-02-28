@@ -24,6 +24,12 @@ variable "region" {
   }
 }
 
+variable "project" {
+  type        = string
+  description = "OTC project name in format \"eu-de_<project_name>\" or \"eu-nl_<project_name>\". Defaults to var.region (OTC top level project)"
+  default     = ""
+}
+
 variable "cluster_config" {
   description = "Cluster configuration parameters"
   type = object({
