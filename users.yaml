@@ -1,0 +1,17 @@
+users:
+  - name: canaykin
+    gecos: Can Aykin
+    primary_group: iits
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, ubuntu
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGVePbsp+P2ZAYXE6BC4soxsz+9ZpW1cAzthf8FSn7SFbdnQenong4oFpHWmF3ZPdSbaTiB1e8RBammXs47wVIs="
+  - name: victorgetz
+    gecos: Victor Getz
+    primary_group: iits
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, ubuntu
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGZX1EMPXmRA/46/IJZhAl+tmaegFn+Cux9Yw9bidhJy victor.getz@iits-consulting.de"

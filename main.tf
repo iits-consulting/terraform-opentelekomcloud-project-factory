@@ -4,22 +4,28 @@ module "cloud_tracing_service" {
   project_name = var.otc_project_name
 }
 
-module "ssh_keypair" {
-  source       = "./modules/ssh_keypair"
-  stage_name   = var.stage_name
-  context_name = var.context_name
-  region       = var.region
-}
-
 module "vpc" {
   source     = "./modules/vpc"
   cidr_block = var.vpc_cidr
   name       = "vpc-${var.context_name}-${var.stage_name}"
-  subnets    = {
+  subnets = {
     "subnet-${var.stage_name}" = "default_cidr"
   }
-  tags       = {}
-  region = var.region
+  tags = {}
+}
+
+data "opentelekomcloud_images_image_v2" "ubuntu" {
+  name       = "Standard_Ubuntu_20.04_latest"
+  visibility = "public"
+}
+
+module "jumphost" {
+  source            = "./modules/jumphost"
+  vpc_id            = module.vpc.vpc.id
+  subnet_id         = values(module.vpc.subnets)[0].id
+  node_name         = "jumphost-${var.context_name}-${var.stage_name}"
+  node_image_id     = data.opentelekomcloud_images_image_v2.ubuntu.id
+  users_config_path = "${path.root}/users.yaml"
 }
 
 module "cce_autocreation" {
@@ -29,20 +35,20 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  source             = "./modules/cce"
-  context            = var.context_name
-  stage              = var.stage_name
+  source  = "./modules/cce"
+  context = var.context_name
+  stage   = var.stage_name
   autoscaling_config = {
     nodes_max = 8
   }
-  cluster_config     = {
+  cluster_config = {
     vpc_id            = module.vpc.vpc.id
     subnet_id         = values(module.vpc.subnets)[0].id
     cluster_version   = var.cce_version
     high_availability = false
     enable_scaling    = true
   }
-  node_config        = {
+  node_config = {
     availability_zones = ["eu-de-03", "eu-de-01"]
     node_count         = 3
     node_flavor        = var.cce_node_spec
@@ -64,7 +70,7 @@ module "stage_secrets_to_encrypted_s3_bucket" {
   bucket_object_key = "terraform-secrets"
   secrets = {
     elb_id                  = module.loadbalancer.elb_id
-    elb_public_ip               = module.loadbalancer.elb_public_ip
+    elb_public_ip           = module.loadbalancer.elb_public_ip
     kubectl_config          = module.cce.cluster_credentials.kubectl_config
     kubernetes_ca_cert      = module.cce.cluster_credentials.cluster_certificate_authority_data
     client_certificate_data = module.cce.cluster_credentials.client_certificate_data

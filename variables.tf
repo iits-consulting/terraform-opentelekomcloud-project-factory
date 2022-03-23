@@ -1,9 +1,3 @@
-variable "region" {
-  type        = string
-  default     = "eu-de"
-  description = "Region in which to create the cloud resources."
-}
-
 variable "context_name" {
   type        = string
   description = "Short descriptive, readable label of the project you are working on. Is utilized as a part of resource names."

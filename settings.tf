@@ -11,7 +11,7 @@ terraform {
     }
     opentelekomcloud = {
       source  = "opentelekomcloud/opentelekomcloud"
-      version = ">1.23.11"
+      version = ">1.28.0"
     }
   }
 }

@@ -31,4 +31,3 @@ variable "dns_config" {
   ]
 }
 
-variable "region" {}
