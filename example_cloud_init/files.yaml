@@ -1,0 +1,8 @@
+#cloud-config
+write_files:
+  - path: /etc/environment
+    append: true
+    owner: root:root
+    permissions: '0444'
+    content: |
+      hello=world

@@ -25,7 +25,8 @@ module "jumphost" {
   subnet_id         = values(module.vpc.subnets)[0].id
   node_name         = "jumphost-${var.context_name}-${var.stage_name}"
   node_image_id     = data.opentelekomcloud_images_image_v2.ubuntu.id
-  users_config_path = "${path.root}/users.yaml"
+  users_config_path = "${path.root}/example_users.yaml"
+  cloud_init_path   = "${path.root}/example_cloud_init"
 }
 
 module "cce_autocreation" {
