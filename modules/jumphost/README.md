@@ -1,6 +1,6 @@
 ##Module to auto create VPC and multiple Subnet
 
-Usage example
+Usage example (see [users.yaml](../../users.yaml) for example users_config)
 ```hcl
 module "vpc" {
   source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
