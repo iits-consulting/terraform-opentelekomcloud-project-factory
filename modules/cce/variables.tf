@@ -14,22 +14,6 @@ variable "tags" {
   default     = null
 }
 
-variable "region" {
-  type        = string
-  description = "OTC region for the project: eu-de(default) or eu-nl"
-  default     = "eu-de"
-  validation {
-    condition     = contains(["eu-de", "eu-nl"], var.region)
-    error_message = "Allowed values for region are \"eu-de\" and \"eu-nl\"."
-  }
-}
-
-variable "project" {
-  type        = string
-  description = "OTC project name in format \"eu-de_<project_name>\" or \"eu-nl_<project_name>\". Defaults to var.region (OTC top level project)"
-  default     = ""
-}
-
 variable "cluster_config" {
   description = "Cluster configuration parameters"
   type = object({

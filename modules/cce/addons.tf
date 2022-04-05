@@ -1,5 +1,4 @@
-data "opentelekomcloud_identity_project_v3" "project" {
-  name = var.project == "" ? var.region : var.project
+data "opentelekomcloud_identity_project_v3" "current" {
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
@@ -10,8 +9,8 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
   values {
     basic = {
-      "cceEndpoint"     = "https://cce.${var.region}.otc.t-systems.com"
-      "ecsEndpoint"     = "https://ecs.${var.region}.otc.t-systems.com"
+      "cceEndpoint"     = "https://cce.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
+      "ecsEndpoint"     = "https://ecs.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
       "euleros_version" = "2.2.5"
       "region"          = opentelekomcloud_cce_cluster_v3.cluster.region
       "swr_addr"        = "100.125.7.25:20202"
@@ -19,7 +18,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
     }
     custom = {
       "cluster_id"                     = opentelekomcloud_cce_cluster_v3.cluster.id
-      "tenant_id"                      = data.opentelekomcloud_identity_project_v3.project.id
+      "tenant_id"                      = data.opentelekomcloud_identity_project_v3.current.id
       "coresTotal"                     = 16000
       "expander"                       = "priority"
       "logLevel"                       = 4
