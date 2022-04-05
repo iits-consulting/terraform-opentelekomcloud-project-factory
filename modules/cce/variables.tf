@@ -54,9 +54,10 @@ variable "cluster_config" {
   }
   validation {
     condition = (
+    var.cluster_config.container_network_type == "null" ||
       (contains(["vpc-router", "overlay_l2"], var.cluster_config.container_network_type) && (var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null)) ||
-      (contains(["underlay_ipvlan"], var.cluster_config.container_network_type) && var.cluster_config.cluster_type == "BareMetal") ||
-      var.cluster_config.container_network_type == "null"
+      (contains(["underlay_ipvlan"], var.cluster_config.container_network_type) && var.cluster_config.cluster_type == "BareMetal")
+
     )
     error_message = "Allowed values for container_network_type are \"vpc-router\" and \"overlay_l2\" for VirtualMachine Clusters; and \"underlay_ipvlan\" for BareMetal Clusters."
   }
