@@ -31,7 +31,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   flavor_id               = local.flavor_id
   vpc_id                  = local.cluster_config.vpc_id
   subnet_id               = local.cluster_config.subnet_id
-  container_network_type  = local.cluster_config.cluster_type == "BareMetal" ? "underlay_ipvlan" : "vpc-router"
+  container_network_type  = local.cluster_config.container_network_type
   container_network_cidr  = local.cluster_config.container_cidr
   kubernetes_svc_ip_range = local.cluster_config.service_cidr
   description             = "Kubernetes Cluster for ${var.context}."

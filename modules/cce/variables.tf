@@ -33,15 +33,16 @@ variable "project" {
 variable "cluster_config" {
   description = "Cluster configuration parameters"
   type = object({
-    vpc_id            = string           // VPC id where the cluster will be created in
-    subnet_id         = string           // Subnet network id where the cluster will be created in
-    cluster_version   = string           // CCE cluster version.
-    cluster_size      = optional(string) // Size of the cluster: small, medium, large (default: small)
-    cluster_type      = optional(string) // Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)
-    container_cidr    = optional(string) // Kubernetes pod network CIDR range (default: 172.16.0.0/16)
-    service_cidr      = optional(string) // Kubernetes service network CIDR range (default: 10.247.0.0/16)
-    high_availability = optional(bool)   // Create the cluster in highly available mode (default: false)
-    enable_scaling    = optional(bool)   // Enable autoscaling of the cluster (default: false)
+    vpc_id                 = string           // VPC id where the cluster will be created in
+    subnet_id              = string           // Subnet network id where the cluster will be created in
+    cluster_version        = string           // CCE cluster version.
+    cluster_size           = optional(string) // Size of the cluster: small, medium, large (default: small)
+    cluster_type           = optional(string) // Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)
+    container_network_type = optional(string) // Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters
+    container_cidr         = optional(string) // Kubernetes pod network CIDR range (default: 172.16.0.0/16)
+    service_cidr           = optional(string) // Kubernetes service network CIDR range (default: 10.247.0.0/16)
+    high_availability      = optional(bool)   // Create the cluster in highly available mode (default: false)
+    enable_scaling         = optional(bool)   // Enable autoscaling of the cluster (default: false)
   })
   validation {
     condition     = contains(["small", "medium", "large"], lower(var.cluster_config.cluster_size == null ? "small" : var.cluster_config.cluster_size))
@@ -51,16 +52,25 @@ variable "cluster_config" {
     condition     = contains(["VirtualMachine", "BareMetal"], var.cluster_config.cluster_type == null ? "VirtualMachine" : var.cluster_config.cluster_type)
     error_message = "Allowed values for cluster_type are \"VirtualMachine\" and \"BareMetal\"."
   }
+  validation {
+    condition = (
+      (contains(["vpc-router", "overlay_l2"], var.cluster_config.container_network_type) && (var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null)) ||
+      (contains(["underlay_ipvlan"], var.cluster_config.container_network_type) && var.cluster_config.cluster_type == "BareMetal") ||
+      var.cluster_config.container_network_type == "null"
+    )
+    error_message = "Allowed values for container_network_type are \"vpc-router\" and \"overlay_l2\" for VirtualMachine Clusters; and \"underlay_ipvlan\" for BareMetal Clusters."
+  }
 }
 
 locals {
   cluster_config = defaults(var.cluster_config, {
-    cluster_type      = "VirtualMachine"
-    cluster_size      = "small"
-    container_cidr    = "172.16.0.0/16"
-    service_cidr      = "10.247.0.0/16"
-    high_availability = false
-    enable_scaling    = false
+    cluster_type           = "VirtualMachine"
+    cluster_size           = "small"
+    container_network_type = var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null ? "vpc-router" : "underlay_ipvlan"
+    container_cidr         = "172.16.0.0/16"
+    service_cidr           = "10.247.0.0/16"
+    high_availability      = false
+    enable_scaling         = false
   })
 }
 
