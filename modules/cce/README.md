@@ -3,7 +3,7 @@
 Usage example
 ```hcl
 module "cce" {
-  source             = "../modules/cce"
+  source             = "iits-consulting/project-factory/opentelekomcloud//modules/cce"
   context            = local.context
   stage              = local.stage_name
   autoscaling_config = {

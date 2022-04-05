@@ -3,7 +3,6 @@
    ```terraform
 module "otc_aom_icagent_installer" {
   source          = "iits-consulting/project-factory/opentelekomcloud//modules/otc-monitoring"
-  version         = "1.1.3"
   otc_project_id  = data.opentelekomcloud_identity_project_v3.otc_stage_project.id
   otc_tenant_name = "eu-de"
 }

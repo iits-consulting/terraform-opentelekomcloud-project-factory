@@ -4,7 +4,7 @@ Usage Example:
 
 ```hcl
 module "pfau_private_dns" {
-  source = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  source = "iits-consulting/project-factory/opentelekomcloud//modules/private_dns"
   domain = "my_domain.iits.tech"
   a_records = {
     mysql_db     = ["0.1.2.3", "3.4.5.6"]
