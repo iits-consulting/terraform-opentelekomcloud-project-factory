@@ -7,6 +7,7 @@ variable "name" {
 variable "tags" {
   type        = map(string)
   description = "Common tag set for project resources"
+  default     = {}
 }
 
 variable "cidr_block" {
