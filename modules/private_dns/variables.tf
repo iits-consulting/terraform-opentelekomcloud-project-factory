@@ -11,47 +11,47 @@ variable "vpc_id" {
 
 variable "domain" {
   type        = string
-  description = "The public domain to create private DNS zone for."
+  description = "The domain name to create private DNS zone for."
 }
 
 variable "a_records" {
   type        = map(list(string))
-  description = "Map of DNS A records."
+  description = "Map of DNS A records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "cname_records" {
   type        = map(list(string))
-  description = "Map of DNS CNAME records."
+  description = "Map of DNS CNAME records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "mx_records" {
   type        = map(list(string))
-  description = "Map of DNS MX records."
+  description = "Map of DNS MX records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "aaaa_records" {
   type        = map(list(string))
-  description = "Map of DNS AAAA records."
+  description = "Map of DNS AAAA records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "txt_records" {
   type        = map(list(string))
-  description = "Map of DNS TXT records."
+  description = "Map of DNS TXT records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "ptr_records" {
   type        = map(list(string))
-  description = "Map of DNS PTR records."
+  description = "Map of DNS PTR records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }
 
 variable "srv_records" {
   type        = map(list(string))
-  description = "Map of DNS SRV records."
+  description = "Map of DNS SRV records. Use the same value as <var.domain> for top level domain"
   default     = {}
 }

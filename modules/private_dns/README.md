@@ -18,3 +18,6 @@ module "private_dns" {
   vpc_id = var.vpc_id
 }
 ```
+Notes:
+- This module requires the VPC subnet to use OTC internal DNS servers 100.125.4.25 100.125.129.199 (defaults of OTC).
+- Module accepts both subdomain prefixes and full domain names as record keys
