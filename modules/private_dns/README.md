@@ -3,7 +3,7 @@
 Usage Example:
 
 ```hcl
-module "pfau_private_dns" {
+module "private_dns" {
   source = "iits-consulting/project-factory/opentelekomcloud//modules/private_dns"
   domain = "my_domain.iits.tech"
   a_records = {
