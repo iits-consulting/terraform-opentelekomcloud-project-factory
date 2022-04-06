@@ -12,7 +12,7 @@ resource "opentelekomcloud_kms_key_v1" "encrypted_cts_key" {
 data "opentelekomcloud_identity_project_v3" "current" {}
 
 # bucket is required to store tracing logs
-resource "opentelekomcloud_s3_bucket" "cloud_tracing_service" {
+resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
   bucket        = var.bucket_name
   acl           = "private"
   region        = data.opentelekomcloud_identity_project_v3.current.region
