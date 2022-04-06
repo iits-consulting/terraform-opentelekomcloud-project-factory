@@ -38,7 +38,7 @@ variable "cluster_config" {
   }
   validation {
     condition = (
-    var.cluster_config.container_network_type == null ||
+      var.cluster_config.container_network_type == null ||
       (try(contains(["vpc-router", "overlay_l2"], var.cluster_config.container_network_type), false) && (var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null)) ||
       (try(contains(["underlay_ipvlan"], var.cluster_config.container_network_type), false) && var.cluster_config.cluster_type == "BareMetal")
     )

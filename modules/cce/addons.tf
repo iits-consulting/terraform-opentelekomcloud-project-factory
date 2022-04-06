@@ -47,8 +47,8 @@ resource "opentelekomcloud_cce_addon_v3" "metrics" {
 
   values {
     basic = {
-      "swr_addr"      = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
-      "swr_user"      = "hwofficial"
+      "swr_addr" = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
+      "swr_user" = "hwofficial"
     }
     custom = {}
   }
