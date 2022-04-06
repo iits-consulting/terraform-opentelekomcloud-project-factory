@@ -4,7 +4,7 @@ resource "random_id" "id" {
 
 resource "opentelekomcloud_kms_key_v1" "encrypted_secrets_key" {
   key_alias       = "${var.bucket_name}-key-${random_id.id.hex}"
-  key_description = "x${var.bucket_name} encryption key"
+  key_description = "${var.bucket_name} encryption key"
   pending_days    = 7
   is_enabled      = "true"
 }

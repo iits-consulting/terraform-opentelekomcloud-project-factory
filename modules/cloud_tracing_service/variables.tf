@@ -11,8 +11,3 @@ variable "project_name" {
   type    = string
   default = "eu-de"
 }
-
-variable "region" {
-  type    = string
-  default = "eu-de"
-}

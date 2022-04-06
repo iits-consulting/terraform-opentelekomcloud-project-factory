@@ -1,9 +1,26 @@
+resource "random_id" "id" {
+  byte_length = 4
+}
+
+resource "opentelekomcloud_kms_key_v1" "encrypted_cts_key" {
+  key_alias       = "${var.bucket_name}-key-${random_id.id.hex}"
+  key_description = "${var.bucket_name} encryption key"
+  pending_days    = 7
+  is_enabled      = "true"
+}
+
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 # bucket is required to store tracing logs
 resource "opentelekomcloud_s3_bucket" "cloud_tracing_service" {
   bucket        = var.bucket_name
   acl           = "private"
-  region        = var.region
+  region        = data.opentelekomcloud_identity_project_v3.current.region
   force_destroy = true
+  server_side_encryption {
+    algorithm  = "aws:kms"
+    kms_key_id = opentelekomcloud_kms_key_v1.encrypted_cts_key.id
+  }
   versioning {
     enabled = false
   }
