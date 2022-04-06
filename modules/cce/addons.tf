@@ -1,6 +1,10 @@
 data "opentelekomcloud_identity_project_v3" "current" {
 }
 
+locals {
+  otc_addon_image_endpoint = data.opentelekomcloud_identity_project_v3.current.region == "eu-de" ? "100.125.7.25:20202" : "swr.eu-nl.otc.t-systems.com"
+}
+
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
   count            = var.cluster_config.enable_scaling ? 1 : 0
   template_name    = "autoscaler"
@@ -13,7 +17,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       "ecsEndpoint"     = "https://ecs.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
       "euleros_version" = "2.2.5"
       "region"          = opentelekomcloud_cce_cluster_v3.cluster.region
-      "swr_addr"        = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
+      "swr_addr"        = local.otc_addon_image_endpoint
       "swr_user"        = "hwofficial"
     }
     custom = {
@@ -42,13 +46,13 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
 resource "opentelekomcloud_cce_addon_v3" "metrics" {
   template_name    = "metrics-server"
-  template_version = "1.1.4"
+  template_version = var.metrics_server_version
   cluster_id       = opentelekomcloud_cce_cluster_v3.cluster.id
 
   values {
     basic = {
-      "swr_addr"      = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
-      "swr_user"      = "hwofficial"
+      "swr_addr" = local.otc_addon_image_endpoint
+      "swr_user" = "hwofficial"
     }
     custom = {}
   }

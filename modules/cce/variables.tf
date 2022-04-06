@@ -38,7 +38,7 @@ variable "cluster_config" {
   }
   validation {
     condition = (
-    var.cluster_config.container_network_type == null ||
+      var.cluster_config.container_network_type == null ||
       (try(contains(["vpc-router", "overlay_l2"], var.cluster_config.container_network_type), false) && (var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null)) ||
       (try(contains(["underlay_ipvlan"], var.cluster_config.container_network_type), false) && var.cluster_config.cluster_type == "BareMetal")
     )
@@ -92,8 +92,6 @@ variable "autoscaling_config" {
   })
 }
 
-
-
 locals {
   autoscaling_config = defaults(var.autoscaling_config, {
     nodes_max       = 10
@@ -103,4 +101,10 @@ locals {
     lower_bound     = 0.2
     version         = "1.19.7"
   })
+}
+
+variable "metrics_server_version" {
+  type        = string
+  description = "Version of the Metrics Server Addon Template (default: 1.1.4)"
+  default     = "1.1.4"
 }
