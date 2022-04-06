@@ -13,7 +13,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       "ecsEndpoint"     = "https://ecs.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
       "euleros_version" = "2.2.5"
       "region"          = opentelekomcloud_cce_cluster_v3.cluster.region
-      "swr_addr"        = "100.125.7.25:20202"
+      "swr_addr"        = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
       "swr_user"        = "hwofficial"
     }
     custom = {
@@ -47,7 +47,7 @@ resource "opentelekomcloud_cce_addon_v3" "metrics" {
 
   values {
     basic = {
-      "swr_addr"      = "100.125.7.25:20202"
+      "swr_addr"      = "swr.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
       "swr_user"      = "hwofficial"
     }
     custom = {}
