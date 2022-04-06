@@ -16,42 +16,42 @@ variable "domain" {
 
 variable "a_records" {
   type        = map(list(string))
-  description = "Map of DNS A records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS A records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "cname_records" {
   type        = map(list(string))
-  description = "Map of DNS CNAME records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS CNAME records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "mx_records" {
   type        = map(list(string))
-  description = "Map of DNS MX records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS MX records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "aaaa_records" {
   type        = map(list(string))
-  description = "Map of DNS AAAA records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS AAAA records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "txt_records" {
   type        = map(list(string))
-  description = "Map of DNS TXT records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS TXT records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "ptr_records" {
   type        = map(list(string))
-  description = "Map of DNS PTR records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS PTR records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
 
 variable "srv_records" {
   type        = map(list(string))
-  description = "Map of DNS SRV records. Use the same value as <var.domain> for top level domain"
+  description = "Map of DNS SRV records. Use the same value as \"var.domain\" for top level domain"
   default     = {}
 }
