@@ -17,14 +17,14 @@ resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
   acl           = "private"
   region        = data.opentelekomcloud_identity_project_v3.current.region
   force_destroy = true
-  versioning = true
+  versioning    = true
   server_side_encryption {
     algorithm  = "aws:kms"
     kms_key_id = opentelekomcloud_kms_key_v1.encrypted_cts_key.id
   }
   lifecycle_rule {
     enabled = true
-    name = "cts-lifecycle"
+    name    = "cts-lifecycle"
     expiration {
       days = 180
     }
@@ -40,4 +40,5 @@ resource "opentelekomcloud_cts_tracker_v1" "cloud_tracing_service_tracker_v1" {
   operations                = []        # Required. Trigger conditions for sending a notification. (we don't send notifications)
   topic_id                  = ""        # Required. The theme of the SMN service.
   project_name              = var.project_name
+  depends_on                = [opentelekomcloud_obs_bucket.cloud_tracing_service]
 }
