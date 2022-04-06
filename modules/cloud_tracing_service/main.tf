@@ -17,15 +17,14 @@ resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
   acl           = "private"
   region        = data.opentelekomcloud_identity_project_v3.current.region
   force_destroy = true
+  versioning = true
   server_side_encryption {
     algorithm  = "aws:kms"
     kms_key_id = opentelekomcloud_kms_key_v1.encrypted_cts_key.id
   }
-  versioning {
-    enabled = false
-  }
   lifecycle_rule {
     enabled = true
+    name = "cts-lifecycle"
     expiration {
       days = 180
     }
