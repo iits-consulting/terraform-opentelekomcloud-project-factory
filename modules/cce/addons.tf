@@ -42,12 +42,11 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
 resource "opentelekomcloud_cce_addon_v3" "metrics" {
   template_name    = "metrics-server"
-  template_version = "1.0.6"
+  template_version = "1.1.4"
   cluster_id       = opentelekomcloud_cce_cluster_v3.cluster.id
 
   values {
     basic = {
-      "image_version" = "v0.3.7"
       "swr_addr"      = "100.125.7.25:20202"
       "swr_user"      = "hwofficial"
     }
