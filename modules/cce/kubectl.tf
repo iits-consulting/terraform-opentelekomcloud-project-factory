@@ -2,7 +2,7 @@ locals {
   client_key_data                    = opentelekomcloud_cce_cluster_v3.cluster.certificate_users[0].client_key_data
   client_certificate_data            = opentelekomcloud_cce_cluster_v3.cluster.certificate_users[0].client_certificate_data
   kubectl_external_server            = opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[1].server
-  cluster_certificate_authority_data = opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[1].certificate_authority_data
+  cluster_certificate_authority_data = opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[0].certificate_authority_data
   kubectl_config = yamlencode({
     apiVersion = "v1"
     clusters = [

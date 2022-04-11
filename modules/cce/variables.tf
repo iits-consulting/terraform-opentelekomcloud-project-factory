@@ -99,12 +99,12 @@ locals {
     cpu_upper_bound = 0.8
     mem_upper_bound = 0.8
     lower_bound     = 0.2
-    version         = "1.19.7"
+    version         = "1.21.1"
   })
 }
 
 variable "metrics_server_version" {
   type        = string
   description = "Version of the Metrics Server Addon Template (default: 1.1.4)"
-  default     = "1.1.4"
+  default     = "1.1.10"
 }
