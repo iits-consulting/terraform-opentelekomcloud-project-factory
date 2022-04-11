@@ -42,7 +42,7 @@ resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
 
   availability_zone = "eu-de-03"
   key_name          = opentelekomcloud_compute_keypair_v2.jumphost_keypair.name
-  security_groups   = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id]
+  security_groups   = concat([opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id], var.additional_security_groups)
   timeouts {
     create = "20m"
     delete = "20m"

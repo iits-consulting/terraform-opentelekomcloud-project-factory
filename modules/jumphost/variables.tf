@@ -54,6 +54,12 @@ variable "trusted_ssh_origins" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "additional_security_groups" {
+  type        = list(string)
+  description = "Additional security group IDs for Jumphost."
+  default     = []
+}
+
 variable "users_config_path" {
   description = "Path to authorised users configuration file. Cloud-init cloud config format is expected."
   default     = ""

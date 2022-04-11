@@ -1,12 +1,5 @@
-resource "random_password" "icagentinstallerpw" {
-  length           = 16
-  special          = true
-  override_special = "_%@"
-}
-
 resource "opentelekomcloud_identity_user_v3" "icagentinstaller" {
-  name     = "icagentinstaller"
-  password = random_password.icagentinstallerpw.result
+  name = "icagentinstaller"
 }
 
 data "opentelekomcloud_identity_role_v3" "apm_admin" {
@@ -19,8 +12,7 @@ resource "opentelekomcloud_identity_group_v3" "apm_admins" {
 
 resource "opentelekomcloud_identity_group_membership_v3" "apm_admins" {
   group = opentelekomcloud_identity_group_v3.apm_admins.id
-  users = [
-  opentelekomcloud_identity_user_v3.icagentinstaller.id]
+  users = [opentelekomcloud_identity_user_v3.icagentinstaller.id]
 }
 
 resource "opentelekomcloud_identity_role_assignment_v3" "icagentinstaller_apm_admin" {
