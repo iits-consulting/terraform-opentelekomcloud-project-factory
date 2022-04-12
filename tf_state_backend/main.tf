@@ -3,7 +3,7 @@ terraform {
   required_providers {
     opentelekomcloud = {
       source  = "opentelekomcloud/opentelekomcloud"
-      version = "1.27.2"
+      version = "1.29.0"
     }
   }
 }
@@ -37,7 +37,7 @@ resource "opentelekomcloud_obs_bucket" "tf_remote_state" {
   acl        = "private"
   versioning = true
   server_side_encryption {
-    algorithm  = "aws:kms"
+    algorithm  = "kms"
     kms_key_id = opentelekomcloud_kms_key_v1.tf_remote_state_bucket_kms_key.id
   }
 }

@@ -19,7 +19,7 @@ resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
   force_destroy = true
   versioning    = true
   server_side_encryption {
-    algorithm  = "aws:kms"
+    algorithm  = "kms"
     kms_key_id = opentelekomcloud_kms_key_v1.encrypted_cts_key.id
   }
   lifecycle_rule {

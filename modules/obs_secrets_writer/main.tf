@@ -16,7 +16,7 @@ resource "opentelekomcloud_obs_bucket" "secrets" {
   versioning = true
   tags       = var.tags
   server_side_encryption {
-    algorithm  = "aws:kms"
+    algorithm  = "kms"
     kms_key_id = opentelekomcloud_kms_key_v1.encrypted_secrets_key.id
   }
 }
