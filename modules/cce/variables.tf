@@ -62,6 +62,7 @@ variable "node_config" {
     node_os            = optional(string)       // Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.5)
     node_storage_type  = optional(string)       // Type of node storage SATA, SAS or SSD (default: SATA)
     node_storage_size  = optional(number)       // Size of the node system disk in GB (default: 100)
+    node_postinstall   = optional(string)       // Post install script for the cluster ECS node pool.
   })
 }
 
@@ -71,6 +72,7 @@ locals {
     node_os            = "EulerOS 2.5"
     node_storage_type  = "SATA"
     node_storage_size  = 100
+    node_postinstall   = ""
   })
 }
 

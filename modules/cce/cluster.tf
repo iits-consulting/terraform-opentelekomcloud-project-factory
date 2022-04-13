@@ -61,6 +61,7 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   priority                 = 1
   user_tags                = var.tags
   docker_base_size         = 20
+  postinstall              = local.node_config.node_postinstall
 
   //noinspection HCLUnknownBlockType
   root_volume {
