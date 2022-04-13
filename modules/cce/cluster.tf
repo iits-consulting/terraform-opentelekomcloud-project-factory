@@ -34,7 +34,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   container_network_type  = local.cluster_config.container_network_type
   container_network_cidr  = local.cluster_config.container_cidr
   kubernetes_svc_ip_range = local.cluster_config.service_cidr
-  description             = "Kubernetes Cluster for ${var.context}."
+  description             = "Kubernetes Cluster ${var.name}."
   eip                     = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
   cluster_version         = local.cluster_config.cluster_version
   authentication_mode     = "x509"
