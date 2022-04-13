@@ -1,11 +1,6 @@
-variable "context" {
+variable "name" {
   type        = string
-  description = "Prefix for all OTC resource names"
-}
-
-variable "stage" {
-  type        = string
-  description = "Name of the VPC."
+  description = "CCE cluster name"
 }
 
 variable "tags" {

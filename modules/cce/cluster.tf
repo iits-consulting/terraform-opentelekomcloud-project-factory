@@ -4,14 +4,14 @@ resource "tls_private_key" "cluster_keypair" {
 }
 
 resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
-  name       = "${var.context}-${var.stage}-cluster-keypair"
+  name       = "${var.name}-cluster-keypair"
   public_key = tls_private_key.cluster_keypair.public_key_openssh
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
   bandwidth {
     charge_mode = "traffic"
-    name        = "${var.context}-${var.stage}-cluster-kubectl-endpoint"
+    name        = "${var.name}-cluster-kubectl-endpoint"
     share_type  = "PER"
     size        = 50
   }
@@ -26,7 +26,7 @@ locals {
 }
 
 resource "opentelekomcloud_cce_cluster_v3" "cluster" {
-  name                    = "${var.context}-${var.stage}"
+  name                    = var.name
   cluster_type            = local.cluster_config.cluster_type
   flavor_id               = local.flavor_id
   vpc_id                  = local.cluster_config.vpc_id
@@ -47,7 +47,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
 
 resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   cluster_id         = opentelekomcloud_cce_cluster_v3.cluster.id
-  name               = "${var.context}-${var.stage}-node-pool"
+  name               = "${var.name}-node-pool"
   flavor             = local.node_config.node_flavor
   initial_node_count = local.node_config.node_count
   availability_zone  = local.node_config.availability_zones[0]

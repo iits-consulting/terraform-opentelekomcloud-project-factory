@@ -4,8 +4,7 @@ Usage example
 ```hcl
 module "cce" {
   source             = "iits-consulting/project-factory/opentelekomcloud//modules/cce"
-  context            = local.context
-  stage              = local.stage_name
+  name               = var.name
   autoscaling_config = {
     nodes_max = 8
   }
