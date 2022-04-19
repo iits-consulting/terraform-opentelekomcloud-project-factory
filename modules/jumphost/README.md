@@ -31,3 +31,13 @@ Notes:
 - Please see [example_cloud_init](../../example_cloud_init) for example cloud_init configuration
 - More examples of cloud-init can be found in [Cloud config examples](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
 - For complete documentation of cloud init, please see [cloud-init Documentation](https://cloudinit.readthedocs.io/en/latest/index.html)
+- The jumphost module is designed to ignore changes in the node_image_id parameter. If an image update is intended,
+  please use taint or destroy:
+```bash
+terraform destroy -target module.<module_name>.opentelekomcloud_ecs_instance_v1.jumphost_node
+```
+or
+```bash
+terraform taint module.<module_name>.opentelekomcloud_ecs_instance_v1.jumphost_node
+terraform apply
+```

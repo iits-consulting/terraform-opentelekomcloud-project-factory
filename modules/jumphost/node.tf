@@ -48,6 +48,9 @@ resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
     delete = "20m"
   }
   tags = var.tags
+  lifecycle {
+    ignore_changes = [image_id]
+  }
 }
 
 resource "opentelekomcloud_compute_floatingip_associate_v2" "jumphost_eip_association" {
