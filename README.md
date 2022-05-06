@@ -25,14 +25,13 @@ module "vpc" {
 }
 ```
 
-
 ## Quickstart
 
 As a quick start we recommend using this template: 
 
 - https://github.com/iits-consulting/otc-terraform-template
 
-Then just adjust the showcase/dev/main.tf as you wish
+Then just adjust the set-env.sh and the showcase/dev/main.tf as you wish
 
 ## Common Concepts behind the modules
 
