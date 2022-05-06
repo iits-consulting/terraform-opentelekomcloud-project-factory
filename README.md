@@ -11,72 +11,37 @@ Service!*
 
 ## Usage:
 
-You can import this whole repo as one module (quickstart) or utilize the modules individually (recommended for
-production).
+You pick modules which would like to use like this:
+
+```hcl
+module "vpc" {
+   source     = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+   version    = "4.0.0"
+   name       = "myproject-dev-vpc"
+   cidr_block = "192.168.0.0/16"
+   subnets = {
+      "myproject-dev-subnet" = cidrsubnet("192.168.0.0/16", 1, 0)
+   }
+}
+```
+
 
 ## Quickstart
 
-Set environment variables for the quickstart
+As a quick start we recommend using this template: 
 
-```shell
-# Either your ACCESS_KEY and SECRET_KEY or from a serviceaccount
-export OS_ACCESS_KEY="REPLACE_ME"
-export OS_SECRET_KEY="REPLACE_ME"
-export AWS_ACCESS_KEY_ID=$OS_ACCESS_KEY
-export AWS_SECRET_ACCESS_KEY=$OS_SECRET_KEY
+- https://github.com/iits-consulting/otc-terraform-template
 
-export OS_DOMAIN_NAME="OTC-EU-DE-REPLACE_ME"
-export OS_PROJECT_NAME="eu-de"
-export TF_VAR_project_name=${OS_PROJECT_NAME}
-
-export TF_VAR_region="eu-de"
-
-# Current Stage you are working on for example dev,qa, prod etc.
-export TF_VAR_stage_name="dev"
-#Current Context you are working on can be customer name or cloud name etc.
-export TF_VAR_context_name="showcase"
-```
-
-
-Add a `project-factory` module
-
-```shell
-module "iits-otc-demo" {
-  source  = "iits-consulting/project-factory/opentelekomcloud"
-  version = "2.0.0-alpha"
-  ...
-}
-```
-
-Apply the module
-
-```shell
-terraform init
-terraform apply
-```
-
-## Importing Modules Individually
-
-```terraform
-module "vpc" {
-  source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
-  version               = "2.0.0-alpha"
-  vpc_cidr              = local.vpc_cidr
-  vpc_name              = "vpc-otc-demo-dev"
-  stage_name            = "dev"
-  vpc_subnet_cidr       = local.vpc_cidr
-  vpc_subnet_gateway_ip = local.vpc_subnet_gateway_ip
-}
-```
+Then just adjust the showcase/dev/main.tf as you wish
 
 ## Common Concepts behind the modules
 
 There are some variables that occur on multiple modules. The ideas behind them are explained here.
 
-| Variable       | Description                          | Example                       |
-|:---------------|:-------------------------------------|:------------------------------|
-| `context_name` | A human-readable name of the project | `website`, `payments-service` |
-| `stage   `     | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
+| Variable   | Description                          | Example                       |
+|:-----------|:-------------------------------------|:------------------------------|
+| `context`  | A human-readable name of the project | `website`, `payments-service` |
+| `stage   ` | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
 
 
 ## Recommendations
@@ -87,3 +52,4 @@ There are some variables that occur on multiple modules. The ideas behind them a
 
 2. [Set up a secure remote Terraform state](./tf_state_backend/README.md)
    . Copy the backend output of that module to your `settings.tf` file
+3. Use https://github.com/iits-consulting/otc-infrastructure-charts-template if you want to use ArgoCD (GitOps)
