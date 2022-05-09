@@ -5,7 +5,7 @@ terraform {
       version = ">=1.28.2"
     }
     errorcheck = {
-      source = "rhythmictech/errorcheck"
+      source = "iits-consulting/errorcheck"
     }
   }
 }
