@@ -32,3 +32,9 @@ variable "dns_config" {
   ]
 }
 
+variable "enable_shared_snat" {
+  type        = bool
+  description = "Enable the shared SNAT capability on VPCs in eu-de region. (default: true)"
+  default     = true
+}
+
