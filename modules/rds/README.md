@@ -6,7 +6,7 @@ A module designed to support full capabilities of OTC RDS while simplifying the 
 
 ```hcl
 module "rds" {
-  source  = "iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_writer"
+  source  = "iits-consulting/project-factory/opentelekomcloud//modules/rds"
   version = "4.1.0"
   tags    = var.tags
   name    = "${var.context_name}-${var.stage_name}-db"
