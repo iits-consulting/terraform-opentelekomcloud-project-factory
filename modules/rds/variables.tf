@@ -162,7 +162,7 @@ variable "db_volume_encryption" {
   default     = true
 }
 
-variable "sg_allowed_ips" {
+variable "sg_allowed_cidr" {
   type        = set(string)
   description = "CIDR ranges that are allowed to connect to the database. (default: <var.subnet_id.cidr>)"
   default     = []
@@ -173,7 +173,7 @@ data "opentelekomcloud_vpc_subnet_v1" "db_subnet" {
 }
 
 locals {
-  sg_allowed_ips = length(var.sg_allowed_ips) == 0 ? toset([data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr]) : var.sg_allowed_ips
+  sg_allowed_cidr = length(var.sg_allowed_cidr) == 0 ? toset([data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr]) : var.sg_allowed_cidr
 }
 
 variable "sg_allowed_secgroups" {

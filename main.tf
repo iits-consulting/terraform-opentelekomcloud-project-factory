@@ -36,9 +36,8 @@ module "cce_autocreation" {
 }
 
 module "cce" {
-  source  = "./modules/cce"
-  context = var.context_name
-  stage   = var.stage_name
+  source = "./modules/cce"
+  name   = "${var.context_name}-${var.stage_name}-cce"
   autoscaling_config = {
     nodes_max = 8
   }
@@ -96,4 +95,22 @@ module "stage_secrets_from_encrypted_s3_bucket" {
     "client_key_data",
   ]
   depends_on = [module.stage_secrets_to_encrypted_s3_bucket]
+}
+
+module "rds" {
+  source = "./modules/rds"
+  tags   = var.tags
+  name   = "${var.context_name}-${var.stage_name}-db"
+
+  vpc_id                 = module.vpc.vpc.id
+  subnet_id              = values(module.vpc.subnets)[0].id
+  db_type                = "PostgreSQL"
+  db_version             = "12"
+  db_cpus                = "4"
+  db_memory              = "16"
+  db_high_availability   = true
+  db_ha_replication_mode = "async"
+  db_parameters = {
+    max_connections = "100",
+  }
 }

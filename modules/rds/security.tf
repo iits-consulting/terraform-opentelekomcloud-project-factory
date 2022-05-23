@@ -38,7 +38,7 @@ resource "opentelekomcloud_networking_secgroup_rule_v2" "db_allow_out" {
 }
 
 resource "opentelekomcloud_networking_secgroup_rule_v2" "db_allow_cidr" {
-  for_each          = var.sg_secgroup_id == "" ? local.sg_allowed_ips : toset([])
+  for_each          = var.sg_secgroup_id == "" ? local.sg_allowed_cidr : toset([])
   direction         = "ingress"
   port_range_min    = local.db_port
   port_range_max    = local.db_port

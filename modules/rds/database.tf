@@ -6,9 +6,14 @@ resource "random_password" "db_root_password" {
   min_upper   = 1
 }
 
+resource "random_id" "id" {
+  count       = var.db_volume_encryption ? 1 : 0
+  byte_length = 4
+}
+
 resource "opentelekomcloud_kms_key_v1" "db_encryption_key" {
   count           = var.db_volume_encryption ? 1 : 0
-  key_alias       = "${var.name}-key"
+  key_alias       = "${var.name}-${random_id.id[0].hex}"
   key_description = "${var.name} RDS volume encryption key"
   pending_days    = 7
   is_enabled      = "true"

@@ -21,9 +21,14 @@ resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
   }
 }
 
+resource "random_id" "id" {
+  count       = local.node_config.node_storage_encryption_enabled ? 1 : 0
+  byte_length = 4
+}
+
 resource "opentelekomcloud_kms_key_v1" "node_storage_encryption_key" {
   count           = local.node_config.node_storage_encryption_enabled ? 1 : 0
-  key_alias       = "${var.name}-node-pool-storage-key"
+  key_alias       = "${var.name}-node-pool-${random_id.id[0].hex}"
   key_description = "${var.name} CCE Node Pool volume encryption key"
   pending_days    = 7
   is_enabled      = "true"
