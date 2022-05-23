@@ -1,4 +1,6 @@
-## Module to auto create VPC and multiple Subnet
+## Jumphost Module
+
+A module designed to create SSH jumphosts via OTC ECS for private networks. 
 
 Usage example:
 ```hcl

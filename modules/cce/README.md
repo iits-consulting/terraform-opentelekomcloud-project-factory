@@ -1,4 +1,6 @@
-##Module to auto create VPC and multiple Subnet
+## OTC Cloud Container Engine Terraform module
+
+A module designed to support full capabilities of OTC CCE while simplifying the configuration for ease of use.
 
 Usage example
 ```hcl
