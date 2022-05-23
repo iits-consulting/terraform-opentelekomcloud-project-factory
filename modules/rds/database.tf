@@ -63,7 +63,6 @@ resource "opentelekomcloud_rds_instance_v3" "db_instance" {
     ignore_changes = [db, nodes, private_ips]
   }
   depends_on = [
-    errorcheck_is_valid.db_version_constraint,
     errorcheck_is_valid.db_flavor_constraint,
     errorcheck_is_valid.db_ha_replication_mode_constraint,
     data.opentelekomcloud_rds_flavors_v3.db_flavor,

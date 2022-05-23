@@ -40,18 +40,6 @@ variable "db_version" {
   description = "RDS database product version."
 }
 
-data "opentelekomcloud_rds_versions_v3" "db_versions" {
-  database_name = var.db_type
-}
-
-resource "errorcheck_is_valid" "db_version_constraint" {
-  name = "Check if version is supported on OTC."
-  test = {
-    assert        = contains(data.opentelekomcloud_rds_versions_v3.db_versions.versions, var.db_version)
-    error_message = "ERROR! Supported versions for database type ${var.db_type} are: [${join(", ", data.opentelekomcloud_rds_versions_v3.db_versions.versions)}]"
-  }
-}
-
 variable "db_port" {
   type        = string
   description = "Port number for accessing the database. Default ports are: 3306(MySQL), 5432(PostgreSQL) and 1433(SQLServer)"
@@ -137,7 +125,7 @@ resource "errorcheck_is_valid" "db_flavor_constraint" {
 variable "db_size" {
   type        = number
   description = "Amount of storage desired for the database in GB. (default: 10)"
-  default     = 10
+  default     = 100
 }
 
 variable "db_storage_type" {
@@ -164,7 +152,7 @@ variable "db_backup_interval" {
 
 variable "db_parameters" {
   type        = map(string)
-  description = "A map of additional parameters for the database instance."
+  description = "A map of additional parameters for the database instance. Check the DB Engine's documentation."
   default     = {}
 }
 

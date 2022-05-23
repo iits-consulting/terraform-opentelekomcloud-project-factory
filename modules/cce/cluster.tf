@@ -21,6 +21,14 @@ resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
   }
 }
 
+resource "opentelekomcloud_kms_key_v1" "node_storage_encryption_key" {
+  count           = local.node_config.node_storage_encryption_enabled ? 1 : 0
+  key_alias       = "${var.name}-node-pool-storage-key"
+  key_description = "${var.name} CCE Node Pool volume encryption key"
+  pending_days    = 7
+  is_enabled      = "true"
+}
+
 locals {
   flavor_id = "cce.${local.cluster_config.cluster_type == "BareMetal" ? "t" : "s"}${local.cluster_config.high_availability ? 2 : 1}.${lower(local.cluster_config.cluster_size)}"
 }
@@ -63,15 +71,15 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   docker_base_size         = 20
   postinstall              = local.node_config.node_postinstall
 
-  //noinspection HCLUnknownBlockType
   root_volume {
     size       = 50
     volumetype = "SSD"
   }
-  //noinspection HCLUnknownBlockType
+
   data_volumes {
     size       = local.node_config.node_storage_size
     volumetype = local.node_config.node_storage_type
+    kms_id     = local.node_config.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : null
   }
 
   lifecycle {

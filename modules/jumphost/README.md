@@ -3,7 +3,7 @@
 Usage example:
 ```hcl
 module "vpc" {
-  source                = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  source     = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
   cidr_block = local.vpc_cidr
   name       = "vpc-demo"
   subnets    = {
