@@ -49,19 +49,19 @@ There are some variables that occur on multiple modules. The ideas behind them a
 
    ![terraform-architecture](https://raw.githubusercontent.com/iits-consulting/terraform-opentelekomcloud-project-factory/master/docs/terraform-architecture.png?token=ANLMHOIDTUQL6GGQVNHTC7DAZNHMI)
 
-2. [Set up a secure remote Terraform state](./tf_state_backend/README.md)
+2. [Set up a secure remote Terraform state](./tf_state_backend)
    . Copy the backend output of that module to your `settings.tf` file
 3. Use https://github.com/iits-consulting/otc-infrastructure-charts-template if you want to use ArgoCD (GitOps)
 
 ## Currently Available Modules
-- [ACME:](./modules/acme/README.md) Create, sign and update HTTPS certificates via OTC DNS
-- [CCE:](./modules/cce/README.md) A module designed to support full capabilities of OTC CCE while simplifying the configuration for ease of use.
-- [cloud_tracing_service:](./modules/cloud_tracing_service/README.md)This module enables the Cloud Tracing functionality in the OTC.
-- [jumphost:](./modules/jumphost/README.md) A module designed to create SSH jumphosts via OTC ECS for private networks.
-- [loadbalancer:](./modules/loadbalancer/README.md) Module for creating an OTC ELB resource with public EIP
-- [obs_secrets_reader:](./modules/obs_secrets_reader/README.md) This modules reads JSON formatted secrets from an OBS bucket.
-- [obs_secrets_writer:](./modules/obs_secrets_writer/README.md) This modules creates an OBS Bucket with KMS SSE default encryption and a JSON encoded secrets file within the bucket.
-- [private_dns:](./modules/private_dns/README.md) Create and manage a private DNS zone within you VPC
-- [rds:](./modules/rds/README.md) A module designed to support full capabilities of OTC RDS while simplifying the configuration for ease of use.
+- [ACME:](./modules/acme) Create, sign and update HTTPS certificates via OTC DNS
+- [CCE:](./modules/cce) A module designed to support full capabilities of OTC CCE while simplifying the configuration for ease of use.
+- [cloud_tracing_service:](./modules/cloud_tracing_service)This module enables the Cloud Tracing functionality in the OTC.
+- [jumphost:](./modules/jumphost) A module designed to create SSH jumphosts via OTC ECS for private networks.
+- [loadbalancer:](./modules/loadbalancer) Module for creating an OTC ELB resource with public EIP
+- [obs_secrets_reader:](./modules/obs_secrets_reader) This modules reads JSON formatted secrets from an OBS bucket.
+- [obs_secrets_writer:](./modules/obs_secrets_writer) This modules creates an OBS Bucket with KMS SSE default encryption and a JSON encoded secrets file within the bucket.
+- [private_dns:](./modules/private_dns) Create and manage a private DNS zone within you VPC
+- [rds:](./modules/rds) A module designed to support full capabilities of OTC RDS while simplifying the configuration for ease of use.
 - [snat:](./modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
-- [waf:](./modules/waf/README.md) Create Web Application Firewall for a Domain
+- [waf:](./modules/waf) Create Web Application Firewall for a Domain
