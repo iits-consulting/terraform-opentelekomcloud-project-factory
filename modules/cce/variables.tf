@@ -102,6 +102,6 @@ locals {
 
 variable "metrics_server_version" {
   type        = string
-  description = "Version of the Metrics Server Addon Template (default: 1.1.4)"
+  description = "Version of the Metrics Server Addon Template (default: 1.1.10)"
   default     = "1.1.10"
 }

@@ -18,3 +18,7 @@ output "db_root_username" {
 output "sg_secgroup_id" {
   value = opentelekomcloud_rds_instance_v3.db_instance.security_group_id
 }
+
+output "db_instance_ids" {
+  value = opentelekomcloud_rds_instance_v3.db_instance.nodes[*].id
+}

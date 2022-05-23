@@ -9,7 +9,7 @@ resource "random_password" "db_root_password" {
 resource "opentelekomcloud_kms_key_v1" "db_encryption_key" {
   count           = var.db_volume_encryption ? 1 : 0
   key_alias       = "${var.name}-key"
-  key_description = "${var.name} volume encryption key"
+  key_description = "${var.name} RDS volume encryption key"
   pending_days    = 7
   is_enabled      = "true"
 }
@@ -71,9 +71,9 @@ resource "opentelekomcloud_rds_instance_v3" "db_instance" {
 }
 
 resource "opentelekomcloud_ces_alarmrule" "db_storage_alarm" {
-  count       = var.db_storage_alarm_threshold != 0 ? var.db_high_availability ? 2 : 1 : 0
+  count       = var.db_storage_alarm_threshold > 0 ? var.db_high_availability ? 2 : 1 : 0
   alarm_level = 2
-  alarm_name  = replace("${var.name}-RDS-storage-alarm", "-", "_")
+  alarm_name  = replace("${var.name}-storage-alarm", "-", "_")
   metric {
     namespace   = "SYS.RDS"
     metric_name = "rds039_disk_util"

@@ -188,8 +188,6 @@ locals {
   sg_allowed_ips = length(var.sg_allowed_ips) == 0 ? toset([data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr]) : var.sg_allowed_ips
 }
 
-
-
 variable "sg_allowed_secgroups" {
   type        = set(string)
   description = "Security groups that are allowed to connect to the database. (default: [])"
