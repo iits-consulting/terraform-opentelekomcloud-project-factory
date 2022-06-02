@@ -5,9 +5,15 @@ on: [ push, pull_request ]
 jobs:
   delivery:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
-      - name: Check out code
-        uses: actions/checkout@main
+      - name: Clone repo
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Lint Terraform
         uses: actionshub/terraform-lint@1.0.0
       - name: tfsec
