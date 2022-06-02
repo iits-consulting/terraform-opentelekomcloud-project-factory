@@ -114,3 +114,21 @@ module "rds" {
     max_connections = "100",
   }
 }
+
+module "snat" {
+  source      = "./modules/snat"
+  name_prefix = "${var.context_name}-${var.stage_name}"
+  subnet_id   = module.vpc.subnets["subnet-${var.stage_name}"].id
+  vpc_id      = module.vpc.vpc.id
+}
+
+module "snat2" {
+  source      = "./modules/snat"
+  name_prefix = "${var.context_name}-${var.stage_name}"
+  subnet_id   = module.vpc.subnets["subnet-0"].id
+  vpc_id      = module.vpc.vpc.id
+  // Example to add all subnets but "subnet-2"
+  network_ids = [for name, subnet in module.vpc.subnets: subnet.id if name != "subnet-2"]
+  // Example to add all subnets
+  network_ids =
+}
