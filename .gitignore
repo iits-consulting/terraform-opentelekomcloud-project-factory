@@ -38,6 +38,7 @@ build
 .vscode/
 
 ### Helm ###
+/**/.terraform.lock.hcl
 /**/.terraform.tfstate.lock.info
 /**/terraform.tfstate
 /**/terraform.tfstate.d/dev/terraform.tfstate
