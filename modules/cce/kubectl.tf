@@ -37,3 +37,7 @@ locals {
     ]
   })
 }
+
+data "opentelekomcloud_cce_cluster_kubeconfig_v3" "kubeconfig" {
+  cluster_id = opentelekomcloud_cce_cluster_v3.cluster.id
+}
