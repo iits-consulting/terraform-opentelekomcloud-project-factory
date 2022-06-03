@@ -24,6 +24,10 @@ output "cluster_name" {
   value = opentelekomcloud_cce_cluster_v3.cluster.name
 }
 
+output "local_kubeconfig" {
+  value = local.kubectl_config
+}
+
 output "kubeconfig" {
   value = jsondecode(data.opentelekomcloud_cce_cluster_kubeconfig_v3.kubeconfig.kubeconfig)
 }

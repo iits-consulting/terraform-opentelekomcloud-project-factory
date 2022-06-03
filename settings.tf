@@ -15,7 +15,3 @@ terraform {
     }
   }
 }
-
-provider "opentelekomcloud" {
-  cloud = "tf"
-}
