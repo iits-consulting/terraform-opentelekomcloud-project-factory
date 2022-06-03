@@ -1,8 +1,8 @@
 locals {
   file_paths = setunion(
     length(var.users_config_path) == 0 ? [] : [var.users_config_path],
-    length(var.cloud_init_path) == 0 ? [] : fileset(var.cloud_init_path, "*.{yml,yaml}"))
-  cloudinit_config = join("\n", concat(["#cloud-config"], [for path in local.file_paths: file(path)]))
+  length(var.cloud_init_path) == 0 ? [] : fileset(var.cloud_init_path, "*.{yml,yaml}"))
+  cloudinit_config = join("\n", concat(["#cloud-config"], [for path in local.file_paths : file(path)]))
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
