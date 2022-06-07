@@ -27,6 +27,12 @@ module "cce" {
 }
 ```
 
+> **WARNING:** The parameter `node_config.node_storage_encryption_enabled` should be kept as `false` unless an agency for EVS is created with:
+> - Agency Name = `EVSAccessKMS`
+> - Agency Type = `Account`
+> - Delegated Account = `op_svc_evs`
+> - Permissions = `KMS Administrator` within the project
+
 #### Testing Scaling up and down
 
 We first test the scaling up by adding a test deployment:
