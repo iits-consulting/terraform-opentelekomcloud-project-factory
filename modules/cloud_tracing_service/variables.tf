@@ -13,7 +13,7 @@ variable "project_name" {
 }
 
 variable "cts_expiration_days" {
-  type = number
-  default = 180
+  type        = number
+  default     = 180
   description = "How long should the data be preserved within the OBS bucket (in days). default: 180"
 }
