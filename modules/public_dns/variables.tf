@@ -4,14 +4,14 @@ variable "tags" {
   default     = {}
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "VPC ID to associate this private DNS zone with."
-}
-
 variable "domain" {
   type        = string
-  description = "The domain name to create private DNS zone for."
+  description = "The public domain to create public DNS zone for."
+}
+
+variable "email" {
+  type        = string
+  description = "The email address to create public DNS zone with."
 }
 
 variable "a_records" {
@@ -44,14 +44,20 @@ variable "txt_records" {
   default     = {}
 }
 
-variable "ptr_records" {
-  type        = map(list(string))
-  description = "Map of DNS SRV records. Map IP addresses to domains."
-  default     = {}
-}
-
 variable "srv_records" {
   type        = map(list(string))
   description = "Map of DNS SRV records. Record servers providing specific services."
+  default     = {}
+}
+
+variable "ns_records" {
+  type        = map(list(string))
+  description = "Map of DNS NS records. Delegate subdomains to other name servers."
+  default     = {}
+}
+
+variable "caa_records" {
+  type        = map(list(string))
+  description = "Map of DNS CAA records. Grant certificate issuing permissions to CAs."
   default     = {}
 }

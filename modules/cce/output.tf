@@ -8,7 +8,7 @@ output "node_pool_id" {
 
 output "cluster_credentials" {
   value = {
-    kubectl_config                     = local.kubectl_config
+    kubectl_config                     = local.kubectl_config_yaml
     client_key_data                    = local.client_key_data
     client_certificate_data            = local.client_certificate_data
     kubectl_external_server            = local.kubectl_external_server
@@ -25,5 +25,13 @@ output "cluster_name" {
 }
 
 output "kubeconfig" {
-  value = local.kubectl_config
+  value = local.kubectl_config_yaml
+}
+
+output "kubeconfig_yaml" {
+  value = local.kubectl_config_yaml
+}
+
+output "kubeconfig_json" {
+  value = local.kubectl_config_json
 }
