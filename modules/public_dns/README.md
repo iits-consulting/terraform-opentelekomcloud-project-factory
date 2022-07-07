@@ -13,7 +13,7 @@ module "public_dns" {
   domain = "my_domain.com"
   email  = "my_email@my_domain.com"
   a_records = {
-    my_subdomain                        = [module.example-loadbalancer.elb_public_ip]
+    my_subdomain                  = [module.example-loadbalancer.elb_public_ip]
     "my_domain.com"               = [module.example-loadbalancer.elb_public_ip]
   }
 }
