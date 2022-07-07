@@ -3,23 +3,38 @@
 Usage Example:
 
 ```hcl
+module "example-vpc" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  ...
+}
+
+module "example-db" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/rds"
+  ...
+}
+
 module "private_dns" {
   source = "iits-consulting/project-factory/opentelekomcloud//modules/private_dns"
-  domain = "my_domain.iits.tech"
+  vpc_id = module.example-vpc.vpc.id
+  domain = "myprivate.endpoints"
   a_records = {
-    mysql_db                            = ["0.1.2.3", "3.4.5.6"]
-    postgres                            = ["7.8.9.10"]
-    google                              = ["142.251.36.238"]
-    my_subdomain                        = ["151.101.1.140"]
-    "my_domain.iits.tech"               = ["127.0.0.1"]
-    "fullsubdomain.my_domain.iits.tech" = ["8.8.8.8"]
+    my_database = [module.example-db.db_private_ip]
   }
-  aaaa_records = {
-    google = ["2a00:1450:4016:80a::200e"]
-  }
-  vpc_id = var.vpc_id
 }
 ```
 Notes:
 - This module requires the VPC subnet to use OTC internal DNS servers 100.125.4.25 100.125.129.199 (defaults of OTC).
-- Module accepts both subdomain prefixes and full domain names as record keys
+- Module accepts both subdomain prefixes and full domain names as record keys:
+```hcl
+// Both of these are valid and equivalent for domain = myprivate.endpoints
+my_database                       = [<IP_ADDR>]
+"my_database.myprivate.endpoints" = [<IP_ADDR>]
+```
+- For the top level domain, records can be created by referencing it by the full domain name:
+```hcl
+"myprivate.endpoints" = [<IP_ADDR>]
+```
+- All records support a list of values as long as it is allowed by the OTC DNS:
+```hcl
+my_cluster = [<IP_ADDR_1>, <IP_ADDR_2>, ...]
+```

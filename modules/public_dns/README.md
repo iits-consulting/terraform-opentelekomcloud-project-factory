@@ -3,20 +3,18 @@
 Usage Example:
 
 ```hcl
+module "example-loadbalancer" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/loadbalancer"
+  ...
+}
+
 module "public_dns" {
   source = "iits-consulting/project-factory/opentelekomcloud//modules/public_dns"
-  domain = "my_domain.iits.tech"
-  email  = "my_email@my_domain.iits.tech"
+  domain = "my_domain.com"
+  email  = "my_email@my_domain.com"
   a_records = {
-    mysql_db                            = ["0.1.2.3", "3.4.5.6"]
-    postgres                            = ["7.8.9.10"]
-    google                              = ["142.251.36.238"]
-    my_subdomain                        = ["151.101.1.140"]
-    "my_domain.iits.tech"               = ["127.0.0.1"]
-    "fullsubdomain.my_domain.iits.tech" = ["8.8.8.8"]
-  }
-  aaaa_records = {
-    google = ["2a00:1450:4016:80a::200e"]
+    my_subdomain                        = [module.example-loadbalancer.elb_public_ip]
+    "my_domain.com"               = [module.example-loadbalancer.elb_public_ip]
   }
 }
 ```
@@ -26,4 +24,17 @@ Notes:
 ns1.open-telekom-cloud.com
 ns2.open-telekom-cloud.com
 ```
-- Module accepts both subdomain prefixes and full domain names as record keys
+- Module accepts both subdomain prefixes and full domain names as record keys:
+```hcl
+// Both of these are valid and equivalent for domain = my_domain.com
+my_subdomain                 = [<IP_ADDR>]
+"my_subdomain.my_domain.com" = [<IP_ADDR>]
+```
+- For the top level domain, records can be created by referencing it by the full domain name:
+```hcl
+"my_domain.com" = [<IP_ADDR>]
+```
+- All records support a list of values as long as it is allowed by the OTC DNS:
+```hcl
+my_cluster = [<IP_ADDR_1>, <IP_ADDR_2>, ...]
+```
