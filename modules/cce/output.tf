@@ -35,3 +35,7 @@ output "kubeconfig_yaml" {
 output "kubeconfig_json" {
   value = local.kubectl_config_json
 }
+
+output "container_network_cidr" {
+  value = opentelekomcloud_cce_cluster_v3.cluster.container_network_cidr
+}
