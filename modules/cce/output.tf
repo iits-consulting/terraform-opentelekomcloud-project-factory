@@ -35,3 +35,7 @@ output "kubeconfig_yaml" {
 output "kubeconfig_json" {
   value = local.kubectl_config_json
 }
+
+output "sg_node" {
+  value = opentelekomcloud_cce_cluster_v3.cluster.security_group_node
+}
