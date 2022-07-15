@@ -36,6 +36,6 @@ output "kubeconfig_json" {
   value = local.kubectl_config_json
 }
 
-output "sg_node" {
+output "node_sg_id" {
   value = opentelekomcloud_cce_cluster_v3.cluster.security_group_node
 }
