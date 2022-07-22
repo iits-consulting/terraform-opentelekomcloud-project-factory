@@ -1,11 +1,11 @@
 module "cloud_tracing_service" {
-  source       = "./modules/cloud_tracing_service"
+  source       = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cloud_tracing_service"
   bucket_name  = "${replace(var.otc_project_name, "_", "-")}-cloud-tracing-service-bucket"
   project_name = var.otc_project_name
 }
 
 module "vpc" {
-  source     = "./modules/vpc"
+  source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
   cidr_block = var.vpc_cidr
   name       = "vpc-${var.context_name}-${var.stage_name}"
   subnets = {
@@ -20,7 +20,7 @@ data "opentelekomcloud_images_image_v2" "ubuntu" {
 }
 
 module "jumphost" {
-  source            = "./modules/jumphost"
+  source            = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/jumphost"
   vpc_id            = module.vpc.vpc.id
   subnet_id         = values(module.vpc.subnets)[0].id
   node_name         = "jumphost-${var.context_name}-${var.stage_name}"
@@ -31,12 +31,12 @@ module "jumphost" {
 
 module "cce_autocreation" {
   count   = var.enable_cce_autocreation ? 1 : 0
-  source  = "./modules/cce_auto_creation"
+  source  = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cce_auto_creation"
   project = data.opentelekomcloud_identity_project_v3.otc_project.name
 }
 
 module "cce" {
-  source = "./modules/cce"
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cce"
   name   = "${var.context_name}-${var.stage_name}-cce"
   autoscaling_config = {
     nodes_max = 8
@@ -58,14 +58,14 @@ module "cce" {
 }
 
 module "loadbalancer" {
-  source       = "./modules/loadbalancer"
+  source       = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/loadbalancer"
   stage_name   = var.stage_name
   subnet_id    = values(module.vpc.subnets)[0].subnet_id
   context_name = var.context_name
 }
 
 module "stage_secrets_to_encrypted_s3_bucket" {
-  source            = "./modules/obs_secrets_writer"
+  source            = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_writer"
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_key = "terraform-secrets"
   secrets = {
@@ -82,7 +82,7 @@ module "stage_secrets_to_encrypted_s3_bucket" {
 }
 
 module "stage_secrets_from_encrypted_s3_bucket" {
-  source            = "./modules/obs_secrets_reader"
+  source            = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_reader"
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_key = "terraform-secrets-test"
   required_secrets = [
@@ -98,7 +98,7 @@ module "stage_secrets_from_encrypted_s3_bucket" {
 }
 
 module "rds" {
-  source = "./modules/rds"
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/rds"
   tags   = var.tags
   name   = "${var.context_name}-${var.stage_name}-db"
 
@@ -116,7 +116,7 @@ module "rds" {
 }
 
 module "snat" {
-  source      = "./modules/snat"
+  source      = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/snat"
   name_prefix = "${var.context_name}-${var.stage_name}"
   subnet_id   = module.vpc.subnets["subnet-${var.stage_name}"].id
   vpc_id      = module.vpc.vpc.id

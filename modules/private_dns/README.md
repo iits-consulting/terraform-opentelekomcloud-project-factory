@@ -14,7 +14,7 @@ module "example-db" {
 }
 
 module "private_dns" {
-  source = "iits-consulting/project-factory/opentelekomcloud//modules/private_dns"
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/private_dns"
   vpc_id = module.example-vpc.vpc.id
   domain = "myprivate.endpoints"
   a_records = {

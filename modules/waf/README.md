@@ -4,7 +4,7 @@ Usage Example:
 
 ```hcl
 module "certificate" {
-  source                  = "iits-consulting/project-factory/opentelekomcloud//modules/acme"
+  source                  = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/acme"
   cert_registration_email = "certificates@domain.com"
   otc_domain_name         = var.otc_domain_name
   otc_project_name        = var.project_name
@@ -14,7 +14,7 @@ module "certificate" {
 }
 
 module "waf" {
-  source                  = "iits-consulting/project-factory/opentelekomcloud//modules/waf"
+  source                  = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/waf"
   dns_zone_id             = var.dns_zone.id
   domain                  = "subdomain.domain.com"
   certificate             = module.acme_certificate.certificate["domain.com"].certificate

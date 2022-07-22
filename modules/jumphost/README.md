@@ -5,7 +5,7 @@ A module designed to create SSH jumphosts via OTC ECS for private networks.
 Usage example:
 ```hcl
 module "vpc" {
-  source     = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
   cidr_block = local.vpc_cidr
   name       = "vpc-demo"
   subnets    = {
@@ -19,7 +19,7 @@ data "opentelekomcloud_images_image_v2" "ubuntu" {
 }
 
 module "jumphost" {
-  source            = "iits-consulting/project-factory/opentelekomcloud//modules/jumphost"
+  source            = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/jumphost"
   vpc_id            = module.vpc.vpc.id
   subnet_id         = values(module.vpc.subnets)[0].id
   node_name         = "jumphost-demo"

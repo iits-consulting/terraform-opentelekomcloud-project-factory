@@ -19,7 +19,7 @@ provider "opentelekomcloud" {
 
 module "stage_secrets_to_encrypted_s3_bucket" {
   providers = {opentelekomcloud=opentelekomcloud.top_level_project}
-  source            = "iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_writer"
+  source            = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_writer"
   version           = "1.3.4"
   bucket_name       = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_key = "stage-secrets"

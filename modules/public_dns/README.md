@@ -9,7 +9,7 @@ module "example-loadbalancer" {
 }
 
 module "public_dns" {
-  source = "iits-consulting/project-factory/opentelekomcloud//modules/public_dns"
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/public_dns"
   domain = "my_domain.com"
   email  = "my_email@my_domain.com"
   a_records = {

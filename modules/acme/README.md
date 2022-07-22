@@ -4,7 +4,7 @@ Usage Example:
 
 ```hcl
 module "acme_certificate" {
-  source                  = "iits-consulting/project-factory/opentelekomcloud//modules/acme"
+  source                  = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/acme"
   cert_registration_email = "cert-test@iits-consulting.de"
   otc_domain_name         = var.otc_domain_name
   otc_project_name        = var.project_name

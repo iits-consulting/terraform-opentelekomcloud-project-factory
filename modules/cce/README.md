@@ -5,7 +5,7 @@ A module designed to support full capabilities of OTC CCE while simplifying the 
 Usage example
 ```hcl
 module "cce" {
-  source             = "iits-consulting/project-factory/opentelekomcloud//modules/cce"
+  source             = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cce"
   name               = var.name
   autoscaling_config = {
     nodes_max = 8

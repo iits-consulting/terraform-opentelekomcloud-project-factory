@@ -7,7 +7,7 @@ A module designed to create a NAT gateway with SNAT rule to allow internet acces
 ```hcl
 // Example VPC setup with 4 subnets
 module "vpc" {
-  source             = "iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  source             = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
   cidr_block         = var.vpc_cidr
   name               = "vpc-${var.context_name}-${var.stage_name}"
   // Disable shared SNAT on VPC to use dedicated SNAT
@@ -21,7 +21,7 @@ module "vpc" {
 }
 
 module "snat" {
-  source      = "iits-consulting/project-factory/opentelekomcloud//modules/snat"
+  source      = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/snat"
   name_prefix = "${var.context_name}-${var.stage_name}"
   subnet_id   = module.vpc.subnets["subnet-0"].id
   vpc_id      = module.vpc.vpc.id

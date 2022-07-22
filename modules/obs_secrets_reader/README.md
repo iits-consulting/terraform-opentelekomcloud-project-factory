@@ -13,7 +13,7 @@ provider "opentelekomcloud" {
 }
 
 module "stage_secrets_from_encrypted_s3_bucket" {
-  source             = "iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_reader"
+  source             = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/obs_secrets_reader"
   version            = "1.3.4"
   bucket_name        = "${var.context_name}-${var.stage_name}-stage-secrets"
   bucket_object_name = "stage-secrets"
