@@ -4,20 +4,20 @@ variable "name" {
   description = "Name of the ES instance."
 }
 
+variable "vpc_id" {
+  type        = string
+  description = "Id of the VPC to create elasticsearch instance in."
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "Id of the subnet to create elasticsearch instance in."
+}
+
 variable "tags" {
   type        = map(string)
   description = "Common tag set for project resources"
   default     = {}
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "Id of the VPC to create database cluster in."
-}
-
-variable "network_id" {
-  type        = string
-  description = "Id of the subnet to create database cluster in."
 }
 
 variable "sg_secgroup_id" {
@@ -27,7 +27,7 @@ variable "sg_secgroup_id" {
 
 variable "es_availability_zones" {
   type        = list(string)
-  description = "Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively."
+  description = "Availability zones for the elasticsearch instance."
   default     = ["eu-de-01", "eu-de-02", "eu-de-03"]
 }
 
@@ -65,9 +65,11 @@ variable "es_storage_type" {
 
 variable "es_volume_encryption" {
   type        = bool
-  description = "Enable OTC KMS volume encryption for the database volumes. (default: true)"
+  description = "Enable OTC KMS volume encryption for the elasticsearch volumes. (default: true)"
   default     = true
 }
 
-
+data "opentelekomcloud_vpc_subnet_v1" "subnet_1" {
+  id = var.subnet_id
+}
 

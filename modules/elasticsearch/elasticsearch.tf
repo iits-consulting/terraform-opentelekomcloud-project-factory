@@ -24,7 +24,7 @@ resource "opentelekomcloud_css_cluster_v1" "cluster" {
     availability_zone = var.es_availability_zones[1]
     network_info {
       security_group_id = var.sg_secgroup_id
-      network_id        = var.network_id
+      network_id        = data.opentelekomcloud_vpc_subnet_v1.subnet_1.network_id
       vpc_id            = var.vpc_id
     }
     volume {
