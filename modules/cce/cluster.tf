@@ -52,6 +52,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   cluster_version         = local.cluster_config.cluster_version
   authentication_mode     = "x509"
   annotations             = local.cluster_config.install_icagent ? {"cluster.install.addons.external/install": "[{\"addonTemplateName\":\"icagent\"}]"} : null  
+
   timeouts {
     create = "60m"
     delete = "60m"
