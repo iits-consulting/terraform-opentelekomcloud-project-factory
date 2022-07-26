@@ -22,6 +22,7 @@ variable "cluster_config" {
     service_cidr           = optional(string) // Kubernetes service network CIDR range (default: 10.247.0.0/16)
     high_availability      = optional(bool)   // Create the cluster in highly available mode (default: false)
     enable_scaling         = optional(bool)   // Enable autoscaling of the cluster (default: false)
+    install_icagent        = optional(bool)   // install icagent for logging and metrics (default: false)
   })
   validation {
     condition     = contains(["small", "medium", "large"], lower(var.cluster_config.cluster_size == null ? "small" : var.cluster_config.cluster_size))
@@ -50,6 +51,7 @@ locals {
     service_cidr           = "10.247.0.0/16"
     high_availability      = false
     enable_scaling         = false
+    install_icagent        = false
   })
 }
 
