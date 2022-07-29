@@ -3,7 +3,7 @@ output "cluster_lb_public_ip" {
 }
 
 output "node_pool_id" {
-  value = ["${opentelekomcloud_cce_node_pool_v3.cluster_node_pool.*.id}"]
+  value = opentelekomcloud_cce_node_pool_v3.cluster_node_pool[*].id
 }
 
 output "cluster_credentials" {
