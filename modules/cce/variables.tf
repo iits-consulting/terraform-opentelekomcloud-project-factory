@@ -56,7 +56,7 @@ locals {
 variable "node_config" {
   description = "Cluster node configuration parameters"
   type = object({
-    availability_zones              = optional(list(string)) // Availability zones for the node pools. Providing multiple, creates one node pool in each availability zone. (default: ["eu-de-03"])
+    availability_zones              = optional(list(string)) // Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone. (default: ["eu-de-03"])
     node_count                      = number                 // Number of nodes to create
     node_flavor                     = string                 // Node specifications in otc flavor format
     node_os                         = optional(string)       // Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.5)
