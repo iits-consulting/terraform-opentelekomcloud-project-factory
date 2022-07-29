@@ -69,7 +69,7 @@ variable "node_config" {
 
 locals {
   node_config = defaults(var.node_config, {
-    availability_zones              = "eu-de-03"
+    availability_zones              = ["eu-de-03"]
     node_os                         = "EulerOS 2.5"
     node_storage_type               = "SATA"
     node_storage_size               = 100
