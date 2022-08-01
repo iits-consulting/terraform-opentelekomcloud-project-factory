@@ -22,6 +22,7 @@ variable "cluster_config" {
     service_cidr           = optional(string) // Kubernetes service network CIDR range (default: 10.247.0.0/16)
     high_availability      = optional(bool)   // Create the cluster in highly available mode (default: false)
     enable_scaling         = optional(bool)   // Enable autoscaling of the cluster (default: false)
+    install_icagent        = optional(bool)   // install icagent for logging and metrics (default: false)
   })
   validation {
     condition     = contains(["small", "medium", "large"], lower(var.cluster_config.cluster_size == null ? "small" : var.cluster_config.cluster_size))
@@ -50,13 +51,14 @@ locals {
     service_cidr           = "10.247.0.0/16"
     high_availability      = false
     enable_scaling         = false
+    install_icagent        = false
   })
 }
 
 variable "node_config" {
   description = "Cluster node configuration parameters"
   type = object({
-    availability_zones              = optional(list(string)) // Availability zones for the node pool (default: ["eu-de-03"])
+    availability_zones              = optional(list(string)) // Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone. (default: ["eu-de-03"])
     node_count                      = number                 // Number of nodes to create
     node_flavor                     = string                 // Node specifications in otc flavor format
     node_os                         = optional(string)       // Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.5)
@@ -69,7 +71,7 @@ variable "node_config" {
 
 locals {
   node_config = defaults(var.node_config, {
-    availability_zones              = "eu-de-03"
+    availability_zones              = ["eu-de-03"]
     node_os                         = "EulerOS 2.5"
     node_storage_type               = "SATA"
     node_storage_size               = 100
