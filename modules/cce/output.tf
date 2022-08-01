@@ -3,7 +3,7 @@ output "cluster_lb_public_ip" {
 }
 
 output "node_pool_ids" {
-  value = opentelekomcloud_cce_node_pool_v3.cluster_node_pool[*].id
+  value = { for node_pool in opentelekomcloud_cce_node_pool_v3.cluster_node_pool : node_pool.name => node_pool.id }
 }
 
 output "cluster_credentials" {
