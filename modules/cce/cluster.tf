@@ -59,11 +59,12 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
 }
 
 resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
+  count              = length(local.node_config.availability_zones)
   cluster_id         = opentelekomcloud_cce_cluster_v3.cluster.id
-  name               = "${var.name}-node-pool"
+  name               = "${var.name}-nodes-${local.node_config.availability_zones[count.index]}"
   flavor             = local.node_config.node_flavor
   initial_node_count = local.node_config.node_count
-  availability_zone  = local.node_config.availability_zones[0]
+  availability_zone  = local.node_config.availability_zones[count.index]
   key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
   os                 = local.node_config.node_os
 

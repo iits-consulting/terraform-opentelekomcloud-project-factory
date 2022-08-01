@@ -2,8 +2,8 @@ output "cluster_lb_public_ip" {
   value = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
 }
 
-output "node_pool_id" {
-  value = opentelekomcloud_cce_node_pool_v3.cluster_node_pool.id
+output "node_pool_ids" {
+  value = opentelekomcloud_cce_node_pool_v3.cluster_node_pool[*].id
 }
 
 output "cluster_credentials" {
