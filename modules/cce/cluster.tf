@@ -3,8 +3,12 @@ resource "tls_private_key" "cluster_keypair" {
   ecdsa_curve = "P256"
 }
 
+resource "random_id" "cluster_keypair_id" {
+  byte_length = 4
+}
+
 resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
-  name       = "${var.name}-cluster-keypair"
+  name       = "${var.name}-cluster-keypair-${random_id.cluster_keypair_id.hex}"
   public_key = tls_private_key.cluster_keypair.public_key_openssh
 }
 

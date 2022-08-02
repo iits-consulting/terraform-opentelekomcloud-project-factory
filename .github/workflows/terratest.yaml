@@ -1,0 +1,77 @@
+name: Terratest
+
+on: push
+
+jobs:
+  go-tests:
+    name: Run Terratest
+    runs-on: ubuntu-latest
+    container:
+        image: vault
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup && Terratest eu-de
+        shell: sh
+        run: |
+          ###### INSTALL TERRAFORM && GO ######
+          apk update && apk add go wget zip
+          
+          wget -q https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_amd64.zip
+          unzip terraform_1.1.7_linux_amd64.zip && rm terraform_1.1.7_linux_amd64.zip
+          mv terraform /usr/bin/terraform
+          
+          ###### WORKING DIRECTORY ######
+          cd Terratest
+          
+          ###### VAULT LOGIN #####
+          export VAULT_ADDR=${{ secrets.VAULT_ADDR }}
+          export VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }}
+          export VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }}
+          export VAULT_TOKEN=$(vault write -field=token ${{ secrets.VAULT_TOKEN_PATH }} role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID) || true
+          
+          #### OTC CREDENTIALS #####
+          export OS_DOMAIN_NAME=${{ secrets.OS_DOMAIN_NAME }}
+          export OS_ACCESS_KEY=$(vault kv get --field access_key ${{ secrets.OS_KEY_PATH }})
+          export OS_SECRET_KEY=$(vault kv get --field secret_key ${{ secrets.OS_KEY_PATH }})
+          
+          export TF_VAR_region="eu-de"
+          source .envrc
+          
+          ### download go modules
+          go get -t ./...
+          
+          ### run go terratest 
+          go test -v -tags=unit -timeout 90m
+      - name: Setup && Terratest eu-nl
+        shell: sh
+        run: |
+          ###### INSTALL TERRAFORM && GO ######
+          apk update && apk add go wget zip
+          
+          wget -q https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_amd64.zip
+          unzip terraform_1.1.7_linux_amd64.zip && rm terraform_1.1.7_linux_amd64.zip
+          mv terraform /usr/bin/terraform
+          
+          ###### WORKING DIRECTORY ######
+          cd Terratest
+          
+          ###### VAULT LOGIN #####
+          export VAULT_ADDR=${{ secrets.VAULT_ADDR }}
+          export VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }}
+          export VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }}
+          export VAULT_TOKEN=$(vault write -field=token ${{ secrets.VAULT_TOKEN_PATH }} role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID) || true
+          
+          #### OTC CREDENTIALS #####
+          export OS_DOMAIN_NAME=${{ secrets.OS_DOMAIN_NAME }}
+          export OS_ACCESS_KEY=$(vault kv get --field access_key ${{ secrets.OS_KEY_PATH }})
+          export OS_SECRET_KEY=$(vault kv get --field secret_key ${{ secrets.OS_KEY_PATH }})
+          
+          export TF_VAR_region="eu-nl"
+          source .envrc
+          
+          ### download go modules
+          go get -t ./...
+          
+          ### run go terratest 
+          go test -v -tags=unit -timeout 90m

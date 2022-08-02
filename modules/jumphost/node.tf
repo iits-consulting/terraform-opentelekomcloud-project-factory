@@ -1,8 +1,12 @@
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 locals {
   file_paths = setunion(
     length(var.users_config_path) == 0 ? [] : [var.users_config_path],
-  length(var.cloud_init_path) == 0 ? [] : fileset(var.cloud_init_path, "*.{yml,yaml}"))
-  cloudinit_config = join("\n", concat(["#cloud-config"], [for path in local.file_paths : file(path)]))
+    length(var.cloud_init_path) == 0 ? [] : fileset("", "${var.cloud_init_path}/*.{yml,yaml}")
+  )
+  cloudinit_config  = join("\n", concat(["#cloud-config"], [for path in local.file_paths : file(path)]))
+  availability_zone = format("${data.opentelekomcloud_identity_project_v3.current.region}-0%s", var.availability_zone)
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
@@ -33,9 +37,11 @@ resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
   system_disk_type = var.node_storage_type
   system_disk_size = var.node_storage_size
 
-  availability_zone = "eu-de-03"
+  availability_zone = local.availability_zone
   key_name          = opentelekomcloud_compute_keypair_v2.jumphost_keypair.name
-  security_groups   = concat([opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id], var.additional_security_groups)
+  security_groups = concat([
+    opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id
+  ], var.additional_security_groups)
   timeouts {
     create = "20m"
     delete = "20m"

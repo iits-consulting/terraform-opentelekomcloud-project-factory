@@ -69,3 +69,9 @@ variable "cloud_init_path" {
   description = "Path to directory with custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
   default     = ""
 }
+
+variable "availability_zone" {
+  type        = number
+  description = "Availability zone for the node. (default: ...-03 depends on the region)"
+  default     = 3
+}

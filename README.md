@@ -2,6 +2,7 @@
 
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/blob/master/LICENSE)
 ![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/terraform-opentelekomcloud-project-factory.svg)
+[![Terratest](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/actions/workflows/terratest.yaml/badge.svg)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/actions/workflows/terratest.yaml)
 
 These are commonly usable Terraform Modules for the [Open Telekom Cloud](https://open-telekom-cloud.com) based on the
 awesome [Terraform OTC Provider](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs).

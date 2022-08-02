@@ -88,7 +88,7 @@ variable "autoscaling_config" {
     cpu_upper_bound = optional(number) // Cpu utilization upper bound for upscaling (default: 0.8)
     mem_upper_bound = optional(number) // Memory utilization upper bound for upscaling (default: 0.8)
     lower_bound     = optional(number) // Memory AND cpu utilization lower bound for downscaling (default: 0.2)
-    version         = optional(string) // Version of the Autoscaler Addon Template (default: 1.19.7)
+    version         = optional(string) // Version of the Autoscaler Addon Template (default: 1.21.1)
   })
 }
 
