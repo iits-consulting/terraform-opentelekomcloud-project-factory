@@ -65,6 +65,53 @@ locals {
       },
     ]
   }
-  kubectl_config_yaml = local.cluster_config.cluster_is_public ? yamlencode(local.kubectl_config_raw) : "not supported when `cluster_is_public` is set to `false`. Please use https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/data-sources/cce_cluster_kubeconfig_v3"
-  kubectl_config_json = local.cluster_config.cluster_is_public ? jsonencode(local.kubectl_config_raw) : "not supported when `cluster_is_public` is set to `false`. Please use https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/data-sources/cce_cluster_kubeconfig_v3"
+  kubectl_config_raw_internal = {
+    apiVersion = "v1"
+    clusters = [
+      {
+        cluster = {
+          server                     = local.kubectl_internal_server
+          certificate-authority-data = local.cluster_certificate_authority_data
+        }
+        name = "${var.name}-cluster"
+      },
+      {
+        cluster = {
+          insecure-skip-tls-verify = true
+          server                   = local.kubectl_internal_server
+        }
+        name = "${var.name}-cluster-insecure"
+      },
+    ]
+    contexts = [
+      {
+        context = {
+          cluster = "${var.name}-cluster"
+          user    = "terraform"
+        }
+        name = var.name
+      },
+      {
+        context = {
+          cluster = "${var.name}-cluster-insecure"
+          user    = "terraform"
+        }
+        name = "${var.name}-insecure"
+      },
+    ]
+    current-context = var.name
+    kind            = "Config"
+    preferences     = {}
+    users = [
+      {
+        name = "terraform"
+        user = {
+          client-certificate-data = local.client_certificate_data
+          client-key-data         = local.client_key_data
+        }
+      },
+    ]
+  }
+  kubectl_config_yaml = local.cluster_config.cluster_is_public ? yamlencode(local.kubectl_config_raw) : yamlencode(local.kubectl_config_raw_internal)
+  kubectl_config_json = local.cluster_config.cluster_is_public ? jsonencode(local.kubectl_config_raw) : jsonencode(local.kubectl_config_raw_internal)
 }
