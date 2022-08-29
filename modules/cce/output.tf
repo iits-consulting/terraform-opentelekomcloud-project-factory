@@ -11,7 +11,7 @@ output "cluster_credentials" {
     kubectl_config                     = local.kubectl_config_yaml
     client_key_data                    = local.client_key_data
     client_certificate_data            = local.client_certificate_data
-    kubectl_external_server            = local.kubectl_external_server
+    kubectl_external_server            = local.cluster_config.cluster_is_public ? local.kubectl_external_server : opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[1].server
     cluster_certificate_authority_data = local.cluster_certificate_authority_data
   }
 }
