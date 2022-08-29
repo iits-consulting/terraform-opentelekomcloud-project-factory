@@ -20,6 +20,7 @@ variable "cluster_config" {
     container_network_type = optional(string) // Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters
     container_cidr         = optional(string) // Kubernetes pod network CIDR range (default: 172.16.0.0/16)
     service_cidr           = optional(string) // Kubernetes service network CIDR range (default: 10.247.0.0/16)
+    cluster_is_public      = optional(bool)   // Bind a public IP to the CLuster to make it public available (default: true)
     high_availability      = optional(bool)   // Create the cluster in highly available mode (default: false)
     enable_scaling         = optional(bool)   // Enable autoscaling of the cluster (default: false)
     install_icagent        = optional(bool)   // install icagent for logging and metrics (default: false)
@@ -49,6 +50,7 @@ locals {
     container_network_type = var.cluster_config.cluster_type == "VirtualMachine" || var.cluster_config.cluster_type == null ? "vpc-router" : "underlay_ipvlan"
     container_cidr         = "172.16.0.0/16"
     service_cidr           = "10.247.0.0/16"
+    cluster_is_public      = true
     high_availability      = false
     enable_scaling         = false
     install_icagent        = false
