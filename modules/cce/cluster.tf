@@ -9,7 +9,7 @@ resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
-  count = local.cluster.cluster_is_public ? 1 : 0
+  count = local.cluster_config.cluster_is_public ? 1 : 0
   bandwidth {
     charge_mode = "traffic"
     name        = "${var.name}-cluster-kubectl-endpoint"
@@ -49,7 +49,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   container_network_cidr  = local.cluster_config.container_cidr
   kubernetes_svc_ip_range = local.cluster_config.service_cidr
   description             = "Kubernetes Cluster ${var.name}."
-  eip                     = local.cluster.cluster_is_public ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
+  eip                     = local.cluster_config.cluster_is_public ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
   cluster_version         = local.cluster_config.cluster_version
   authentication_mode     = "x509"
   annotations             = local.cluster_config.install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
