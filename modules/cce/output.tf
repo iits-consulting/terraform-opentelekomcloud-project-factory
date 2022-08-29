@@ -1,5 +1,5 @@
 output "cluster_lb_public_ip" {
-  value = try(opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address,"")
+  value = try(opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address, opentelekomcloud_cce_cluster_v3.cluster.internal )
 }
 
 output "node_pool_ids" {
