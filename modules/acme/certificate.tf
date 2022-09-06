@@ -33,7 +33,10 @@ resource "acme_certificate" "certificate" {
       OTC_USER_NAME         = var.dns_admin_name
       OTC_PASSWORD          = random_password.dns_admin_password.result
       OTC_PROJECT_NAME      = var.otc_project_name
+      OTC_PROPAGATION_TIMEOUT = 600
+      OTC_POLLING_INTERVAL = 5
       OTC_TTL               = 300
+      OTC_HTTP_TIMEOUT = 10
     }
   }
 }

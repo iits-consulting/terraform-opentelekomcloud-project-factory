@@ -38,16 +38,17 @@ resource "opentelekomcloud_networking_secgroup_rule_v2" "db_allow_out" {
 }
 
 resource "opentelekomcloud_networking_secgroup_rule_v2" "db_allow_cidr" {
-  for_each          = var.sg_secgroup_id == "" ? local.sg_allowed_cidr : toset([])
+  for_each          = var.sg_secgroup_id == "" ? length(var.sg_allowed_cidr) == 0 ? toset(["db_subnet_cidr"]) : var.sg_allowed_cidr : toset([])
   direction         = "ingress"
   port_range_min    = local.db_port
   port_range_max    = local.db_port
   ethertype         = "IPv4"
   protocol          = "tcp"
-  remote_ip_prefix  = each.value
+  remote_ip_prefix  = length(var.sg_allowed_cidr) == 0 ? data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr : each.value
   security_group_id = opentelekomcloud_networking_secgroup_v2.db_secgroup[0].id
 
   description = "Allow db connection from range."
+  depends_on  = [data.opentelekomcloud_vpc_subnet_v1.db_subnet]
 }
 
 resource "opentelekomcloud_networking_secgroup_rule_v2" "db_allow_secgroup" {

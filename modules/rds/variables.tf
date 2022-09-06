@@ -172,11 +172,6 @@ data "opentelekomcloud_vpc_subnet_v1" "db_subnet" {
   id = var.subnet_id
 }
 
-locals {
-  db_subnet_cidr_null_safe = data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr == null ? "0.0.0.0/32" : data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr
-  sg_allowed_cidr          = length(var.sg_allowed_cidr) == 0 ? toset([local.db_subnet_cidr_null_safe]) : var.sg_allowed_cidr
-}
-
 variable "sg_allowed_secgroups" {
   type        = set(string)
   description = "Security groups that are allowed to connect to the database. (default: [])"

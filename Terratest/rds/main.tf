@@ -1,5 +1,3 @@
-data "opentelekomcloud_identity_project_v3" "current" {}
-
 module "vpc" {
   source     = "../../modules/vpc"
   name       = "${var.context}-${var.stage}-vpc"
@@ -11,7 +9,6 @@ module "vpc" {
 }
 
 module "rds" {
-  depends_on = [module.vpc]
   source     = "../../modules/rds"
   tags       = local.tags
   name       = "${var.context}-${var.stage}-db"
@@ -25,8 +22,4 @@ module "rds" {
   db_parameters = {
     max_connections = "100",
   }
-  db_flavor = "rds.pg.s1.medium.ha"
-}
-output "flavour" {
-  value = module.rds.db_flavor
 }

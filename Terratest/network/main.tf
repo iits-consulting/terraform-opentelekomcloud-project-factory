@@ -1,5 +1,3 @@
-data "opentelekomcloud_identity_project_v3" "current" {}
-
 module "vpc" {
   source     = "../../modules/vpc"
   name       = "${var.context}-${var.stage}-vpc"
