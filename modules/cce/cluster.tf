@@ -86,6 +86,7 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   root_volume {
     size       = 50
     volumetype = "SSD"
+    kms_id     = local.node_config.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : null
   }
 
   data_volumes {
