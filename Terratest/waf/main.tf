@@ -17,15 +17,15 @@ module "loadbalancer" {
 }
 
 module "public_dns" {
-  source                  = "../../modules/public_dns"
-  domain  = var.domain_name
-  email   = var.email
-  tags = local.tags
+  source = "../../modules/public_dns"
+  domain = var.domain_name
+  email  = var.email
+  tags   = local.tags
 }
 
 module "certificate" {
-  providers         = { opentelekomcloud = opentelekomcloud.top_level_project }
-  depends_on = [module.public_dns]
+  providers               = { opentelekomcloud = opentelekomcloud.top_level_project }
+  depends_on              = [module.public_dns]
   source                  = "../../modules/acme"
   cert_registration_email = "contact@iits-consulting.de"
   otc_domain_name         = "OTC-EU-DE-00000000001000055571"
