@@ -9,9 +9,9 @@ module "vpc" {
 }
 
 module "rds" {
-  source     = "../../modules/rds"
-  tags       = local.tags
-  name       = "${var.context}-${var.stage}-db"
+  source = "../../modules/rds"
+  tags   = local.tags
+  name   = "${var.context}-${var.stage}-db"
 
   vpc_id                 = module.vpc.vpc.id
   subnet_id              = values(module.vpc.subnets)[0].id
