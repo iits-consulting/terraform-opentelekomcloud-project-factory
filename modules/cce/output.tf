@@ -1,5 +1,14 @@
+# This has nothing to do with lb (loadbalancer) it is kept for backwards compatibility
 output "cluster_lb_public_ip" {
-  value = try(opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address, opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[0].server)
+  value = local.kubectl_external_server
+}
+
+output "cluster_public_ip" {
+  value = local.kubectl_external_server
+}
+
+output "cluster_private_ip" {
+  value = local.kubectl_internal_server
 }
 
 output "node_pool_ids" {
@@ -11,7 +20,8 @@ output "cluster_credentials" {
     kubectl_config                     = local.kubectl_config_yaml
     client_key_data                    = local.client_key_data
     client_certificate_data            = local.client_certificate_data
-    kubectl_external_server            = local.cluster_config.cluster_is_public ? local.kubectl_external_server : opentelekomcloud_cce_cluster_v3.cluster.certificate_clusters[1].server
+    kubectl_external_server            = local.kubectl_external_server
+    kubectl_internal_server            = local.kubectl_internal_server
     cluster_certificate_authority_data = local.cluster_certificate_authority_data
   }
 }
