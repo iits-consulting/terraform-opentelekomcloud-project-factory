@@ -3,16 +3,20 @@ module "vpc" {
   name       = "${var.context}-${var.stage}-vpc"
   cidr_block = var.vpc_cidr
   subnets = {
-    "test-subnet" = cidrsubnet(var.vpc_cidr, 1, 0)
+    "subnet-0" = cidrsubnet(var.vpc_cidr, 2, 0)
+    "subnet-1" = cidrsubnet(var.vpc_cidr, 2, 1)
+    "subnet-2" = cidrsubnet(var.vpc_cidr, 2, 2)
+    "subnet-3" = cidrsubnet(var.vpc_cidr, 2, 3)
   }
-  tags = local.tags
+  tags       = local.tags
 }
 
 module "snat" {
-  source      = "../../modules/snat"
-  name_prefix = "${var.context}-${var.stage}"
-  subnet_id   = module.vpc.subnets["test-subnet"].id
-  vpc_id      = module.vpc.vpc.id
+  source        = "../../modules/snat"
+  name_prefix   = "${var.context}-${var.stage}"
+  subnet_id     = module.vpc.subnets["subnet-0"].id
+  network_cidrs = [var.vpc_cidr]
+  vpc_id        = module.vpc.vpc.id
 }
 
 data "opentelekomcloud_images_image_v2" "ubuntu" {
@@ -34,7 +38,7 @@ module "jumphost" {
 module "loadbalancer" {
   source       = "../../modules/loadbalancer"
   context_name = var.context
-  subnet_id    = module.vpc.subnets["test-subnet"].subnet_id
+  subnet_id    = module.vpc.subnets["subnet-0"].subnet_id
   stage_name   = var.stage
   bandwidth    = 500
 }
