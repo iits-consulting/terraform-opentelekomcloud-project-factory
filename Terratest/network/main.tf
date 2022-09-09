@@ -8,7 +8,7 @@ module "vpc" {
     "subnet-2" = cidrsubnet(var.vpc_cidr, 2, 2)
     "subnet-3" = cidrsubnet(var.vpc_cidr, 2, 3)
   }
-  tags       = local.tags
+  tags = local.tags
 }
 
 module "snat" {
