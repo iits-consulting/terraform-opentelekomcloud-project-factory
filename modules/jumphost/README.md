@@ -28,6 +28,13 @@ module "jumphost" {
   cloud_init_path   = "${path.root}/example_cloud_init"
 }
 ```
+
+> **WARNING:** The parameter `node_storage_encryption_enabled` should be kept as `false` unless an agency for EVS is created with:
+> - Agency Name = `EVSAccessKMS`
+> - Agency Type = `Account`
+> - Delegated Account = `op_svc_evs`
+> - Permissions = `KMS Administrator` within the project
+
 Notes:
 - Please see [example_users.yaml](../../example_users.yaml) for example users_config
 - Please see [example_cloud_init](../../example_cloud_init) for example cloud_init configuration

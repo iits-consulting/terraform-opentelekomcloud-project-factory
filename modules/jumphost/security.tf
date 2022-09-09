@@ -1,11 +1,14 @@
-resource "tls_private_key" "jumphost_key" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P256"
+resource "random_id" "jumphost_storage_encryption_key" {
+  count       = var.node_storage_encryption_enabled ? 1 : 0
+  byte_length = 4
 }
 
-resource "opentelekomcloud_compute_keypair_v2" "jumphost_keypair" {
-  name       = "${var.node_name}-keypair"
-  public_key = tls_private_key.jumphost_key.public_key_openssh
+resource "opentelekomcloud_kms_key_v1" "jumphost_storage_encryption_key" {
+  count           = var.node_storage_encryption_enabled ? 1 : 0
+  key_alias       = "${var.node_name}-${random_id.jumphost_storage_encryption_key[0].hex}"
+  key_description = "${var.node_name} Jumphost Node system volume encryption key"
+  pending_days    = 7
+  is_enabled      = "true"
 }
 
 resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup" {

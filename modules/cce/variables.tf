@@ -6,7 +6,7 @@ variable "name" {
 variable "tags" {
   type        = map(any)
   description = "Common tag set for CCE resources"
-  default     = null
+  default     = {}
 }
 
 variable "cluster_config" {

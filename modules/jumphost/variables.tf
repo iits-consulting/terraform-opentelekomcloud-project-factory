@@ -42,6 +42,11 @@ variable "node_storage_size" {
   default     = 20
 }
 
+variable "node_storage_encryption_enabled" {
+  description = "Jumphost node system disk storage KMS encryption toggle."
+  default     = false
+}
+
 variable "node_bandwidth_size" {
   description = "Jumphost node external IP bandwidth size in Mbps. (default: 10)"
   type        = number

@@ -22,25 +22,46 @@ resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
   tags = var.tags
 }
 
-resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
+resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
+  name              = "${var.node_name}-volume"
+  description       = "${var.node_name} system volume device."
+  availability_zone = local.availability_zone
+  size              = var.node_storage_size
+  volume_type       = var.node_storage_type
+  image_id          = var.node_image_id
+
+  metadata = {
+    attached_mode       = "rw"
+    readonly            = "False"
+    __system__encrypted = var.node_storage_encryption_enabled ? "1" : "0"
+    __system__cmkid     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : null
+  }
+  tags = var.tags
+}
+
+resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
   name          = var.node_name
   image_id      = var.node_image_id
   auto_recovery = true
-  flavor        = var.node_flavor
-  vpc_id        = var.vpc_id
+  flavor_id     = var.node_flavor
 
-  nics {
-    network_id = var.subnet_id
+  network {
+    uuid           = var.subnet_id
+    access_network = true
   }
   user_data = base64encode(local.cloudinit_config)
 
-  system_disk_type = var.node_storage_type
-  system_disk_size = var.node_storage_size
+  block_device {
+    uuid                  = opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume.id
+    source_type           = "volume"
+    boot_index            = 0
+    destination_type      = "volume"
+    delete_on_termination = true
+  }
 
   availability_zone = local.availability_zone
-  key_name          = opentelekomcloud_compute_keypair_v2.jumphost_keypair.name
   security_groups = concat([
-    opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id
+    opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.name
   ], var.additional_security_groups)
   timeouts {
     create = "20m"
@@ -52,7 +73,7 @@ resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
   }
 }
 
-resource "opentelekomcloud_compute_floatingip_associate_v2" "jumphost_eip_association" {
+resource "opentelekomcloud_networking_floatingip_associate_v2" "jumphost_eip_association" {
   floating_ip = opentelekomcloud_vpc_eip_v1.jumphost_eip.publicip[0].ip_address
-  instance_id = opentelekomcloud_ecs_instance_v1.jumphost_node.id
+  port_id     = opentelekomcloud_compute_instance_v2.jumphost_node.network[0].port
 }
