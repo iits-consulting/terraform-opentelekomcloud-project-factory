@@ -1,11 +1,6 @@
 data "opentelekomcloud_identity_project_v3" "current" {}
 
 locals {
-  file_paths = setunion(
-    length(var.users_config_path) == 0 ? [] : [var.users_config_path],
-    length(var.cloud_init_path) == 0 ? [] : fileset("", "${var.cloud_init_path}/*.{yml,yaml}")
-  )
-  cloudinit_config  = join("\n", concat(["#cloud-config"], [for path in local.file_paths : file(path)]))
   availability_zone = format("${data.opentelekomcloud_identity_project_v3.current.region}-0%s", var.availability_zone)
 }
 
@@ -49,14 +44,14 @@ resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
     uuid           = var.subnet_id
     access_network = true
   }
-  user_data = base64encode(local.cloudinit_config)
+  user_data = base64encode(var.cloud_init)
 
   block_device {
     uuid                  = opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume.id
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   availability_zone = local.availability_zone

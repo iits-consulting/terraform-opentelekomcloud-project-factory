@@ -9,10 +9,6 @@ variable "subnet_id" {
   description = "Jumphost subnet id for node network configuration"
 }
 
-variable "vpc_id" {
-  description = "Jumphost vpc id to join the node to"
-}
-
 variable "node_name" {
   description = "Jumphost node name."
 }
@@ -65,13 +61,8 @@ variable "additional_security_groups" {
   default     = []
 }
 
-variable "users_config_path" {
-  description = "Path to authorised users configuration file. Cloud-init cloud config format is expected."
-  default     = ""
-}
-
-variable "cloud_init_path" {
-  description = "Path to directory with custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
+variable "cloud_init" {
+  description = "Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
   default     = ""
 }
 
