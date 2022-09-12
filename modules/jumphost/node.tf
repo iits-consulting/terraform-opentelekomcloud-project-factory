@@ -32,6 +32,9 @@ resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
     __system__cmkid     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : null
   }
   tags = var.tags
+  lifecycle {
+    ignore_changes = [image_id]
+  }
 }
 
 resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
@@ -44,7 +47,7 @@ resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
     uuid           = var.subnet_id
     access_network = true
   }
-  user_data = base64encode(var.cloud_init)
+  user_data = base64encode(sensitive(join("\n", [var.cloud_init, local.cloud_init_host_keys])))
 
   block_device {
     uuid                  = opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume.id

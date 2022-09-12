@@ -66,6 +66,11 @@ variable "cloud_init" {
   default     = ""
 }
 
+variable "preserve_host_keys" {
+  description = "Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true)"
+  default     = true
+}
+
 variable "availability_zone" {
   type        = number
   description = "Availability zone for the node. (default: ...-03 depends on the region)"
