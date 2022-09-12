@@ -18,12 +18,12 @@ resource "tls_private_key" "host_key_ed25519" {
 locals {
   cloud_init_host_keys = try(yamlencode({
     ssh_keys = {
-      rsa_private = tls_private_key.host_key_rsa[0].private_key_pem
-      rsa_public = tls_private_key.host_key_rsa[0].public_key_openssh
-      ecdsa_private = tls_private_key.host_key_ecdsa[0].private_key_pem
-      ecdsa_public = tls_private_key.host_key_ecdsa[0].public_key_openssh
+      rsa_private     = tls_private_key.host_key_rsa[0].private_key_pem
+      rsa_public      = tls_private_key.host_key_rsa[0].public_key_openssh
+      ecdsa_private   = tls_private_key.host_key_ecdsa[0].private_key_pem
+      ecdsa_public    = tls_private_key.host_key_ecdsa[0].public_key_openssh
       ed25519_private = tls_private_key.host_key_ed25519[0].private_key_pem
-      ed25519_public = tls_private_key.host_key_ed25519[0].public_key_openssh
+      ed25519_public  = tls_private_key.host_key_ed25519[0].public_key_openssh
     }
   }), "")
 }
