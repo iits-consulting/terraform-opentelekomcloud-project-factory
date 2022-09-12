@@ -9,6 +9,7 @@ locals {
     clusters = [
       {
         cluster = {
+          insecure-skip-tls-verify   = false
           server                     = local.kubectl_internal_server
           certificate-authority-data = local.cluster_certificate_authority_data
         }
@@ -16,8 +17,9 @@ locals {
       },
       {
         cluster = {
-          insecure-skip-tls-verify = true
-          server                   = local.kubectl_internal_server
+          insecure-skip-tls-verify   = true
+          server                     = local.kubectl_internal_server
+          certificate-authority-data = ""
         }
         name = "${var.name}-cluster-insecure-internal"
       },
@@ -43,6 +45,7 @@ locals {
     clusters = [
       {
         cluster = {
+          insecure-skip-tls-verify   = false
           server                     = local.kubectl_external_server
           certificate-authority-data = local.cluster_certificate_authority_data
         }
@@ -50,8 +53,9 @@ locals {
       },
       {
         cluster = {
-          insecure-skip-tls-verify = true
-          server                   = local.kubectl_external_server
+          insecure-skip-tls-verify   = true
+          server                     = local.kubectl_external_server
+          certificate-authority-data = ""
         }
         name = "${var.name}-cluster-insecure"
       },
