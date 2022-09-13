@@ -12,15 +12,15 @@ func TestNetworkSetup(t *testing.T) {
 	performTerratest(t, context)
 }
 
-func TestCCE(t *testing.T) {
-	context := "cce"
-	performTerratest(t, context)
-}
+// func TestCCE(t *testing.T) {
+// 	context := "cce"
+// 	performTerratest(t, context)
+// }
 
-func TestPublicDNS(t *testing.T) {
-	context := "public_dns"
-	performTerratest(t, context)
-}
+// func TestPublicDNS(t *testing.T) {
+// 	context := "public_dns"
+// 	performTerratest(t, context)
+// }
 
 //FIXME Currently not working
 //func TestRDS(t *testing.T) {
