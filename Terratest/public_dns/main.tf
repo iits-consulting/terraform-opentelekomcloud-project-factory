@@ -14,6 +14,9 @@ module "loadbalancer" {
   source       = "../../modules/loadbalancer"
   context_name = var.context
   subnet_id    = module.vpc.subnets["test-subnet"].id
+  depends_on = [
+    module.vpc
+  ]
 }
 
 module "public_dns" {
