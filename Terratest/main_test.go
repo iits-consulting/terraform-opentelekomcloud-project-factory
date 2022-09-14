@@ -7,10 +7,10 @@ import (
 	"testing"
 )
 
-func TestNetworkSetup(t *testing.T) {
-	context := "network"
-	performTerratest(t, context)
-}
+// func TestNetworkSetup(t *testing.T) {
+// 	context := "network"
+// 	performTerratest(t, context)
+// }
 
 // func TestCCE(t *testing.T) {
 // 	context := "cce"

@@ -13,18 +13,15 @@ module "vpc" {
 module "loadbalancer" {
   source       = "../../modules/loadbalancer"
   context_name = var.context
-  subnet_id    = module.vpc.subnets["test-subnet"].id
-  depends_on = [
-    module.vpc
-  ]
+  subnet_id    = module.vpc.subnets["test-subnet"].subnet_id
 }
 
 module "public_dns" {
   source = "../../modules/public_dns"
-  domain = "my_domain.com"
-  email  = "my_email@my_domain.com"
+  domain = "my-domain.com"
+  email  = "my_email@my-domain.com"
   a_records = {
     my_subdomain    = [module.loadbalancer.elb_public_ip]
-    "my_domain.com" = [module.loadbalancer.elb_public_ip]
+    "my-domain.com" = [module.loadbalancer.elb_public_ip]
   }
 }
