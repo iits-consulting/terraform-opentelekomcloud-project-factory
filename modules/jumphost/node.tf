@@ -28,8 +28,8 @@ resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
   metadata = {
     attached_mode       = "rw"
     readonly            = "False"
-    __system__encrypted = var.node_storage_encryption_enabled ? "1" : "0"
-    __system__cmkid     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : null
+    __system__encrypted = lookup(local.blockstorage_matedata["${var.region}"], "__system__encrypted", null)
+    __system__cmkid     = lookup(local.blockstorage_matedata["${var.region}"], "__system__cmkid", null)
   }
   tags = var.tags
   lifecycle {

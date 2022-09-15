@@ -76,3 +76,29 @@ variable "availability_zone" {
   description = "Availability zone for the node. (default: ...-03 depends on the region)"
   default     = 3
 }
+
+/*  Keep Region separation for blockstorage encryption metadata as long as the region "eu-nl" doesn't support encryption:
+ * | Error: error creating OpenTelekomCloud volume: Bad request with: [POST https://evs.eu-nl.otc.t-systems.com/v2/cc89cd47e1964cd6b079a80d63c124f2/volumes], error message: {"badRequest": {"message": "Invalid metadata: Create volume from image, metadata key: __system__encrypted and __system__cmkid not support", "code": 400}}
+ * │ 
+ * │ with module.jumphost.opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume,
+ * │ on ../../modules/jumphost/node.tf line 20, in resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume":
+ * │ 20: resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
+ */
+
+variable "region" {
+  type        = string
+  description = "Region for metadata separation."
+}
+
+locals {
+  blockstorage_matedata = {
+    eu-de = {
+      __system__encrypted = var.node_storage_encryption_enabled ? "1" : "0"
+      __system__cmkid     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : null
+    },
+    eu-nl = {
+      __system__encrypted = ""
+      __system__cmkid     = ""
+    }
+  }
+}
