@@ -19,7 +19,11 @@ func TestCCE(t *testing.T) {
 
 func TestPublicDNS(t *testing.T) {
 	context := "public_dns"
-	performTerratest(t, context)
+	if os.Getenv("TF_VAR_region") == "eu-de" {
+		performTerratest(t, context)
+	} else {
+		fmt.Println("Skipping Test PublicDNS for Region", os.Getenv("TF_VAR_region"))
+	}
 }
 
 //FIXME Currently not working
