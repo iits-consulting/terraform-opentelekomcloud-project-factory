@@ -26,7 +26,6 @@ data "opentelekomcloud_images_image_v2" "ubuntu" {
 
 module "jumphost" {
   source                          = "../../modules/jumphost"
-  region                          = var.region
   node_storage_encryption_enabled = true
   subnet_id                       = values(module.vpc.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
