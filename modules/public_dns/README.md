@@ -2,7 +2,7 @@
 
 Usage Example:
 
-```
+```hcl
 module "example-loadbalancer" {
   source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/loadbalancer"
   ...
@@ -32,16 +32,16 @@ ns1.open-telekom-cloud.com
 ns2.open-telekom-cloud.com
 ```
 - Module accepts both subdomain prefixes and full domain names as record keys:
-```
+```hcl
 // Both of these are valid and equivalent for domain = my_domain.com
 my-subdomain                 = [<IP_ADDR>]
 "my-subdomain.my-domain.com" = [<IP_ADDR>]
 ```
 - For the top level domain, records can be created by referencing it by the full domain name:
-```
+```hcl
 "my-domain.com" = [<IP_ADDR>]
 ```
 - All records support a list of values as long as it is allowed by the OTC DNS:
-```
+```hcl
 my_cluster = [<IP_ADDR_1>, <IP_ADDR_2>, ...]
 ```
