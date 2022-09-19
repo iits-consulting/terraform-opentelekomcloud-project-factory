@@ -25,11 +25,12 @@ data "opentelekomcloud_images_image_v2" "ubuntu" {
 }
 
 module "jumphost" {
-  source        = "../../modules/jumphost"
-  subnet_id     = values(module.vpc.subnets)[0].id
-  node_name     = "jumphost-${var.context}-${var.stage}"
-  node_image_id = data.opentelekomcloud_images_image_v2.ubuntu.id
-  cloud_init    = join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)]))
+  source                          = "../../modules/jumphost"
+  node_storage_encryption_enabled = true
+  subnet_id                       = values(module.vpc.subnets)[0].id
+  node_name                       = "jumphost-${var.context}-${var.stage}"
+  node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu.id
+  cloud_init                      = join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)]))
 }
 
 module "loadbalancer" {

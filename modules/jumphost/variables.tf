@@ -43,6 +43,10 @@ variable "node_storage_encryption_enabled" {
   default     = false
 }
 
+locals {
+  node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : var.node_storage_encryption_enabled
+}
+
 variable "node_bandwidth_size" {
   description = "Jumphost node external IP bandwidth size in Mbps. (default: 10)"
   type        = number

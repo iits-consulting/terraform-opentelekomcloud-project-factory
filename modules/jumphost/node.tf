@@ -25,12 +25,13 @@ resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
   volume_type       = var.node_storage_type
   image_id          = var.node_image_id
 
-  metadata = {
-    attached_mode       = "rw"
-    readonly            = "False"
-    __system__encrypted = var.node_storage_encryption_enabled ? "1" : "0"
-    __system__cmkid     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : null
-  }
+  metadata = merge({
+    attached_mode = "rw"
+    readonly      = "False"
+    }, local.node_storage_encryption_enabled ? {
+    __system__encrypted = "1"
+    __system__cmkid     = opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id
+  } : {})
   tags = var.tags
   lifecycle {
     ignore_changes = [image_id]

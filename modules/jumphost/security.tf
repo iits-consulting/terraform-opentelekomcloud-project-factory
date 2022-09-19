@@ -1,10 +1,10 @@
 resource "random_id" "jumphost_storage_encryption_key" {
-  count       = var.node_storage_encryption_enabled ? 1 : 0
+  count       = local.node_storage_encryption_enabled ? 1 : 0
   byte_length = 4
 }
 
 resource "opentelekomcloud_kms_key_v1" "jumphost_storage_encryption_key" {
-  count           = var.node_storage_encryption_enabled ? 1 : 0
+  count           = local.node_storage_encryption_enabled ? 1 : 0
   key_alias       = "${var.node_name}-${random_id.jumphost_storage_encryption_key[0].hex}"
   key_description = "${var.node_name} Jumphost Node system volume encryption key"
   pending_days    = 7
