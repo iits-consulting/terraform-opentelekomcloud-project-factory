@@ -3,7 +3,7 @@ name: Terratest
 on: push
 
 jobs:
-  go-tests:
+  go-test-eu-de:
     name: Run Terratest
     runs-on: ubuntu-latest
     container:
@@ -43,6 +43,12 @@ jobs:
           
           ### run go terratest 
           go test -v -tags=unit -timeout 90m
+  go-test-eu-nl:
+    name: Run Terratest
+    runs-on: ubuntu-latest
+    container:
+        image: vault
+    steps:
       - name: Setup && Terratest eu-nl
         shell: sh
         run: |
