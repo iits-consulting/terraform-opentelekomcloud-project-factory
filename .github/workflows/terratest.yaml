@@ -49,6 +49,8 @@ jobs:
     container:
         image: vault
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Setup && Terratest eu-nl
         shell: sh
         run: |
