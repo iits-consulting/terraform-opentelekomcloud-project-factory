@@ -36,6 +36,7 @@ module "cce" {
     node_flavor       = var.cluster_config.node_flavor
     node_storage_type = var.cluster_config.node_storage_type
     node_storage_size = var.cluster_config.node_storage_size
+    node_storage_encryption_enabled = true
   }
   autoscaling_config = {
     nodes_max = var.cluster_config.nodes_max
