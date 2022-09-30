@@ -77,6 +77,6 @@ variable "preserve_host_keys" {
 
 variable "availability_zone" {
   type        = number
-  description = "Availability zone for the node. (default: ...-03 depends on the region)"
-  default     = 3
+  description = "Availability zone for the node. (default: ...-02 or b depends on the region)"
+  default     = 2
 }

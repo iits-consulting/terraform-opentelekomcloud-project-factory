@@ -23,7 +23,7 @@ variable "subnet_id" {
 variable "db_availability_zones" {
   type        = list(number)
   description = "Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively."
-  default     = ["1", "3"]
+  default     = ["1", "2"]
 }
 
 variable "db_type" {

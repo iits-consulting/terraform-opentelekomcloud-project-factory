@@ -1,7 +1,9 @@
 data "opentelekomcloud_identity_project_v3" "current" {}
 
 locals {
-  availability_zone = format("${data.opentelekomcloud_identity_project_v3.current.region}-0%s", var.availability_zone)
+  region                      = data.opentelekomcloud_identity_project_v3.current.region
+  possible_availability_zones = local.region == "eu-ch2" ? tomap({ 1 = "a", 2 = "b" }) : tomap({ 1 = "-01", 2 = "-02", 3 = "-03" })
+  availability_zone           = "${local.region}${local.possible_availability_zones[var.availability_zone]}"
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {

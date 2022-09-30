@@ -36,6 +36,7 @@ jobs:
           export OS_SECRET_KEY=$(vault kv get --field secret_key ${{ secrets.OS_KEY_PATH }})
           
           export TF_VAR_region="eu-de"
+          export OS_AUTH_URL="https://iam.${TF_VAR_region}.otc.t-systems.com/v3"
           source .envrc
           
           ### download go modules
@@ -68,6 +69,7 @@ jobs:
           export OS_SECRET_KEY=$(vault kv get --field secret_key ${{ secrets.OS_KEY_PATH }})
           
           export TF_VAR_region="eu-nl"
+          export OS_AUTH_URL="https://iam.${TF_VAR_region}.otc.t-systems.com/v3"
           source .envrc
           
           ### download go modules
