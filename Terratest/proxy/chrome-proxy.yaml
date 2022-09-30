@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: chrome-proxy
+  labels:
+    app: chrome-proxy
+spec:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  containers:
+    - name: chrome-proxy
+      image: serjs/go-socks5-proxy
+      args: ["sh", "-c", "sleep 3600"]
+      ports:
+        - containerPort: 1080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chrome-proxy
+spec:
+  type: "ClusterIP"
+  ports:
+    - name: chrome-proxy
+      port: 1080
+      targetPort: 1080
+      protocol: TCP
+  selector:
+    app: chrome-proxy

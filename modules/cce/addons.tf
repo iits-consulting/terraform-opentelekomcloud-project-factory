@@ -2,7 +2,9 @@ data "opentelekomcloud_identity_project_v3" "current" {
 }
 
 locals {
-  otc_addon_image_endpoint = data.opentelekomcloud_identity_project_v3.current.region == "eu-de" ? "100.125.7.25:20202" : "swr.eu-nl.otc.t-systems.com"
+  current_region           = data.opentelekomcloud_identity_project_v3.current.region
+  region_endpoint          = local.current_region == "eu-ch2" ? "${local.current_region}.sc" : local.current_region
+  otc_addon_image_endpoint = "swr.${local.region_endpoint}.otc.t-systems.com"
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
@@ -13,8 +15,8 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
   values {
     basic = {
-      "cceEndpoint"     = "https://cce.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
-      "ecsEndpoint"     = "https://ecs.${data.opentelekomcloud_identity_project_v3.current.region}.otc.t-systems.com"
+      "cceEndpoint"     = "https://cce.${local.region_endpoint}.otc.t-systems.com"
+      "ecsEndpoint"     = "https://ecs.${local.region_endpoint}.otc.t-systems.com"
       "euleros_version" = "2.2.5"
       "region"          = opentelekomcloud_cce_cluster_v3.cluster.region
       "swr_addr"        = local.otc_addon_image_endpoint
