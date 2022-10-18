@@ -73,7 +73,7 @@ variable "node_config" {
 
 locals {
   node_config = defaults(var.node_config, {
-    node_os                         = "EulerOS 2.5"
+    node_os                         = "EulerOS 2.9"
     node_storage_type               = "SATA"
     node_storage_size               = 100
     node_storage_encryption_enabled = false
@@ -101,12 +101,12 @@ locals {
     cpu_upper_bound = 0.8
     mem_upper_bound = 0.8
     lower_bound     = 0.2
-    version         = "1.21.1"
+    version         = "1.23.6"
   })
 }
 
 variable "metrics_server_version" {
   type        = string
   description = "Version of the Metrics Server Addon Template (default: 1.1.10)"
-  default     = "1.1.10"
+  default     = "1.2.1"
 }

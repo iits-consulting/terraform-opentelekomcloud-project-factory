@@ -5,6 +5,7 @@ locals {
   current_region           = data.opentelekomcloud_identity_project_v3.current.region
   region_endpoint          = local.current_region == "eu-ch2" ? "${local.current_region}.sc" : local.current_region
   otc_addon_image_endpoint = "swr.${local.region_endpoint}.otc.t-systems.com"
+  swr_user                 = "cce-addons"
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
@@ -15,12 +16,11 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
   values {
     basic = {
-      "cceEndpoint"     = "https://cce.${local.region_endpoint}.otc.t-systems.com"
-      "ecsEndpoint"     = "https://ecs.${local.region_endpoint}.otc.t-systems.com"
-      "euleros_version" = "2.2.5"
-      "region"          = opentelekomcloud_cce_cluster_v3.cluster.region
-      "swr_addr"        = local.otc_addon_image_endpoint
-      "swr_user"        = "hwofficial"
+      "cceEndpoint" = "https://cce.${local.region_endpoint}.otc.t-systems.com"
+      "ecsEndpoint" = "https://ecs.${local.region_endpoint}.otc.t-systems.com"
+      "region"      = opentelekomcloud_cce_cluster_v3.cluster.region
+      "swr_addr"    = local.otc_addon_image_endpoint
+      "swr_user"    = local.swr_user
     }
     custom = {
       "cluster_id"                     = opentelekomcloud_cce_cluster_v3.cluster.id
@@ -54,7 +54,7 @@ resource "opentelekomcloud_cce_addon_v3" "metrics" {
   values {
     basic = {
       "swr_addr" = local.otc_addon_image_endpoint
-      "swr_user" = "hwofficial"
+      "swr_user" = local.swr_user
     }
     custom = {}
   }
