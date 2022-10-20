@@ -9,3 +9,5 @@ cluster_config = {
   nodes_count       = 2
   nodes_max         = 2
 }
+
+stage = "test"

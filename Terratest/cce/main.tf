@@ -20,13 +20,14 @@ module "snat" {
 module "cce" {
   source = "../../modules/cce"
   name   = "${var.context}-${var.stage}"
-  cluster_config = {
-    vpc_id            = module.vpc.vpc.id
-    subnet_id         = module.vpc.subnets["test-subnet"].id
-    cluster_version   = "v1.23"
-    high_availability = var.cluster_config.high_availability
-    enable_scaling    = var.cluster_config.enable_scaling
-  }
+   
+  cluster_config_vpc_id            = module.vpc.vpc.id
+  cluster_config_subnet_id         = module.vpc.subnets["test-subnet"].id
+  cluster_config_cluster_version   = "v1.23"
+  cluster_config_high_availability = var.cluster_config.high_availability
+  cluster_config_enable_scaling    = var.cluster_config.enable_scaling
+  cluster_config = {}
+
   node_config = {
     availability_zones = [
       "${var.region}-03",
