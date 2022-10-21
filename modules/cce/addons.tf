@@ -9,7 +9,7 @@ locals {
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
-  count            = var.cluster_config_enable_scaling ? 1 : 0
+  count            = var.cluster_config.enable_scaling ? 1 : 0
   template_name    = "autoscaler"
   template_version = var.autoscaling_config.version
   cluster_id       = opentelekomcloud_cce_cluster_v3.cluster.id

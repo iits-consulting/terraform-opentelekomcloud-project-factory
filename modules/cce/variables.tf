@@ -9,80 +9,20 @@ variable "tags" {
   default     = {}
 }
 
-variable "cluster_config_vpc_id" {
-  type = string
-  description = "VPC id where the cluster will be created in"
-}
-variable "cluster_config_subnet_id" {
-  type = string
-  description = "Subnet network id where the cluster will be created in"
-}
-variable "cluster_config_cluster_version" {
-  type = string
-  description = "CCE cluster version."
-}
-variable "cluster_config_cluster_size" {
-  type = string
-  default = "small"
-  description = "Size of the cluster: small, medium, large (default: small)"
-
-  validation {
-    condition     = contains(["small", "medium", "large"], lower(var.cluster_config_cluster_size))
-    error_message = "Allowed values for cluster_size are \"small\", \"medium\" and \"large\"."
-  }
-}
-variable "cluster_config_container_cidr" {
-  type = string
-  default = "172.16.0.0/16"
-  description = "Kubernetes pod network CIDR range (default: 172.16.0.0/16)"
-}
-variable "cluster_config_service_cidr" {
-  type = string
-  default = "10.247.0.0/16"
-  description = "Kubernetes service network CIDR range (default: 10.247.0.0/16)"
-}
-variable "cluster_config_public_cluster" {
-  type = bool
-  default = true
-  description = "Bind a public IP to the CLuster to make it public available (default: true)"
-}
-variable "cluster_config_high_availability" {
-  type = bool
-  default = false
-  description = "Create the cluster in highly available mode (default: false)"
-}
-variable "cluster_config_enable_scaling" {
-  type = bool
-  default = false
-  description = "Enable autoscaling of the cluster (default: false)"
-}
-variable "cluster_config_install_icagent" {
-  type = bool
-  default = false
-  description = "install icagent for logging and metrics (default: false)"
-}
-
-# variable "cluster_config" {
-#   description = "Cluster configuration parameters"
-#   type = object({
-#     vpc_id                 = string           // VPC id where the cluster will be created in
-#     subnet_id              = string           // Subnet network id where the cluster will be created in
-#     cluster_version        = string           // CCE cluster version.
-#     cluster_size           = optional(string, "small") // Size of the cluster: small, medium, large (default: small)
-#     cluster_type           = optional(string, "VirtualMachine") // Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)
-#     container_network_type = optional(string) // Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters
-#     container_cidr         = optional(string, "172.16.0.0/16") // Kubernetes pod network CIDR range (default: 172.16.0.0/16)
-#     service_cidr           = optional(string, "10.247.0.0/16") // Kubernetes service network CIDR range (default: 10.247.0.0/16)
-#     public_cluster         = optional(bool, true)   // Bind a public IP to the CLuster to make it public available (default: true)
-#     high_availability      = optional(bool, false)   // Create the cluster in highly available mode (default: false)
-#     enable_scaling         = optional(bool, false)   // Enable autoscaling of the cluster (default: false)
-#     install_icagent        = optional(bool, false)   // install icagent for logging and metrics (default: false)
-#   })
-#}
 variable "cluster_config" { #NOTE: validation won't work if these are separated
   type        = object({
-    cluster_type = optional(string, "VirtualMachine") //Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)
-    container_network_type = optional(string, "") //"Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters"
+    vpc_id                 = string           // VPC id where the cluster will be created in
+    subnet_id              = string           // Subnet network id where the cluster will be created in
+    cluster_version        = optional(string, "v1.23")           // CCE cluster version.
+    cluster_size           = optional(string, "small") // Size of the cluster: small, medium, large (default: small)
+    cluster_type           = optional(string, "VirtualMachine") // Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)
+    container_network_type = optional(string, "") // Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters
+    container_cidr         = optional(string, "172.16.0.0/16") // Kubernetes pod network CIDR range (default: 172.16.0.0/16)
+    service_cidr           = optional(string, "10.247.0.0/16") // Kubernetes service network CIDR range (default: 10.247.0.0/16)
+    public_cluster         = optional(bool, true)   // Bind a public IP to the CLuster to make it public available (default: true)
+    high_availability      = optional(bool, false)   // Create the cluster in highly available mode (default: false)
+    enable_scaling         = optional(bool, false)   // Enable autoscaling of the cluster (default: false)
+    install_icagent        = optional(bool, false)   // install icagent for logging and metrics (default: false)
   })
   validation {
     condition     = contains(["VirtualMachine", "BareMetal"], var.cluster_config.cluster_type == null ? "VirtualMachine" : var.cluster_config.cluster_type)
@@ -96,6 +36,10 @@ variable "cluster_config" { #NOTE: validation won't work if these are separated
       (try(contains([""],var.cluster_config.container_network_type),false))
     )
     error_message = "Allowed values for container_network_type are \"vpc-router\" and \"overlay_l2\" for VirtualMachine Clusters; and \"underlay_ipvlan\" for BareMetal Clusters."
+  }
+  validation {
+    condition     = contains(["small", "medium", "large"], lower(var.cluster_config.cluster_size))
+    error_message = "Allowed values for cluster_size are \"small\", \"medium\" and \"large\"."
   }
 }
 
@@ -126,7 +70,7 @@ variable "autoscaling_config" {
     cpu_upper_bound = optional(number, 0.8) // Cpu utilization upper bound for upscaling (default: 0.8)
     mem_upper_bound = optional(number, 0.8) // Memory utilization upper bound for upscaling (default: 0.8)
     lower_bound     = optional(number, 0.2) // Memory AND cpu utilization lower bound for downscaling (default: 0.2)
-    version         = optional(string, "1.21.1") // Version of the Autoscaler Addon Template (default: 1.21.1)
+    version         = optional(string, "1.23.6") // Version of the Autoscaler Addon Template (default: 1.21.1)
   })
 }
 
@@ -137,6 +81,6 @@ locals {
 
 variable "metrics_server_version" {
   type        = string
-  description = "Version of the Metrics Server Addon Template (default: 1.1.10)"
+  description = "Version of the Metrics Server Addon Template (default: 1.2.1)"
   default     = "1.2.1"
 }
