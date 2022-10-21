@@ -100,5 +100,5 @@ variable "dns_zone_id" {
 variable "waf_policy_id" {
   type        = string
   description = "WAF policy ID to associate with the domains. (default: OTC will create a default policy)"
-  default     = {}
+  default     = ""
 }
