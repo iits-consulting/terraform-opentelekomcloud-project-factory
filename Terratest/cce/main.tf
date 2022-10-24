@@ -20,8 +20,8 @@ module "snat" {
 module "cce" {
   source = "../../modules/cce"
   name   = "${var.context}-${var.stage}"
-   
-  cluster_config = {  
+
+  cluster_config = {
     vpc_id            = module.vpc.vpc.id
     subnet_id         = module.vpc.subnets["test-subnet"].id
     cluster_version   = "v1.23"
