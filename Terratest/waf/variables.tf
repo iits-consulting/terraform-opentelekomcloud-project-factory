@@ -17,11 +17,6 @@ variable "domain_name" {
   description = "The public domain to create public DNS zone for."
 }
 
-variable "project_name" {
-  type        = string
-  description = "The name of the OTC project"
-}
-
 variable "email" {
   description = "E mail contact address for DNS zone."
   type        = string

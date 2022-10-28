@@ -25,11 +25,6 @@ variable "cluster_config" {
   })
 }
 
-variable "project_name" {
-  type        = string
-  description = "The name of the OTC project"
-}
-
 variable "context" {
   type        = string
   description = "Project context for resource naming and tagging."

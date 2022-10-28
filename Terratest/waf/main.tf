@@ -1,3 +1,5 @@
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 module "vpc" {
   source     = "../../modules/vpc"
   name       = "${var.context}-${var.stage}-vpc"
@@ -29,7 +31,7 @@ module "certificate" {
   source                  = "../../modules/acme"
   cert_registration_email = "contact@iits-consulting.de"
   otc_domain_name         = "OTC-EU-DE-00000000001000055571"
-  otc_project_name        = var.project_name
+  otc_project_name        = data.opentelekomcloud_identity_project_v3.current.name
   domains = {
     (var.domain_name) = ["*.${var.domain_name}"]
   }
