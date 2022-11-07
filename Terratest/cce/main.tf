@@ -20,27 +20,25 @@ module "snat" {
 module "cce" {
   source = "../../modules/cce"
   name   = "${var.context}-${var.stage}"
-  cluster_config = {
-    vpc_id            = module.vpc.vpc.id
-    subnet_id         = module.vpc.subnets["test-subnet"].id
-    cluster_version   = "v1.23"
-    high_availability = var.cluster_config.high_availability
-    enable_scaling    = var.cluster_config.enable_scaling
-  }
-  node_config = {
-    availability_zones = [
-      "${var.region}-03",
-      "${var.region}-01"
-    ]
-    node_count                      = var.cluster_config.nodes_count
-    node_flavor                     = var.cluster_config.node_flavor
-    node_storage_type               = var.cluster_config.node_storage_type
-    node_storage_size               = var.cluster_config.node_storage_size
-    node_storage_encryption_enabled = true
-  }
-  autoscaling_config = {
-    nodes_max = var.cluster_config.nodes_max
-  }
+
+
+  cluster_vpc_id            = module.vpc.vpc.id
+  cluster_subnet_id         = module.vpc.subnets["test-subnet"].id
+  cluster_version           = "v1.23"
+  cluster_high_availability = var.cce_high_availability
+  cluster_enable_scaling    = var.cce_enable_scaling
+
+  node_availability_zones = [
+    "${var.region}-03",
+    "${var.region}-01"
+  ]
+  node_count        = var.cce_node_count
+  node_flavor       = var.cce_node_flavor
+  node_storage_type = var.cce_node_storage_type
+  node_storage_size = var.cce_node_storage_size
+
+  autoscaler_node_max = var.cce_node_max
+
   tags = local.tags
 }
 

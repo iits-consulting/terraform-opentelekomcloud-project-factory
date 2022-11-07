@@ -12,11 +12,6 @@ variable "vpc_cidr" {
   description = "IP range of the VPC"
 }
 
-variable "project_name" {
-  type        = string
-  description = "The name of the OTC project"
-}
-
 variable "context" {
   type        = string
   description = "Project context for resource naming and tagging."
