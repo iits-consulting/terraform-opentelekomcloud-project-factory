@@ -21,7 +21,7 @@ variable "cluster_config_high_availability" {
   type        = bool
   description = "Create the cluster in highly available mode"
 }
-variable "cluster_config_node_flavor"{
+variable "cluster_config_node_flavor" {
   type        = string
   description = "Node specifications in otc flavor format"
 }
