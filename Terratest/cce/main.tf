@@ -25,19 +25,19 @@ module "cce" {
   cluster_vpc_id            = module.vpc.vpc.id
   cluster_subnet_id         = module.vpc.subnets["test-subnet"].id
   cluster_version           = "v1.23"
-  cluster_high_availability = var.cluster_high_availability
-  cluster_enable_scaling    = var.cluster_enable_scaling
+  cluster_high_availability = var.cce_high_availability
+  cluster_enable_scaling    = var.cce_enable_scaling
 
   node_availability_zones = [
     "${var.region}-03",
     "${var.region}-01"
   ]
-  node_count        = var.cluster_nodes_count
-  node_flavor       = var.cluster_node_flavor
-  node_storage_type = var.cluster_node_storage_type
-  node_storage_size = var.cluster_node_storage_size
+  node_count        = var.cce_node_count
+  node_flavor       = var.cce_node_flavor
+  node_storage_type = var.cce_node_storage_type
+  node_storage_size = var.cce_node_storage_size
 
-  autoscaler_nodes_max = var.cluster_nodes_max
+  autoscaler_node_max = var.cce_node_max
 
   tags = local.tags
 }

@@ -13,7 +13,7 @@ resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
-  count = var.cluster_public_cluster ? 1 : 0
+  count = var.cluster_public_access ? 1 : 0
   bandwidth {
     charge_mode = "traffic"
     name        = "${var.name}-cluster-kubectl-endpoint"
@@ -54,7 +54,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   container_network_cidr  = var.cluster_container_cidr
   kubernetes_svc_ip_range = var.cluster_service_cidr
   description             = "Kubernetes Cluster ${var.name}."
-  eip                     = var.cluster_public_cluster ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
+  eip                     = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
   cluster_version         = var.cluster_version
   authentication_mode     = "x509"
   annotations             = var.cluster_install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
@@ -66,18 +66,18 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
 }
 
 resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
-  count              = length(var.node_availability_zones)
+  for_each           = var.node_availability_zones
   cluster_id         = opentelekomcloud_cce_cluster_v3.cluster.id
-  name               = "${var.name}-nodes-${var.node_availability_zones[count.index]}"
+  name               = "${var.name}-nodes-${each.value}"
   flavor             = var.node_flavor
   initial_node_count = var.node_count
-  availability_zone  = var.node_availability_zones[count.index]
+  availability_zone  = each.value
   key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
   os                 = var.node_os
 
   scale_enable             = var.cluster_enable_scaling
-  min_node_count           = local.autoscaler_nodes_min
-  max_node_count           = var.autoscaler_nodes_max
+  min_node_count           = local.autoscaler_node_min
+  max_node_count           = var.autoscaler_node_max
   scale_down_cooldown_time = 15
   priority                 = 1
   user_tags                = var.tags

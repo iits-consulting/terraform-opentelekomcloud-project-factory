@@ -1,10 +1,10 @@
 vpc_cidr = "192.168.0.0/16"
 
 
-cluster_enable_scaling    = true
-cluster_high_availability = false
-cluster_node_flavor       = "s3.large.4"
-cluster_node_storage_type = "SSD"
-cluster_node_storage_size = 100
-cluster_nodes_count       = 2
-cluster_nodes_max         = 2
+cce_enable_scaling    = true
+cce_high_availability = false
+cce_node_flavor       = "s3.large.4"
+cce_node_storage_type = "SSD"
+cce_node_storage_size = 100
+cce_node_count        = 2
+cce_node_max          = 2

@@ -79,9 +79,9 @@ locals {
   }
   kubectl_config_raw = {
     apiVersion      = "v1"
-    clusters        = var.cluster_public_cluster ? concat(local.kubectl_config_raw_external.clusters, local.kubectl_config_raw_internal.clusters) : local.kubectl_config_raw_internal.clusters
-    contexts        = var.cluster_public_cluster ? concat(local.kubectl_config_raw_external.contexts, local.kubectl_config_raw_internal.contexts) : local.kubectl_config_raw_internal.contexts
-    current-context = var.cluster_public_cluster ? var.name : "${var.name}-internal"
+    clusters        = var.cluster_public_access ? concat(local.kubectl_config_raw_external.clusters, local.kubectl_config_raw_internal.clusters) : local.kubectl_config_raw_internal.clusters
+    contexts        = var.cluster_public_access ? concat(local.kubectl_config_raw_external.contexts, local.kubectl_config_raw_internal.contexts) : local.kubectl_config_raw_internal.contexts
+    current-context = var.cluster_public_access ? var.name : "${var.name}-internal"
     kind            = "Config"
     preferences     = {}
     users = [

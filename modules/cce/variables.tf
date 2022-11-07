@@ -55,10 +55,9 @@ resource "errorcheck_is_valid" "container_network_type" {
   name = "Check if container_network_type is set up correctly."
   test = {
     assert = (
-      var.cluster_container_network_type == null ||
+      length(var.cluster_container_network_type) == 0 ||
       (try(contains(["vpc-router", "overlay_l2"], var.cluster_container_network_type), false) && (var.cluster_type == "VirtualMachine" || var.cluster_type == null)) ||
-      (try(contains(["underlay_ipvlan"], var.cluster_container_network_type), false) && var.cluster_type == "BareMetal") ||
-      (try(contains([""], var.cluster_container_network_type), false))
+      (try(contains(["underlay_ipvlan"], var.cluster_container_network_type), false) && var.cluster_type == "BareMetal")
     )
     error_message = "Allowed values for container_network_type are \"vpc-router\" and \"overlay_l2\" for VirtualMachine Clusters; and \"underlay_ipvlan\" for BareMetal Clusters."
   }
@@ -76,7 +75,7 @@ variable "cluster_service_cidr" {
   default     = "10.247.0.0/16"
 }
 
-variable "cluster_public_cluster" {
+variable "cluster_public_access" {
   type        = bool
   description = "Bind a public IP to the CLuster to make it public available (default: true)"
   default     = true
@@ -106,7 +105,7 @@ locals {
 }
 
 variable "node_availability_zones" {
-  type        = list(string)
+  type        = set(string)
   description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
 }
 
@@ -150,13 +149,13 @@ variable "node_postinstall" {
   default     = ""
 }
 
-variable "autoscaler_nodes_max" {
+variable "autoscaler_node_max" {
   type        = number
   description = "Maximum limit of servers to create (default: 10)"
   default     = 10
 }
 
-variable "autoscaler_nodes_min" {
+variable "autoscaler_node_min" {
   type        = number
   description = "Lower bound of servers to always keep (default: <node_count>)"
   default     = null
@@ -188,7 +187,7 @@ variable "autoscaler_version" {
 
 locals {
   // Lower bound of servers to always keep (default: <node_count>)
-  autoscaler_nodes_min = var.node_count != null ? var.node_count : null
+  autoscaler_node_min = var.autoscaler_node_min != null ? var.node_count : var.autoscaler_node_min
 }
 
 variable "metrics_server_version" {

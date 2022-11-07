@@ -12,36 +12,36 @@ variable "vpc_cidr" {
   description = "IP range of the VPC"
 }
 
-variable "cluster_enable_scaling" {
+variable "cce_enable_scaling" {
   type        = bool
   description = "Enable autoscaling of the cluster"
 }
 
-variable "cluster_high_availability" {
+variable "cce_high_availability" {
   type        = bool
   description = "Create the cluster in highly available mode"
 }
-variable "cluster_node_flavor" {
+variable "cce_node_flavor" {
   type        = string
   description = "Node specifications in otc flavor format"
 }
 
-variable "cluster_node_storage_type" {
+variable "cce_node_storage_type" {
   type        = string
   description = "Type of node storage SATA, SAS or SSD"
 }
 
-variable "cluster_node_storage_size" {
+variable "cce_node_storage_size" {
   type        = number
   description = "Size of the node system disk in GB"
 }
 
-variable "cluster_nodes_count" {
+variable "cce_node_count" {
   type        = number
-  description = "Number of nodes to create"
+  description = "Number of node to create"
 }
 
-variable "cluster_nodes_max" {
+variable "cce_node_max" {
   type        = number
   description = "Maximum limit of servers to create"
 }
