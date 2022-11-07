@@ -9,7 +9,7 @@ locals {
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
-  count            = var.cluster_config_enable_scaling ? 1 : 0
+  count            = var.cluster_enable_scaling ? 1 : 0
   template_name    = "autoscaler"
   template_version = var.autoscaler_version
   cluster_id       = opentelekomcloud_cce_cluster_v3.cluster.id
@@ -36,9 +36,9 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       "scaleDownDelayAfterFailure"     = 3
       "scaleDownEnabled"               = true
       "scaleDownUnneededTime"          = 7
-      "scaleDownUtilizationThreshold"  = var.autoscaling_config_lower_bound
-      "scaleUpCpuUtilizationThreshold" = var.autoscaling_config_cpu_upper_bound
-      "scaleUpMemUtilizationThreshold" = var.autoscaling_config_mem_upper_bound
+      "scaleDownUtilizationThreshold"  = var.autoscaler_lower_bound
+      "scaleUpCpuUtilizationThreshold" = var.autoscaler_cpu_upper_bound
+      "scaleUpMemUtilizationThreshold" = var.autoscaler_mem_upper_bound
       "scaleUpUnscheduledPodEnabled"   = true
       "scaleUpUtilizationEnabled"      = true
       "unremovableNodeRecheckTimeout"  = 7
