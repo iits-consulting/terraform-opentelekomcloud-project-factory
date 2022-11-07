@@ -40,6 +40,7 @@ resource "opentelekomcloud_kms_key_v1" "node_storage_encryption_key" {
 }
 
 locals {
+  node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : local.node_config.node_storage_encryption_enabled
   flavor_id = "cce.${var.cluster_config_cluster_type == "BareMetal" ? "t" : "s"}${var.cluster_config_high_availability ? 2 : 1}.${lower(var.cluster_config_cluster_size)}"
 }
 
