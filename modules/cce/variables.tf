@@ -17,11 +17,13 @@ variable "cluster_config_subnet_id" {
   type        = string
   description = "Subnet network id where the cluster will be created in"
 }
+
 variable "cluster_config_cluster_version" {
   type        = string
   description = "CCE cluster version."
   default     = "v1.23"
 }
+
 variable "cluster_config_cluster_size" {
   type        = string
   description = "Size of the cluster: small, medium, large (default: small)"
@@ -31,6 +33,7 @@ variable "cluster_config_cluster_size" {
     error_message = "Allowed values for cluster_size are \"small\", \"medium\" and \"large\"."
   }
 }
+
 variable "cluster_config_cluster_type" {
   type        = string
   description = "Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)"
@@ -41,11 +44,13 @@ variable "cluster_config_cluster_type" {
     error_message = "Allowed values for cluster_type are \"VirtualMachine\" and \"BareMetal\"."
   }
 }
+
 variable "cluster_config_container_network_type" {
   type        = string
   description = "Container network type: vpc-router or overlay_l2 for VirtualMachine Clusters; underlay_ipvlan for BareMetal Clusters"
   default     = ""
 }
+
 resource "errorcheck_is_valid" "container_network_type" {
   name = "Check if container_network_type is set up correctly."
   test = {
@@ -64,26 +69,31 @@ variable "cluster_config_container_cidr" {
   description = "Kubernetes pod network CIDR range (default: 172.16.0.0/16)"
   default     = "172.16.0.0/16"
 }
+
 variable "cluster_config_service_cidr" {
   type        = string
   description = "Kubernetes service network CIDR range (default: 10.247.0.0/16)"
   default     = "10.247.0.0/16"
 }
+
 variable "cluster_config_public_cluster" {
   type        = bool
   description = "Bind a public IP to the CLuster to make it public available (default: true)"
   default     = true
 }
+
 variable "cluster_config_high_availability" {
   type        = bool
   description = "Create the cluster in highly available mode (default: false)"
   default     = false
 }
+
 variable "cluster_config_enable_scaling" {
   type        = bool
   description = "Enable autoscaling of the cluster (default: false)"
   default     = false
 }
+
 variable "cluster_config_install_icagent" {
   type        = bool
   description = "install icagent for logging and metrics (default: false)"
