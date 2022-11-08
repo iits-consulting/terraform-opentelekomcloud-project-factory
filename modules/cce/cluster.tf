@@ -3,12 +3,17 @@ resource "tls_private_key" "cluster_keypair" {
   ecdsa_curve = "P256"
 }
 
+resource "random_id" "cluster_keypair_id" {
+  byte_length = 4
+}
+
 resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
-  name       = "${var.name}-cluster-keypair"
+  name       = "${var.name}-cluster-keypair-${random_id.cluster_keypair_id.hex}"
   public_key = tls_private_key.cluster_keypair.public_key_openssh
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
+  count = var.cluster_public_access ? 1 : 0
   bandwidth {
     charge_mode = "traffic"
     name        = "${var.name}-cluster-kubectl-endpoint"
@@ -22,12 +27,12 @@ resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
 }
 
 resource "random_id" "id" {
-  count       = local.node_config.node_storage_encryption_enabled ? 1 : 0
+  count       = var.node_storage_encryption_enabled ? 1 : 0
   byte_length = 4
 }
 
 resource "opentelekomcloud_kms_key_v1" "node_storage_encryption_key" {
-  count           = local.node_config.node_storage_encryption_enabled ? 1 : 0
+  count           = var.node_storage_encryption_enabled ? 1 : 0
   key_alias       = "${var.name}-node-pool-${random_id.id[0].hex}"
   key_description = "${var.name} CCE Node Pool volume encryption key"
   pending_days    = 7
@@ -35,23 +40,24 @@ resource "opentelekomcloud_kms_key_v1" "node_storage_encryption_key" {
 }
 
 locals {
-  flavor_id = "cce.${local.cluster_config.cluster_type == "BareMetal" ? "t" : "s"}${local.cluster_config.high_availability ? 2 : 1}.${lower(local.cluster_config.cluster_size)}"
+  node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : var.node_storage_encryption_enabled
+  flavor_id                       = "cce.${var.cluster_type == "BareMetal" ? "t" : "s"}${var.cluster_high_availability ? 2 : 1}.${lower(var.cluster_size)}"
 }
 
 resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   name                    = var.name
-  cluster_type            = local.cluster_config.cluster_type
+  cluster_type            = var.cluster_type
   flavor_id               = local.flavor_id
-  vpc_id                  = local.cluster_config.vpc_id
-  subnet_id               = local.cluster_config.subnet_id
-  container_network_type  = local.cluster_config.container_network_type
-  container_network_cidr  = local.cluster_config.container_cidr
-  kubernetes_svc_ip_range = local.cluster_config.service_cidr
+  vpc_id                  = var.cluster_vpc_id
+  subnet_id               = var.cluster_subnet_id
+  container_network_type  = local.cluster_container_network_type
+  container_network_cidr  = var.cluster_container_cidr
+  kubernetes_svc_ip_range = var.cluster_service_cidr
   description             = "Kubernetes Cluster ${var.name}."
-  eip                     = opentelekomcloud_vpc_eip_v1.cce_eip.publicip[0].ip_address
-  cluster_version         = local.cluster_config.cluster_version
+  eip                     = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
+  cluster_version         = var.cluster_version
   authentication_mode     = "x509"
-  annotations             = local.cluster_config.install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
+  annotations             = var.cluster_install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
 
   timeouts {
     create = "60m"
@@ -60,33 +66,34 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
 }
 
 resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
-  count              = length(local.node_config.availability_zones)
+  for_each           = var.node_availability_zones
   cluster_id         = opentelekomcloud_cce_cluster_v3.cluster.id
-  name               = "${var.name}-nodes-${local.node_config.availability_zones[count.index]}"
-  flavor             = local.node_config.node_flavor
-  initial_node_count = local.node_config.node_count
-  availability_zone  = local.node_config.availability_zones[count.index]
+  name               = "${var.name}-nodes-${each.value}"
+  flavor             = var.node_flavor
+  initial_node_count = var.node_count
+  availability_zone  = each.value
   key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
-  os                 = local.node_config.node_os
+  os                 = var.node_os
 
-  scale_enable             = local.cluster_config.enable_scaling
-  min_node_count           = local.autoscaling_config.nodes_min
-  max_node_count           = local.autoscaling_config.nodes_max
+  scale_enable             = var.cluster_enable_scaling
+  min_node_count           = local.autoscaler_node_min
+  max_node_count           = var.autoscaler_node_max
   scale_down_cooldown_time = 15
   priority                 = 1
   user_tags                = var.tags
   docker_base_size         = 20
-  postinstall              = local.node_config.node_postinstall
+  postinstall              = var.node_postinstall
 
   root_volume {
     size       = 50
     volumetype = "SSD"
+    kms_id     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : null
   }
 
   data_volumes {
-    size       = local.node_config.node_storage_size
-    volumetype = local.node_config.node_storage_type
-    kms_id     = local.node_config.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : null
+    size       = var.node_storage_size
+    volumetype = var.node_storage_type
+    kms_id     = var.node_storage_encryption_enabled ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : null
   }
 
   lifecycle {

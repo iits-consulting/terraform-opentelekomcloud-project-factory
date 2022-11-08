@@ -1,3 +1,14 @@
+data "opentelekomcloud_identity_project_v3" "current" {}
+
+locals {
+  region                      = data.opentelekomcloud_identity_project_v3.current.region
+  possible_availability_zones = local.region == "eu-ch2" ? tomap({ 1 = "a", 2 = "b" }) : tomap({ 1 = "-01", 2 = "-02", 3 = "-03" })
+  db_availability_zones = ([
+    for availability_zone in var.db_availability_zones :
+    "${local.region}${local.possible_availability_zones[availability_zone]}"
+  ])
+}
+
 resource "random_password" "db_root_password" {
   length      = 32
   special     = false
@@ -37,9 +48,8 @@ resource "opentelekomcloud_vpc_eip_v1" "db_eip" {
 }
 
 resource "opentelekomcloud_rds_instance_v3" "db_instance" {
-
   name                = var.name
-  availability_zone   = var.db_high_availability || var.db_flavor != "" ? var.db_availability_zones : [var.db_availability_zones[0]]
+  availability_zone   = var.db_high_availability || var.db_flavor != "" ? local.db_availability_zones : [local.db_availability_zones[0]]
   flavor              = local.db_flavor
   ha_replication_mode = local.db_ha_replication_mode
   security_group_id   = var.sg_secgroup_id == "" ? opentelekomcloud_networking_secgroup_v2.db_secgroup[0].id : var.sg_secgroup_id

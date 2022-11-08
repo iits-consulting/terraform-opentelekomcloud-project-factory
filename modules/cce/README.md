@@ -7,23 +7,21 @@ Usage example
 module "cce" {
   source             = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cce"
   name               = var.name
-  autoscaling_config = {
-    nodes_max = 8
-  }
-  cluster_config     = {
-    vpc_id            = module.vpc.vpc.id
-    subnet_id         = values(module.vpc.subnets)[0].id
-    cluster_version   = "v1.19.8-r0"
-    high_availability = false
-    enable_scaling    = true #set this flag to false to disable auto scaling
-  }
-  node_config        = {
-    availability_zones = ["eu-de-03", "eu-de-01"]
-    node_count         = 3
-    node_flavor        = local.node_spec_default
-    node_storage_type  = "SSD"
-    node_storage_size  = 100
-  }
+  
+  // Cluster configuration
+  cluster_vpc_id            = module.vpc.vpc.id
+  cluster_subnet_id         = values(module.vpc.subnets)[0].id
+  cluster_cluster_version   = "v1.19.8-r0"
+  cluster_high_availability = false
+  cluster_enable_scaling    = true #set this flag to false to disable auto scaling
+  // Node configuration
+  node_availability_zones = ["eu-de-03", "eu-de-01"]
+  node_count              = 3
+  node_flavor             = local.node_spec_default
+  node_storage_type       = "SSD"
+  node_storage_size       = 100
+  // Autoscaling configuration
+  autoscaling_node_max = 8
 }
 ```
 

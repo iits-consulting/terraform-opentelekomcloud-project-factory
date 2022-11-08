@@ -25,11 +25,14 @@ module "snat" {
   name_prefix = "${var.context_name}-${var.stage_name}"
   subnet_id   = module.vpc.subnets["subnet-0"].id
   vpc_id      = module.vpc.vpc.id
-  // Example to add all subnets but "subnet-2"
+  
+  // Example to add all subnets but "subnet-2".
+  // Note that this type of dynamic creation will require a targeted apply on vpc module.  
   network_ids = [for name, subnet in module.vpc.subnets: subnet.id if name != "subnet-2"]
-  // Example to add all subnets
-  network_ids = values(module.vpc.subnets)[*].id
-}
+  
+  // Example to add all subnets in vpc
+  network_cidrs = [var.vpc_cidr]
+  }
 ```
 
 ### Notes:

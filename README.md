@@ -2,6 +2,7 @@
 
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/blob/master/LICENSE)
 ![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/terraform-opentelekomcloud-project-factory.svg)
+[![Terratest](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/actions/workflows/terratest.yaml/badge.svg)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/actions/workflows/terratest.yaml)
 
 These are commonly usable Terraform Modules for the [Open Telekom Cloud](https://open-telekom-cloud.com) based on the
 awesome [Terraform OTC Provider](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs).
@@ -34,6 +35,7 @@ module "vpc" {
 - [obs_secrets_reader:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/obs_secrets_reader) This modules reads JSON formatted secrets from an OBS bucket.
 - [obs_secrets_writer:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/obs_secrets_writer) This modules creates an OBS Bucket with KMS SSE default encryption and a JSON encoded secrets file within the bucket.
 - [private_dns:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/private_dns) Create and manage a private DNS zone within you VPC
+- [public_dns:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/public_dns) Create and manage a public DNS zone
 - [rds:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/rds) A module designed to support full capabilities of OTC RDS while simplifying the configuration for ease of use.
 - [snat:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
@@ -56,6 +58,12 @@ There are some variables that occur on multiple modules. The ideas behind them a
 | `context`  | A human-readable name of the project | `website`, `payments-service` |
 | `stage   ` | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
 
+## Remarks
+
+The following modules are currently not working for Swiss OTC:
+- [public_dns:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/public_dns) Create and manage a public DNS zone
+- [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
+- [snat:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
 
 ## Recommendations
 

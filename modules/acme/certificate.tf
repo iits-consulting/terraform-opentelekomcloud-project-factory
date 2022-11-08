@@ -28,12 +28,15 @@ resource "acme_certificate" "certificate" {
   dns_challenge {
     provider = "otc"
     config = {
-      OTC_DOMAIN_NAME       = var.otc_domain_name
-      OTC_IDENTITY_ENDPOINT = "https://iam.${data.opentelekomcloud_identity_project_v3.project.region}.otc.t-systems.com/v3/auth/tokens"
-      OTC_USER_NAME         = var.dns_admin_name
-      OTC_PASSWORD          = random_password.dns_admin_password.result
-      OTC_PROJECT_NAME      = var.otc_project_name
-      OTC_TTL               = 300
+      OTC_DOMAIN_NAME         = var.otc_domain_name
+      OTC_IDENTITY_ENDPOINT   = "https://iam.${data.opentelekomcloud_identity_project_v3.project.region}.otc.t-systems.com/v3/auth/tokens"
+      OTC_USER_NAME           = var.dns_admin_name
+      OTC_PASSWORD            = random_password.dns_admin_password.result
+      OTC_PROJECT_NAME        = var.otc_project_name
+      OTC_PROPAGATION_TIMEOUT = 600
+      OTC_POLLING_INTERVAL    = 5
+      OTC_TTL                 = 300
+      OTC_HTTP_TIMEOUT        = 10
     }
   }
 }

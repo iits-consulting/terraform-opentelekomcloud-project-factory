@@ -26,6 +26,6 @@ resource "opentelekomcloud_obs_bucket_object" "secrets" {
   encryption   = true
   content      = jsonencode(var.secrets)
   content_type = "application/json"
-  bucket       = var.bucket_name
+  bucket       = opentelekomcloud_obs_bucket.secrets[0].bucket
   kms_key_id   = opentelekomcloud_kms_key_v1.encrypted_secrets_key.id
 }

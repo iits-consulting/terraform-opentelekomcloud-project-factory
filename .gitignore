@@ -39,6 +39,7 @@ build
 
 ### Helm ###
 /**/.terraform.tfstate.lock.info
+/**/.terraform.lock.hcl
 /**/terraform.tfstate
 /**/terraform.tfstate.d/dev/terraform.tfstate
 /**/terraform.tfstate.backup

@@ -1,8 +1,9 @@
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 locals {
-  file_paths = setunion(
-    length(var.users_config_path) == 0 ? [] : [var.users_config_path],
-  length(var.cloud_init_path) == 0 ? [] : fileset(var.cloud_init_path, "*.{yml,yaml}"))
-  cloudinit_config = join("\n", concat(["#cloud-config"], [for path in local.file_paths : file(path)]))
+  region                      = data.opentelekomcloud_identity_project_v3.current.region
+  possible_availability_zones = local.region == "eu-ch2" ? tomap({ 1 = "a", 2 = "b" }) : tomap({ 1 = "-01", 2 = "-02", 3 = "-03" })
+  availability_zone           = "${local.region}${local.possible_availability_zones[var.availability_zone]}"
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
@@ -18,24 +19,51 @@ resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
   tags = var.tags
 }
 
-resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
+resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
+  name              = "${var.node_name}-volume"
+  description       = "${var.node_name} system volume device."
+  availability_zone = local.availability_zone
+  size              = var.node_storage_size
+  volume_type       = var.node_storage_type
+  image_id          = var.node_image_id
+
+  metadata = merge({
+    attached_mode = "rw"
+    readonly      = "False"
+    }, local.node_storage_encryption_enabled ? {
+    __system__encrypted = "1"
+    __system__cmkid     = opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id
+  } : {})
+  tags = var.tags
+  lifecycle {
+    ignore_changes = [image_id]
+  }
+}
+
+resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
   name          = var.node_name
   image_id      = var.node_image_id
   auto_recovery = true
-  flavor        = var.node_flavor
-  vpc_id        = var.vpc_id
+  flavor_id     = var.node_flavor
 
-  nics {
-    network_id = var.subnet_id
+  network {
+    uuid           = var.subnet_id
+    access_network = true
   }
-  user_data = base64encode(local.cloudinit_config)
+  user_data = base64encode(sensitive(join("\n", [var.cloud_init, local.cloud_init_host_keys])))
 
-  system_disk_type = var.node_storage_type
-  system_disk_size = var.node_storage_size
+  block_device {
+    uuid                  = opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume.id
+    source_type           = "volume"
+    boot_index            = 0
+    destination_type      = "volume"
+    delete_on_termination = false
+  }
 
-  availability_zone = "eu-de-03"
-  key_name          = opentelekomcloud_compute_keypair_v2.jumphost_keypair.name
-  security_groups   = concat([opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.id], var.additional_security_groups)
+  availability_zone = local.availability_zone
+  security_groups = concat([
+    opentelekomcloud_networking_secgroup_v2.jumphost_secgroup.name
+  ], var.additional_security_groups)
   timeouts {
     create = "20m"
     delete = "20m"
@@ -46,7 +74,7 @@ resource "opentelekomcloud_ecs_instance_v1" "jumphost_node" {
   }
 }
 
-resource "opentelekomcloud_compute_floatingip_associate_v2" "jumphost_eip_association" {
+resource "opentelekomcloud_networking_floatingip_associate_v2" "jumphost_eip_association" {
   floating_ip = opentelekomcloud_vpc_eip_v1.jumphost_eip.publicip[0].ip_address
-  instance_id = opentelekomcloud_ecs_instance_v1.jumphost_node.id
+  port_id     = opentelekomcloud_compute_instance_v2.jumphost_node.network[0].port
 }

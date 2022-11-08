@@ -21,9 +21,9 @@ variable "subnet_id" {
 }
 
 variable "db_availability_zones" {
-  type        = list(string)
+  type        = list(number)
   description = "Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively."
-  default     = ["eu-de-01", "eu-de-03"]
+  default     = ["1", "2"]
 }
 
 variable "db_type" {
@@ -170,10 +170,6 @@ variable "sg_allowed_cidr" {
 
 data "opentelekomcloud_vpc_subnet_v1" "db_subnet" {
   id = var.subnet_id
-}
-
-locals {
-  sg_allowed_cidr = length(var.sg_allowed_cidr) == 0 ? toset([data.opentelekomcloud_vpc_subnet_v1.db_subnet.cidr]) : var.sg_allowed_cidr
 }
 
 variable "sg_allowed_secgroups" {

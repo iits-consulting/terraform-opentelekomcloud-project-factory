@@ -9,10 +9,6 @@ variable "subnet_id" {
   description = "Jumphost subnet id for node network configuration"
 }
 
-variable "vpc_id" {
-  description = "Jumphost vpc id to join the node to"
-}
-
 variable "node_name" {
   description = "Jumphost node name."
 }
@@ -42,6 +38,15 @@ variable "node_storage_size" {
   default     = 20
 }
 
+variable "node_storage_encryption_enabled" {
+  description = "Jumphost node system disk storage KMS encryption toggle."
+  default     = false
+}
+
+locals {
+  node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : var.node_storage_encryption_enabled
+}
+
 variable "node_bandwidth_size" {
   description = "Jumphost node external IP bandwidth size in Mbps. (default: 10)"
   type        = number
@@ -60,12 +65,18 @@ variable "additional_security_groups" {
   default     = []
 }
 
-variable "users_config_path" {
-  description = "Path to authorised users configuration file. Cloud-init cloud config format is expected."
+variable "cloud_init" {
+  description = "Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
   default     = ""
 }
 
-variable "cloud_init_path" {
-  description = "Path to directory with custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
-  default     = ""
+variable "preserve_host_keys" {
+  description = "Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true)"
+  default     = true
+}
+
+variable "availability_zone" {
+  type        = number
+  description = "Availability zone for the node. (default: ...-02 or b depends on the region)"
+  default     = 2
 }
