@@ -1,4 +1,6 @@
 ### mandatories
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 variable "name" {
   type        = string
   description = "Name of the RDS instance."
@@ -21,9 +23,45 @@ variable "subnet_id" {
 }
 
 variable "db_availability_zones" {
-  type        = list(number)
+  type        = set(string)
   description = "Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively."
-  default     = ["1", "2"]
+  default     = null
+}
+
+locals {
+  valid_availability_zones = {
+    eu-de = toset([
+      "eu-de-01",
+      "eu-de-02",
+      "eu-de-03",
+    ])
+    eu-nl = toset([
+      "eu-nl-01",
+      "eu-nl-02",
+      "eu-nl-03",
+    ])
+    eu-ch2 = toset([
+      "eu-ch2a",
+      "eu-ch2b",
+    ])
+  }
+
+  region = data.opentelekomcloud_identity_project_v3.current.region
+  default_zones = {
+    eu-de  = formatlist("${local.region}%s", ["-01", "-02"])
+    eu-nl  = formatlist("${local.region}%s", ["-01", "-02"])
+    eu-ch2 = formatlist("${local.region}%s", ["a", "b"])
+  }
+
+  db_availability_zones = var.db_availability_zones == null ? local.default_zones[local.region] : var.db_availability_zones
+}
+
+resource "errorcheck_is_valid" "db_availability_zones" {
+  name = "Check if container_network_type is set up correctly."
+  test = {
+    assert        = length(setsubtract(local.db_availability_zones, local.valid_availability_zones[local.region])) == 0
+    error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"
+  }
 }
 
 variable "db_type" {

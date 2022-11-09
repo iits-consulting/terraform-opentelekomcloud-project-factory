@@ -1,3 +1,5 @@
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 variable "name" {
   type        = string
   description = "CCE cluster name"
@@ -107,6 +109,35 @@ locals {
 variable "node_availability_zones" {
   type        = set(string)
   description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
+}
+
+locals {
+  valid_availability_zones = {
+    eu-de = toset([
+      "eu-de-01",
+      "eu-de-02",
+      "eu-de-03",
+    ])
+    eu-nl = toset([
+      "eu-nl-01",
+      "eu-nl-02",
+      "eu-nl-03",
+    ])
+    eu-ch2 = toset([
+      "eu-ch2a",
+      "eu-ch2b",
+    ])
+  }
+
+  region = data.opentelekomcloud_identity_project_v3.current.region
+}
+
+resource "errorcheck_is_valid" "node_availability_zones" {
+  name = "Check if container_network_type is set up correctly."
+  test = {
+    assert        = length(setsubtract(var.node_availability_zones, local.valid_availability_zones[local.region])) == 0
+    error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"
+  }
 }
 
 variable "node_count" {

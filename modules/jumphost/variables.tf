@@ -1,4 +1,6 @@
 ### mandatories
+data "opentelekomcloud_identity_project_v3" "current" {}
+
 variable "tags" {
   type        = map(string)
   description = "Jumphost tag set."
@@ -76,7 +78,36 @@ variable "preserve_host_keys" {
 }
 
 variable "availability_zone" {
-  type        = number
-  description = "Availability zone for the node. (default: ...-02 or b depends on the region)"
-  default     = 2
+  type        = string
+  description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
+  default     = null
+}
+
+locals {
+  valid_availability_zones = {
+    eu-de = toset([
+      "eu-de-01",
+      "eu-de-02",
+      "eu-de-03",
+    ])
+    eu-nl = toset([
+      "eu-nl-01",
+      "eu-nl-02",
+      "eu-nl-03",
+    ])
+    eu-ch2 = toset([
+      "eu-ch2a",
+      "eu-ch2b",
+    ])
+  }
+  region            = data.opentelekomcloud_identity_project_v3.current.region
+  availability_zone = var.availability_zone == null ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
+}
+
+resource "errorcheck_is_valid" "availability_zones" {
+  name = "Check if container_network_type is set up correctly."
+  test = {
+    assert        = contains(local.valid_availability_zones[local.region], local.availability_zone)
+    error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"
+  }
 }

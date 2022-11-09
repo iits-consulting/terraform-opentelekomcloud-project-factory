@@ -1,14 +1,3 @@
-data "opentelekomcloud_identity_project_v3" "current" {}
-
-locals {
-  region                      = data.opentelekomcloud_identity_project_v3.current.region
-  possible_availability_zones = local.region == "eu-ch2" ? tomap({ 1 = "a", 2 = "b" }) : tomap({ 1 = "-01", 2 = "-02", 3 = "-03" })
-  db_availability_zones = ([
-    for availability_zone in var.db_availability_zones :
-    "${local.region}${local.possible_availability_zones[availability_zone]}"
-  ])
-}
-
 resource "random_password" "db_root_password" {
   length      = 32
   special     = false
