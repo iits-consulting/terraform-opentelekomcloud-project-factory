@@ -18,7 +18,6 @@ module "rds" {
   db_type                = "PostgreSQL"
   db_version             = "12"
   db_ha_replication_mode = "async"
-  db_availability_zones  = ["2"]
   db_parameters = {
     max_connections = "100",
   }
