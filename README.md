@@ -11,7 +11,7 @@ awesome [Terraform OTC Provider](https://registry.terraform.io/providers/opentel
 Service!*
 
 ## Usage:
-For fully integrated examples please visit the [Terratest Folder](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/Terratest)
+For fully integrated examples please visit the [Terratest Directory](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/Terratest)
 You pick modules which you would like to use like this:
 
 ```hcl

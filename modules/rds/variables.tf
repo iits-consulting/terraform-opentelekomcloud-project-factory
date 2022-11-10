@@ -25,7 +25,7 @@ variable "subnet_id" {
 variable "db_availability_zones" {
   type        = set(string)
   description = "Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively."
-  default     = null
+  default     = []
 }
 
 locals {
@@ -53,11 +53,11 @@ locals {
     eu-ch2 = formatlist("${local.region}%s", ["a", "b"])
   }
 
-  db_availability_zones = var.db_availability_zones == null ? local.default_zones[local.region] : var.db_availability_zones
+  db_availability_zones = length(var.db_availability_zones) == 0 ? local.default_zones[local.region] : var.db_availability_zones
 }
 
 resource "errorcheck_is_valid" "db_availability_zones" {
-  name = "Check if container_network_type is set up correctly."
+  name = "Check if db_availability_zones is set up correctly."
   test = {
     assert        = length(setsubtract(local.db_availability_zones, local.valid_availability_zones[local.region])) == 0
     error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"

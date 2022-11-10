@@ -133,7 +133,7 @@ locals {
 }
 
 resource "errorcheck_is_valid" "node_availability_zones" {
-  name = "Check if container_network_type is set up correctly."
+  name = "Check if node_availability_zones are set up correctly."
   test = {
     assert        = length(setsubtract(var.node_availability_zones, local.valid_availability_zones[local.region])) == 0
     error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"

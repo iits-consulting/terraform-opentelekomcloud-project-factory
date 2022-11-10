@@ -80,7 +80,7 @@ variable "preserve_host_keys" {
 variable "availability_zone" {
   type        = string
   description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
-  default     = null
+  default     = ""
 }
 
 locals {
@@ -101,11 +101,11 @@ locals {
     ])
   }
   region            = data.opentelekomcloud_identity_project_v3.current.region
-  availability_zone = var.availability_zone == null ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
+  availability_zone = length(var.db_availability_zones) == 0 ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
 }
 
 resource "errorcheck_is_valid" "availability_zones" {
-  name = "Check if container_network_type is set up correctly."
+  name = "Check if availability_zones is set up correctly."
   test = {
     assert        = contains(local.valid_availability_zones[local.region], local.availability_zone)
     error_message = "Please check your availability zones. For ${local.region} the valid az's are ${jsonencode(local.valid_availability_zones[local.region])}"

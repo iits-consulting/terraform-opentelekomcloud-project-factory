@@ -5,7 +5,7 @@ data "opentelekomcloud_cce_addon_template_v3" "autoscaler" {
 }
 
 locals {
-  region_endpoint = replace(data.opentelekomcloud_identity_project_v3.current.region, "eu-ch2", "eu-ch2.sc")
+  region_endpoint = replace(local.region, "eu-ch2", "eu-ch2.sc")
 }
 
 resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
