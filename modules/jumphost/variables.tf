@@ -79,7 +79,7 @@ variable "preserve_host_keys" {
 
 variable "availability_zone" {
   type        = string
-  description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
+  description = "Availability zone for the jumphost node."
   default     = ""
 }
 
@@ -101,10 +101,10 @@ locals {
     ])
   }
   region            = data.opentelekomcloud_identity_project_v3.current.region
-  availability_zone = length(var.db_availability_zones) == 0 ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
+  availability_zone = length(var.availability_zone) == 0 ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
 }
 
-resource "errorcheck_is_valid" "availability_zones" {
+resource "errorcheck_is_valid" "availability_zone" {
   name = "Check if availability_zones is set up correctly."
   test = {
     assert        = contains(local.valid_availability_zones[local.region], local.availability_zone)
