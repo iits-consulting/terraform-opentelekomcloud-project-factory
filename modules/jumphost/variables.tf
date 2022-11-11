@@ -80,7 +80,7 @@ variable "preserve_host_keys" {
 variable "availability_zone" {
   type        = string
   description = "Availability zone for the jumphost node."
-  default     = ""
+  default     = null
 }
 
 locals {
@@ -101,7 +101,7 @@ locals {
     ])
   }
   region            = data.opentelekomcloud_identity_project_v3.current.region
-  availability_zone = length(var.availability_zone) == 0 ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
+  availability_zone = var.availability_zone == null ? local.region == "eu-ch2" ? "eu-ch2b" : "${local.region}-02" : var.availability_zone
 }
 
 resource "errorcheck_is_valid" "availability_zone" {
