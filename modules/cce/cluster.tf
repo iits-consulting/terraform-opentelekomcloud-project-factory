@@ -92,13 +92,13 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   root_volume {
     size       = 50
     volumetype = "SSD"
-    kms_id     = var.node_storage_encryption_enabled ? ( var.node_storage_encryption_kms_key_name == null ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.node_storage_encryption_existing_key[0].id ) : null
+    kms_id     = var.node_storage_encryption_enabled ? (var.node_storage_encryption_kms_key_name == null ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.node_storage_encryption_existing_key[0].id) : null
   }
 
   data_volumes {
     size       = var.node_storage_size
     volumetype = var.node_storage_type
-    kms_id     = var.node_storage_encryption_enabled ? ( var.node_storage_encryption_kms_key_name == null ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.node_storage_encryption_existing_key[0].id ) : null
+    kms_id     = var.node_storage_encryption_enabled ? (var.node_storage_encryption_kms_key_name == null ? opentelekomcloud_kms_key_v1.node_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.node_storage_encryption_existing_key[0].id) : null
   }
 
   lifecycle {
