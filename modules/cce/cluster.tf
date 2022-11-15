@@ -100,5 +100,6 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
     ignore_changes = [
       initial_node_count,
     ]
+    create_before_destroy = true
   }
 }
