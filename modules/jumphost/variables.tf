@@ -46,7 +46,7 @@ variable "node_storage_encryption_enabled" {
 }
 
 variable "node_storage_encryption_key_name" {
-  type = string
+  type        = string
   description = "If jumphost system disk KMS encryption is enabled, use this KMS key name instead of creating a new one."
   default     = null
 }
