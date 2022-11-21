@@ -9,5 +9,8 @@ terraform {
     curl = {
       source = "anschoewe/curl"
     }
+    errorcheck = {
+      source = "iits-consulting/errorcheck"
+    }
   }
 }

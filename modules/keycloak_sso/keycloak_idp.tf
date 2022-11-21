@@ -15,6 +15,23 @@ resource "opentelekomcloud_identity_mapping_v3" "mapping" {
   }
 }
 
+data "curl" "saml_descriptor" {
+  http_method = "GET"
+  uri         = "${var.keycloak_domain_name}/realms/${var.keycloak_realm}/protocol/saml/descriptor"
+}
+
+locals {
+  saml_descriptor = regexall("<md:EntityDescriptor(?s:.*?)</md:EntityDescriptor>", data.curl.saml_descriptor.response)
+}
+
+resource "errorcheck_is_valid" "saml_descriptor_check" {
+  name = "Check if the regex validation returned exactly one result."
+  test = {
+    assert        = length(local.saml_descriptor) == 1
+    error_message = "ERROR! SAML descriptor at \"${var.keycloak_domain_name}/realms/${var.keycloak_realm}/protocol/saml/descriptor\" is invalid."
+  }
+}
+
 resource "opentelekomcloud_identity_protocol_v3" "saml" {
   protocol    = "saml"
   provider_id = opentelekomcloud_identity_provider_v3.provider.id
@@ -23,11 +40,7 @@ resource "opentelekomcloud_identity_protocol_v3" "saml" {
 
   metadata {
     domain_id = data.opentelekomcloud_identity_project_v3.current.domain_id
-    metadata  = data.curl.saml_descriptor.response
+    metadata  = local.saml_descriptor[0]
   }
 }
 
-data "curl" "saml_descriptor" {
-  http_method = "GET"
-  uri         = "${var.keycloak_domain_name}/realms/${var.keycloak_realm}/protocol/saml/descriptor"
-}
