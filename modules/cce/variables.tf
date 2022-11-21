@@ -150,6 +150,12 @@ variable "node_flavor" {
   description = "Node specifications in otc flavor format"
 }
 
+variable "node_additional_flavors" {
+  type        = list(string)
+  description = "If you need even more reliability and availability, you can create an additional node group set with these flavors in case your primary flavor is sold out and unable to scale. For example: ['s2.2xlarge.2', 'c4.2xlarge.2']. (default: [] )"
+  default     = []
+}
+
 variable "node_os" {
   type        = string
   description = "Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9)"

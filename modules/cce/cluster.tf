@@ -65,13 +65,22 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   }
 }
 
+locals {
+  additional_ngs = distinct(flatten([
+    for az in var.node_availability_zones : [
+      for flavor in var.node_additional_flavors : "${az}|${flavor}"
+    ]
+  ]))
+  final_ng_list = toset(concat(tolist(var.node_availability_zones), local.additional_ngs))
+}
+
 resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
-  for_each           = var.node_availability_zones
+  for_each           = local.final_ng_list
   cluster_id         = opentelekomcloud_cce_cluster_v3.cluster.id
-  name               = "${var.name}-nodes-${each.value}"
-  flavor             = var.node_flavor
+  name               = "${var.name}-nodes-${replace(replace(each.value, ".", "-"), "|", "-")}"
+  flavor             = try(split("|", each.key)[1], var.node_flavor)
   initial_node_count = var.node_count
-  availability_zone  = each.value
+  availability_zone  = try(split("|", each.key)[0], each.key)
   key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
   os                 = var.node_os
 
