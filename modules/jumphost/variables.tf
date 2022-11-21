@@ -45,6 +45,12 @@ variable "node_storage_encryption_enabled" {
   default     = false
 }
 
+variable "node_storage_encryption_key_name" {
+  type = string
+  description = "If jumphost system disk KMS encryption is enabled, use this KMS key name instead of creating a new one."
+  default     = null
+}
+
 locals {
   node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : var.node_storage_encryption_enabled
 }
