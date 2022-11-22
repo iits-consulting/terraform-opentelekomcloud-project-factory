@@ -1,14 +1,19 @@
 resource "random_id" "jumphost_storage_encryption_key" {
-  count       = local.node_storage_encryption_enabled ? 1 : 0
+  count       = local.node_storage_encryption_enabled && var.node_storage_encryption_key_name == null ? 1 : 0
   byte_length = 4
 }
 
 resource "opentelekomcloud_kms_key_v1" "jumphost_storage_encryption_key" {
-  count           = local.node_storage_encryption_enabled ? 1 : 0
+  count           = local.node_storage_encryption_enabled && var.node_storage_encryption_key_name == null ? 1 : 0
   key_alias       = "${var.node_name}-${random_id.jumphost_storage_encryption_key[0].hex}"
   key_description = "${var.node_name} Jumphost Node system volume encryption key"
   pending_days    = 7
   is_enabled      = "true"
+}
+
+data "opentelekomcloud_kms_key_v1" "jumphost_storage_existing_encryption_key" {
+  count     = local.node_storage_encryption_enabled && var.node_storage_encryption_key_name != null ? 1 : 0
+  key_alias = var.node_storage_encryption_key_name
 }
 
 resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup" {

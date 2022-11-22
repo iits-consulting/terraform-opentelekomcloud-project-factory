@@ -7,16 +7,21 @@ resource "random_password" "db_root_password" {
 }
 
 resource "random_id" "id" {
-  count       = var.db_volume_encryption ? 1 : 0
+  count       = var.db_volume_encryption && var.db_volume_encryption_key_name == null ? 1 : 0
   byte_length = 4
 }
 
 resource "opentelekomcloud_kms_key_v1" "db_encryption_key" {
-  count           = var.db_volume_encryption ? 1 : 0
+  count           = var.db_volume_encryption && var.db_volume_encryption_key_name == null ? 1 : 0
   key_alias       = "${var.name}-${random_id.id[0].hex}"
   key_description = "${var.name} RDS volume encryption key"
   pending_days    = 7
   is_enabled      = "true"
+}
+
+data "opentelekomcloud_kms_key_v1" "db_encryption_existing_key" {
+  count     = var.db_volume_encryption && var.db_volume_encryption_key_name != null ? 1 : 0
+  key_alias = var.db_volume_encryption_key_name
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "db_eip" {
@@ -53,7 +58,7 @@ resource "opentelekomcloud_rds_instance_v3" "db_instance" {
     port     = local.db_port
   }
   volume {
-    disk_encryption_id = var.db_volume_encryption ? opentelekomcloud_kms_key_v1.db_encryption_key[0].id : null
+    disk_encryption_id = var.db_volume_encryption ? (var.db_volume_encryption_key_name == null ? opentelekomcloud_kms_key_v1.db_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.db_encryption_existing_key[0].id) : null
     type               = var.db_storage_type
     size               = var.db_size
   }
