@@ -26,6 +26,13 @@ func TestPublicDNS(t *testing.T) {
 	}
 }
 
+func TestVPN(t *testing.T) {
+	context := "vpn"
+	if os.Getenv("TF_VAR_region") == "eu-de" {
+		performTerratest(t, context)
+	}
+}
+
 //FIXME Currently not working
 //func TestRDS(t *testing.T) {
 //	context := "rds"

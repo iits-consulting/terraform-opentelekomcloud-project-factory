@@ -45,54 +45,45 @@ variable "remote_subnets" {
 variable "vpn_ike_policy_dh_algorithm" {
   type        = string
   description = "Diffie-Hellman key exchange algorithm"
-  default     = null
 }
 
 variable "vpn_ike_policy_auth_algorithm" {
   type        = string
   description = "Authentication hash algorithm"
-  default     = null
 }
 
 variable "vpn_ike_policy_encryption_algorithm" {
   type        = string
   description = "Encryption algorithm"
-  default     = null
 }
 
 variable "vpn_ike_policy_lifetime" {
   type        = number
   description = "Lifetime of the security association in seconds."
-  default     = null
 }
 
 #IPSec policy parameters for the VPN tunnel:
 variable "vpn_ipsec_policy_protocol" {
   type        = string
   description = "The security protocol used for IPSec to transmit and encapsulate user data."
-  default     = null
 }
 
 variable "vpn_ipsec_policy_auth_algorithm" {
   type        = string
   description = "Authentication hash algorithm"
-  default     = null
 }
 
 variable "vpn_ipsec_policy_encryption_algorithm" {
   type        = string
   description = "Encryption algorithm"
-  default     = null
 }
 
 variable "vpn_ipsec_policy_lifetime" {
   type        = number
   description = "Lifetime of the security association in seconds."
-  default     = null
 }
 
 variable "vpn_ipsec_policy_pfs" {
   type        = string
   description = "The perfect forward secrecy mode"
-  default     = null
 }
