@@ -7,6 +7,12 @@ locals {
   }
 }
 
+resource "tls_private_key" "terraform_ssh_key" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P521"
+
+}
+
 module "vpc_eu_nl" {
   source = "../../modules/vpc"
   name   = "${var.context}-${var.stage}-vpc"
@@ -108,6 +114,42 @@ data "opentelekomcloud_images_image_v2" "ubuntu_nl" {
   visibility = "public"
 }
 
+resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup_icmp_de" {
+  provider   = opentelekomcloud.de
+  name                 = "jumphost-eu-de-icmp-sg"
+  description          = "Allow icmp traffic into the jumphost."
+  delete_default_rules = true
+}
+
+resource "opentelekomcloud_networking_secgroup_rule_v2" "jumphost_secgroup_rule_eu_de_icmp" {
+  provider   = opentelekomcloud.de
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "icmp"
+  remote_ip_prefix  = values(local.eu_nl_subnets)[0]
+  security_group_id = opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_de.id
+
+  description = "Allow icmp traffic into the jumphost."
+}
+
+resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup_icmp_nl" {
+  provider   = opentelekomcloud.nl  
+  name                 = "jumphost-eu-nl-icmp-sg"
+  description          = "Allow icmp traffic into the jumphost."
+  delete_default_rules = true
+}
+
+resource "opentelekomcloud_networking_secgroup_rule_v2" "jumphost_secgroup_rule_eu_nl_icmp" {
+  provider   = opentelekomcloud.nl
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "icmp"
+  remote_ip_prefix  = values(local.eu_de_subnets)[0]
+  security_group_id = opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_nl.id
+
+  description = "Allow icmp traffic into the jumphost."
+}
+
 module "jumphost_de" {
   source = "../../modules/jumphost"
   providers = {
@@ -117,7 +159,8 @@ module "jumphost_de" {
   subnet_id                       = values(module.vpc_eu_de.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_de.id
-  cloud_init                      = join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)]))
+  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])),"{terraform_public_key}",tls_private_key.terraform_ssh_key.public_key_openssh)
+  additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_de.name]
 }
 
 module "jumphost_nl" {
@@ -129,7 +172,8 @@ module "jumphost_nl" {
   subnet_id                       = values(module.vpc_eu_nl.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_nl.id
-  cloud_init                      = join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)]))
+  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])),"{terraform_public_key}",tls_private_key.terraform_ssh_key.public_key_openssh)
+  additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_nl.name]
 }
 
 output "jh_de" {
@@ -138,4 +182,44 @@ output "jh_de" {
 
 output "jh_nl" {
   value = module.jumphost_nl.jumphost_address
+}
+
+resource "time_sleep" "wait_180_seconds" {
+  depends_on = [module.jumphost_nl, module.jumphost_de]
+
+  create_duration = "180s"
+}
+
+resource "null_resource" "ping_to_nl" {
+  connection {
+    host = module.jumphost_de.jumphost_address
+    type     = "ssh"
+    user     = "terraform"
+    private_key = tls_private_key.terraform_ssh_key.private_key_openssh
+  }
+
+  provisioner "remote-exec" {
+    inline = ["ping -c 5 ${module.jumphost_nl.jumphost_private_address}"]
+  }
+
+  depends_on = [
+    time_sleep.wait_180_seconds
+  ]
+}
+
+resource "null_resource" "ping_to_de" {
+  connection {
+    host = module.jumphost_nl.jumphost_address
+    type     = "ssh"
+    user     = "terraform"
+    private_key = tls_private_key.terraform_ssh_key.private_key_openssh
+  }
+
+  provisioner "remote-exec" {
+    inline = ["ping -c 5 ${module.jumphost_de.jumphost_private_address}"]
+  }
+
+  depends_on = [
+    time_sleep.wait_180_seconds
+  ]
 }

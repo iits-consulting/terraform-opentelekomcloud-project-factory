@@ -2,10 +2,6 @@ resource "opentelekomcloud_vpnaas_service_v2" "vpnaas_service" {
   name        = "${var.name}-vpnaas"
   description = "VPN as a service resource for ${var.name}."
   router_id   = var.local_router
-
-  lifecycle {
-    ignore_changes = [status]
-  }
 }
 
 resource "opentelekomcloud_vpnaas_ike_policy_v2" "ike_policy" {
