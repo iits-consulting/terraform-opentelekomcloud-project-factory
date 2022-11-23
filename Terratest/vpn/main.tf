@@ -115,14 +115,14 @@ data "opentelekomcloud_images_image_v2" "ubuntu_nl" {
 }
 
 resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup_icmp_de" {
-  provider   = opentelekomcloud.de
+  provider             = opentelekomcloud.de
   name                 = "jumphost-eu-de-icmp-sg"
   description          = "Allow icmp traffic into the jumphost."
   delete_default_rules = true
 }
 
 resource "opentelekomcloud_networking_secgroup_rule_v2" "jumphost_secgroup_rule_eu_de_icmp" {
-  provider   = opentelekomcloud.de
+  provider          = opentelekomcloud.de
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "icmp"
@@ -133,14 +133,14 @@ resource "opentelekomcloud_networking_secgroup_rule_v2" "jumphost_secgroup_rule_
 }
 
 resource "opentelekomcloud_networking_secgroup_v2" "jumphost_secgroup_icmp_nl" {
-  provider   = opentelekomcloud.nl  
+  provider             = opentelekomcloud.nl
   name                 = "jumphost-eu-nl-icmp-sg"
   description          = "Allow icmp traffic into the jumphost."
   delete_default_rules = true
 }
 
 resource "opentelekomcloud_networking_secgroup_rule_v2" "jumphost_secgroup_rule_eu_nl_icmp" {
-  provider   = opentelekomcloud.nl
+  provider          = opentelekomcloud.nl
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "icmp"
@@ -159,7 +159,7 @@ module "jumphost_de" {
   subnet_id                       = values(module.vpc_eu_de.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_de.id
-  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])),"{terraform_public_key}",tls_private_key.terraform_ssh_key.public_key_openssh)
+  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
   additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_de.name]
 }
 
@@ -172,7 +172,7 @@ module "jumphost_nl" {
   subnet_id                       = values(module.vpc_eu_nl.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_nl.id
-  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])),"{terraform_public_key}",tls_private_key.terraform_ssh_key.public_key_openssh)
+  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
   additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_nl.name]
 }
 
@@ -192,9 +192,9 @@ resource "time_sleep" "wait_180_seconds" {
 
 resource "null_resource" "ping_to_nl" {
   connection {
-    host = module.jumphost_de.jumphost_address
-    type     = "ssh"
-    user     = "terraform"
+    host        = module.jumphost_de.jumphost_address
+    type        = "ssh"
+    user        = "terraform"
     private_key = tls_private_key.terraform_ssh_key.private_key_openssh
   }
 
@@ -209,9 +209,9 @@ resource "null_resource" "ping_to_nl" {
 
 resource "null_resource" "ping_to_de" {
   connection {
-    host = module.jumphost_nl.jumphost_address
-    type     = "ssh"
-    user     = "terraform"
+    host        = module.jumphost_nl.jumphost_address
+    type        = "ssh"
+    user        = "terraform"
     private_key = tls_private_key.terraform_ssh_key.private_key_openssh
   }
 
