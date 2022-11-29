@@ -13,7 +13,6 @@ on:
 
 jobs:
   run-terratest:
-    stage: Terratest "${{ inputs.context }}"
     name: Run Terratest for "${{ inputs.context }}" on "${{ inputs.region }}"
     runs-on: ubuntu-latest
     container:
