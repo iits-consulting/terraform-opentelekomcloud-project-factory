@@ -1,4 +1,4 @@
-name: Terratest module
+name: terratest
 
 on:
   workflow_call:
