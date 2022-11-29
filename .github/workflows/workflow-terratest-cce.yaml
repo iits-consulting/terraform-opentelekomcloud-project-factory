@@ -1,0 +1,19 @@
+name: Terratest
+
+on: push
+
+jobs:
+  cce-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for cce on eu-de
+    with:
+      context: cce
+      region: eu-de
+    secrets: inherit
+  cce-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for cce on eu-de
+    with:
+      context: cce
+      region: eu-de
+    secrets: inherit

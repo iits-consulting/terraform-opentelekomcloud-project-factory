@@ -1,0 +1,12 @@
+name: Terratest
+
+on: push
+
+jobs:
+  cce-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for vpn between eu-de and eu-nl
+    with:
+      context: vpn
+      region: ignore
+    secrets: inherit
