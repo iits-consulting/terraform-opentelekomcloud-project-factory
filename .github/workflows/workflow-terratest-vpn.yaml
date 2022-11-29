@@ -1,4 +1,4 @@
-name: Terratest
+name: Terratest VPN
 
 on: push
 
