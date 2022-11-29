@@ -8,11 +8,11 @@ on:
         type: string
       region_eu-de:
         required: false
-        type: bool
+        type: boolean
         default: true
       region_eu-nl:
         required: false
-        type: bool
+        type: boolean
         default: false
       
 
