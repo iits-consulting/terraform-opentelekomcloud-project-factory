@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Terratest cce eu-de
-        uses: .github/workflows/terratest
+        uses: /.github/workflows/terratest
         with:
           context: cce
           region: eu-de
