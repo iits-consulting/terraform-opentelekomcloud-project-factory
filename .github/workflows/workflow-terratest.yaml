@@ -19,7 +19,7 @@ on:
 
 jobs:
   run-terratest:
-    if: inputs.region_eu-de
+    if: ${{ inputs.region_eu-de }}
     name: Run Terratest for "${{ inputs.context }}" on eu-de
     runs-on: ubuntu-latest
     container:
@@ -46,7 +46,7 @@ jobs:
           go test -v -tags=unit -timeout 90m
   
   run-terratest:
-    if: inputs.region_eu-nl
+    if: ${{ inputs.region_eu-nl }}
     name: Run Terratest for "${{ inputs.context }}" on eu-nl
     runs-on: ubuntu-latest
     container:
