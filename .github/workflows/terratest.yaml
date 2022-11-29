@@ -3,46 +3,53 @@ name: Terratest
 on: push
 
 jobs:
-  cce-de-test:
+  cce-test:
     uses: ./.github/workflows/workflow-terratest.yaml
-    name: Run Terratest for cce on eu-de
+    name: Run Terratest for cce on eu-de and eu-nl
     with:
       context: cce
       region_eu-de: true
       region_eu-nl: true
     secrets: inherit
-  # cce-nl-test:
-  #   uses: ./.github/workflows/workflow-terratest.yaml
-  #   name: Run Terratest for cce on eu-nl
-  #   with:
-  #     context: cce
-  #     region: eu-nl
-  #   secrets: inherit
-  # vpn-test:
-  #   uses: ./.github/workflows/workflow-terratest.yaml
-  #   name: Run Terratest for vpn between eu-de and eu-nl
-  #   with:
-  #     context: vpn
-  #     region: ignore
-  #   secrets: inherit
-  # network-de-test:
-  #   uses: ./.github/workflows/workflow-terratest.yaml
-  #   name: Run Terratest for network on eu-de
-  #   with:
-  #     context: network
-  #     region: eu-de
-  #   secrets: inherit
-  # network-nl-test:
-  #   uses: ./.github/workflows/workflow-terratest.yaml
-  #   name: Run Terratest for network on eu-nl
-  #   with:
-  #     context: network
-  #     region: eu-nl
-  #   secrets: inherit
-  # public_dns-de-test:
+
+  vpn-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for vpn between eu-de and eu-nl
+    with:
+      context: vpn
+    secrets: inherit
+
+  network-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for network on eu-de
+    with:
+      context: network
+      region_eu-de: true
+      region_eu-nl: true
+    secrets: inherit
+
+  public_dns-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
+    name: Run Terratest for public_dns on eu-de
+    with:
+      context: public_dns
+    secrets: inherit
+
+#currently not working:
+  # rds-test:
   #   uses: ./.github/workflows/workflow-terratest.yaml
   #   name: Run Terratest for public_dns on eu-de
   #   with:
-  #     context: public_dns
-  #     region: eu-de
+  #     context: rds
+  #     region_eu-de: true
+  #     region_eu-nl: true
+  #   secrets: inherit
+
+  # waf-test:
+  #   uses: ./.github/workflows/workflow-terratest.yaml
+  #   name: Run Terratest for waf on eu-de
+  #   with:
+  #     context: waf
+  #     region_eu-de: true
+  #     region_eu-nl: true
   #   secrets: inherit

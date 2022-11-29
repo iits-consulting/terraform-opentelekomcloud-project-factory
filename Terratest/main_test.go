@@ -12,44 +12,6 @@ func TestModule(t *testing.T) {
 	performTerratest(t, context)
 }
 
-// func TestNetworkSetup(t *testing.T) {
-// 	context := "network"
-// 	performTerratest(t, context)
-// }
-
-// func TestCCE(t *testing.T) {
-// 	context := "cce"
-// 	performTerratest(t, context)
-// }
-
-// func TestPublicDNS(t *testing.T) {
-// 	context := "public_dns"
-// 	if os.Getenv("TF_VAR_region") == "eu-de" {
-// 		performTerratest(t, context)
-// 	} else {
-// 		fmt.Println("Skipping Test PublicDNS for Region", os.Getenv("TF_VAR_region"))
-// 	}
-// }
-
-// func TestVPN(t *testing.T) {
-// 	context := "vpn"
-// 	if os.Getenv("TF_VAR_region") == "eu-de" {
-// 		performTerratest(t, context)
-// 	}
-// }
-
-//FIXME Currently not working
-//func TestRDS(t *testing.T) {
-//	context := "rds"
-//	performTerratest(t, context)
-//}
-
-//FIXME Currently not working
-//func TestWAF(t *testing.T) {
-//	context := "waf"
-//	performTerratest(t, context)
-//}
-
 func performTerratest(t *testing.T, context string) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: context,
