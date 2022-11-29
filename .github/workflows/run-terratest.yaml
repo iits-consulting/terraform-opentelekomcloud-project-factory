@@ -1,0 +1,27 @@
+name: Terratest module
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        required: true
+        type: string
+      region:
+        required: true
+        type: string
+    secrets: inherit
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Terratest "${{ inputs.context }}" "${{ inputs.region }}"
+      shell: sh
+      run: |
+        cd Terratest
+        source .envrc "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}"
+        ### download go modules
+        go get -t ./...
+        ### run go terratest 
+        go test -v -tags=unit -timeout 90m -args "${{ inputs.context }}"

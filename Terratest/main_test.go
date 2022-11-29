@@ -7,31 +7,36 @@ import (
 	"testing"
 )
 
-func TestNetworkSetup(t *testing.T) {
-	context := "network"
+func TestModule(t *testing.T) {
+	context := os.Args[0]
 	performTerratest(t, context)
 }
 
-func TestCCE(t *testing.T) {
-	context := "cce"
-	performTerratest(t, context)
-}
+// func TestNetworkSetup(t *testing.T) {
+// 	context := "network"
+// 	performTerratest(t, context)
+// }
 
-func TestPublicDNS(t *testing.T) {
-	context := "public_dns"
-	if os.Getenv("TF_VAR_region") == "eu-de" {
-		performTerratest(t, context)
-	} else {
-		fmt.Println("Skipping Test PublicDNS for Region", os.Getenv("TF_VAR_region"))
-	}
-}
+// func TestCCE(t *testing.T) {
+// 	context := "cce"
+// 	performTerratest(t, context)
+// }
 
-func TestVPN(t *testing.T) {
-	context := "vpn"
-	if os.Getenv("TF_VAR_region") == "eu-de" {
-		performTerratest(t, context)
-	}
-}
+// func TestPublicDNS(t *testing.T) {
+// 	context := "public_dns"
+// 	if os.Getenv("TF_VAR_region") == "eu-de" {
+// 		performTerratest(t, context)
+// 	} else {
+// 		fmt.Println("Skipping Test PublicDNS for Region", os.Getenv("TF_VAR_region"))
+// 	}
+// }
+
+// func TestVPN(t *testing.T) {
+// 	context := "vpn"
+// 	if os.Getenv("TF_VAR_region") == "eu-de" {
+// 		performTerratest(t, context)
+// 	}
+// }
 
 //FIXME Currently not working
 //func TestRDS(t *testing.T) {
