@@ -4,7 +4,6 @@ on: push
 
 jobs:
   cce-test:
-    stage: Terratest cce
     name: Run Terratest for cce on eu-de and eu-nl
     runs-on: ubuntu-latest
     container:
