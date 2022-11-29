@@ -4,18 +4,12 @@ on: push
 
 jobs:
   cce-test:
+    uses: ./.github/workflows/workflow-terratest.yaml
     name: Run Terratest for cce on eu-de and eu-nl
-    runs-on: ubuntu-latest
-    container:
-        image: vault
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Terratest cce eu-de
-        uses: iits-consulting/terraform-opentelekomcloud-project-factory/.github/workflows/terratest@add_vpn_module
-        with:
-          context: cce
-          region: eu-de
+    with:
+      context: cce
+      region: eu-de
+    secrets: inherit
         # shell: sh
         # run: |
         #   cd Terratest
