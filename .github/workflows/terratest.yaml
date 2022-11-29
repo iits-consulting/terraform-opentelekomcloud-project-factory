@@ -8,7 +8,8 @@ jobs:
     name: Run Terratest for cce on eu-de
     with:
       context: cce
-      region: eu-de
+      region_eu-de: true
+      region_eu-nl: true
     secrets: inherit
   # cce-nl-test:
   #   uses: ./.github/workflows/workflow-terratest.yaml

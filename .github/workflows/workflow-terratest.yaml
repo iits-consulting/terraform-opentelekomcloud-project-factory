@@ -6,21 +6,28 @@ on:
       context:
         required: true
         type: string
-      region:
-        required: true
-        type: string
+      region_eu-de:
+        required: false
+        type: bool
+        default: true
+      region_eu-nl:
+        required: false
+        type: bool
+        default: false
+      
 
 
 jobs:
+  if: inputs.region_eu-de
   run-terratest:
-    name: Run Terratest for "${{ inputs.context }}" on "${{ inputs.region }}"
+    name: Run Terratest for "${{ inputs.context }}" on eu-de
     runs-on: ubuntu-latest
     container:
         image: vault
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Terratest "${{ inputs.context }}" "${{ inputs.region }}"
+      - name: Terratest "${{ inputs.context }}" on eu-de
         shell: sh
         run: |
           ###### INSTALL TERRAFORM && GO ######
@@ -31,7 +38,33 @@ jobs:
           mv terraform /usr/bin/terraform
 
           cd .github/workflows
-          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}" "${{ inputs.context }}"
+          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "eu-de" "${{ inputs.context }}"
+          cd ../../Terratest
+          ### download go modules
+          go get -t ./...
+          ### run go terratest 
+          go test -v -tags=unit -timeout 90m
+  if: inputs.region_eu-nl
+  run-terratest:
+    name: Run Terratest for "${{ inputs.context }}" on eu-nl
+    runs-on: ubuntu-latest
+    container:
+        image: vault
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Terratest "${{ inputs.context }}" on eu-nl
+        shell: sh
+        run: |
+          ###### INSTALL TERRAFORM && GO ######
+          apk update && apk add go wget zip
+
+          wget -q https://releases.hashicorp.com/terraform/1.3.3/terraform_1.3.3_linux_amd64.zip
+          unzip terraform_1.3.3_linux_amd64.zip && rm terraform_1.3.3_linux_amd64.zip
+          mv terraform /usr/bin/terraform
+
+          cd .github/workflows
+          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "eu-nl" "${{ inputs.context }}"
           cd ../../Terratest
           ### download go modules
           go get -t ./...
