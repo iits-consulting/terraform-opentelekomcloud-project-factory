@@ -23,8 +23,16 @@ jobs:
       - name: Terratest "${{ inputs.context }}" "${{ inputs.region }}"
         shell: sh
         run: |
-          cd Terratest
-          source .envrc "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}"
+          ###### INSTALL TERRAFORM && GO ######
+          apk update && apk add go wget zip
+
+          wget -q https://releases.hashicorp.com/terraform/1.3.3/terraform_1.3.3_linux_amd64.zip
+          unzip terraform_1.3.3_linux_amd64.zip && rm terraform_1.3.3_linux_amd64.zip
+          mv terraform /usr/bin/terraform
+
+          cd .github/workflows
+          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}"
+          cd ../../Terratest
           ### download go modules
           go get -t ./...
           ### run go terratest 

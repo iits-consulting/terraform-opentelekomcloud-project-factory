@@ -1,9 +1,17 @@
-# Either your ACCESS_KEY and SECRET_KEY or from a serviceaccount
+###### VAULT LOGIN #####
+export VAULT_ADDR=$1
+export VAULT_ROLE_ID=$2
+export VAULT_SECRET_ID=$3
+export VAULT_TOKEN=$(vault write -field=token $4 role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID) || true
 
 #### OTC CREDENTIALS #####
-#export OS_DOMAIN_NAME="REPLACE_ME"
-#export OS_ACCESS_KEY="REPLACE_ME"
-#export OS_SECRET_KEY="REPLACE_ME"
+export OS_DOMAIN_NAME=$5
+export OS_ACCESS_KEY=$(vault kv get --field access_key $6)
+export OS_SECRET_KEY=$(vault kv get --field secret_key $6)
+
+export TF_VAR_region=$7
+export OS_AUTH_URL="https://iam.${TF_VAR_region}.otc.t-systems.com/v3"
+
 export AWS_ACCESS_KEY_ID=$OS_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY=$OS_SECRET_KEY
 
