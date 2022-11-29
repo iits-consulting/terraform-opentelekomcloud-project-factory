@@ -8,7 +8,7 @@ import (
 )
 
 func TestModule(t *testing.T) {
-	context := os.Args[0]
+	context := os.Getenv("TF_VAR_context")
 	performTerratest(t, context)
 }
 
@@ -51,8 +51,6 @@ func TestModule(t *testing.T) {
 //}
 
 func performTerratest(t *testing.T, context string) {
-	os.Setenv("TF_VAR_context", context)
-
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: context,
 	})

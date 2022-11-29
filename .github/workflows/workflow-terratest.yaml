@@ -31,9 +31,9 @@ jobs:
           mv terraform /usr/bin/terraform
 
           cd .github/workflows
-          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}"
+          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "${{ inputs.region }}" "${{ inputs.context }}"
           cd ../../Terratest
           ### download go modules
           go get -t ./...
           ### run go terratest 
-          go test -v -tags=unit -timeout 90m -args "${{ inputs.context }}"
+          go test -v -tags=unit -timeout 90m
