@@ -24,7 +24,7 @@ resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
     readonly      = "False"
     }, local.node_storage_encryption_enabled ? {
     __system__encrypted = "1"
-    __system__cmkid     = opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id
+    __system__cmkid     = var.node_storage_encryption_key_name == null ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.jumphost_storage_existing_encryption_key[0].id
   } : {})
   tags = var.tags
   lifecycle {

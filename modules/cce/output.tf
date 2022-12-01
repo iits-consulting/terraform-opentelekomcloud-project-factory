@@ -15,6 +15,10 @@ output "node_pool_ids" {
   value = { for node_pool in opentelekomcloud_cce_node_pool_v3.cluster_node_pool : node_pool.name => node_pool.id }
 }
 
+output "node_pool_keypair_name" {
+  value = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
+}
+
 output "cluster_credentials" {
   value = {
     kubectl_config                     = local.kubectl_config_yaml

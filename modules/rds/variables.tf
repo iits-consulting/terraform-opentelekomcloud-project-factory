@@ -200,6 +200,12 @@ variable "db_volume_encryption" {
   default     = true
 }
 
+variable "db_volume_encryption_key_name" {
+  type        = string
+  description = "If KMS volume encryption is enabled for the database volumes, use this kms key name instead of creating a new one. (default: null)"
+  default     = null
+}
+
 variable "sg_allowed_cidr" {
   type        = set(string)
   description = "CIDR ranges that are allowed to connect to the database. (default: <var.subnet_id.cidr>)"

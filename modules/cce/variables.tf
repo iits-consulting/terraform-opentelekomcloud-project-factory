@@ -174,6 +174,12 @@ variable "node_storage_encryption_enabled" {
   default     = false
 }
 
+variable "node_storage_encryption_kms_key_name" {
+  type        = string
+  description = "If KMS volume encryption is enabled, specify a name of an existing kms key. Setting this disables the creation of a new kms key. (default: null)"
+  default     = null
+}
+
 variable "node_postinstall" {
   type        = string
   description = "Post install script for the cluster ECS node pool."
