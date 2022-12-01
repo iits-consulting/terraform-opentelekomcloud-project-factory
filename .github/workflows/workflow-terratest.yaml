@@ -20,7 +20,7 @@ on:
 jobs:
   run-terratest-eu-de:
     if: ${{ inputs.region_eu-de }}
-    name: Run Terratest for "${{ inputs.context }}" on eu-de
+    name: "${{ inputs.context }}" on eu-de
     runs-on: ubuntu-latest
     container:
         image: vault
@@ -47,7 +47,7 @@ jobs:
   
   run-terratest-eu-nl:
     if: ${{ inputs.region_eu-nl }}
-    name: Run Terratest for "${{ inputs.context }}" on eu-nl
+    name: "${{ inputs.context }}" on eu-nl
     runs-on: ubuntu-latest
     container:
         image: vault

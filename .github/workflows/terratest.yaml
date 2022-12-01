@@ -5,7 +5,7 @@ on: push
 jobs:
   cce-test:
     uses: ./.github/workflows/workflow-terratest.yaml
-    name: Run Terratest for cce on eu-de and eu-nl
+    name: cce on eu-de and eu-nl
     with:
       context: cce
       region_eu-de: true
@@ -14,14 +14,14 @@ jobs:
 
   vpn-test:
     uses: ./.github/workflows/workflow-terratest.yaml
-    name: Run Terratest for vpn between eu-de and eu-nl
+    name: vpn between eu-de and eu-nl
     with:
       context: vpn
     secrets: inherit
 
   network-test:
     uses: ./.github/workflows/workflow-terratest.yaml
-    name: Run Terratest for network on eu-de
+    name: network on eu-de and eu-nl
     with:
       context: network
       region_eu-de: true
@@ -30,12 +30,12 @@ jobs:
 
   public_dns-test:
     uses: ./.github/workflows/workflow-terratest.yaml
-    name: Run Terratest for public_dns on eu-de
+    name: public_dns on eu-de
     with:
       context: public_dns
     secrets: inherit
 
-#currently not working:
+#FIXME currently not working:
   # rds-test:
   #   uses: ./.github/workflows/workflow-terratest.yaml
   #   name: Run Terratest for public_dns on eu-de
