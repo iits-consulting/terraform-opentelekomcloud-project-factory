@@ -40,6 +40,7 @@ module "vpc" {
 - [snat:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
 - [keycloak_sso:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/keycloak_sso) Connects Keycloak with OTC SAML IDP
+- [vpn:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/vpn) Creates a VPN tunnel.
 
 ## Quickstart
 
