@@ -176,14 +176,7 @@ module "jumphost_nl" {
   additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_nl.name]
 }
 
-output "jh_de" {
-  value = module.jumphost_de.jumphost_address
-}
-
-output "jh_nl" {
-  value = module.jumphost_nl.jumphost_address
-}
-
+#the connection test will only succeed once both jumphosts are done initializing
 resource "time_sleep" "wait_180_seconds" {
   depends_on = [module.jumphost_nl, module.jumphost_de]
 
