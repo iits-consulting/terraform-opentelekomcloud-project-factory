@@ -9,16 +9,6 @@ variable "tags" {
   description = "Common tag set for project resources"
 }
 
-variable "local_router" {
-  type        = string
-  description = "VPC id of the vpnaas service."
-}
-
-variable "local_subnets" {
-  type        = list(string)
-  description = "Local subnet CIDR ranges."
-}
-
 variable "psk" {
   type        = string
   description = "Pre shared key for vpn tunnel."
@@ -28,7 +18,20 @@ variable "psk" {
 variable "dpd" {
   type        = bool
   description = "Dead peer detection (true = hold (default) false = disabled)."
+  default     = true
 }
+
+variable "local_router" {
+  type        = string
+  description = "VPC id of the vpnaas service."
+}
+
+variable "local_subnets" {
+  type        = list(string)
+  description = "Local subnet CIDR ranges."
+  default     = []
+}
+
 
 variable "remote_gateway" {
   type        = string
@@ -60,6 +63,7 @@ variable "vpn_ike_policy_encryption_algorithm" {
 variable "vpn_ike_policy_lifetime" {
   type        = number
   description = "Lifetime of the security association in seconds."
+  default     = 86400
 }
 
 #IPSec policy parameters for the VPN tunnel:
@@ -81,6 +85,7 @@ variable "vpn_ipsec_policy_encryption_algorithm" {
 variable "vpn_ipsec_policy_lifetime" {
   type        = number
   description = "Lifetime of the security association in seconds."
+  default     = 3600
 }
 
 variable "vpn_ipsec_policy_pfs" {

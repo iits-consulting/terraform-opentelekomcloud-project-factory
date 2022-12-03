@@ -1,9 +1,4 @@
 #vpn tunnel configuration:
-variable "vpn_dpd" {
-  type        = bool
-  description = "Dead peer detection (true = hold (default) false = disabled)"
-  default     = true
-}
 
 variable "vpn_ike_policy_dh_algorithm" {
   type        = string
@@ -19,12 +14,6 @@ variable "vpn_ike_policy_encryption_algorithm" {
   type        = string
   description = "Encryption algorithm"
 }
-
-variable "vpn_ike_policy_lifetime" {
-  type        = number
-  description = "Lifetime of the security association in seconds."
-}
-
 variable "vpn_ipsec_policy_protocol" {
   type        = string
   description = "The security protocol used for IPSec to transmit and encapsulate user data."
@@ -38,11 +27,6 @@ variable "vpn_ipsec_policy_auth_algorithm" {
 variable "vpn_ipsec_policy_encryption_algorithm" {
   type        = string
   description = "Encryption algorithm"
-}
-
-variable "vpn_ipsec_policy_lifetime" {
-  type        = number
-  description = "Lifetime of the security association in seconds."
 }
 
 variable "vpn_ipsec_policy_pfs" {

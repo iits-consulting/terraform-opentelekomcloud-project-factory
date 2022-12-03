@@ -37,7 +37,6 @@ module "vpc_eu_de" {
   tags       = local.tags
 }
 
-
 resource "random_password" "vpn_psk" {
   length      = 32
   special     = false
@@ -54,21 +53,17 @@ module "vpn_tunnel_eu_nl" {
   }
 
   psk            = random_password.vpn_psk.result
-  dpd            = var.vpn_dpd
   remote_gateway = module.vpn_tunnel_eu_de.vpn_tunnel_gateway
   remote_subnets = values(local.eu_de_subnets)
   local_router   = module.vpc_eu_nl.vpc.id
-  local_subnets  = values(local.eu_nl_subnets)
 
   vpn_ike_policy_dh_algorithm         = var.vpn_ike_policy_dh_algorithm
   vpn_ike_policy_auth_algorithm       = var.vpn_ike_policy_auth_algorithm
   vpn_ike_policy_encryption_algorithm = var.vpn_ike_policy_encryption_algorithm
-  vpn_ike_policy_lifetime             = var.vpn_ike_policy_lifetime
 
   vpn_ipsec_policy_protocol             = var.vpn_ipsec_policy_protocol
   vpn_ipsec_policy_auth_algorithm       = var.vpn_ipsec_policy_auth_algorithm
   vpn_ipsec_policy_encryption_algorithm = var.vpn_ipsec_policy_encryption_algorithm
-  vpn_ipsec_policy_lifetime             = var.vpn_ipsec_policy_lifetime
   vpn_ipsec_policy_pfs                  = var.vpn_ipsec_policy_pfs
 
   tags = local.tags
@@ -82,21 +77,17 @@ module "vpn_tunnel_eu_de" {
   }
 
   psk            = random_password.vpn_psk.result
-  dpd            = var.vpn_dpd
   remote_gateway = module.vpn_tunnel_eu_nl.vpn_tunnel_gateway
   remote_subnets = values(local.eu_nl_subnets)
   local_router   = module.vpc_eu_de.vpc.id
-  local_subnets  = values(local.eu_de_subnets)
 
   vpn_ike_policy_dh_algorithm         = var.vpn_ike_policy_dh_algorithm
   vpn_ike_policy_auth_algorithm       = var.vpn_ike_policy_auth_algorithm
   vpn_ike_policy_encryption_algorithm = var.vpn_ike_policy_encryption_algorithm
-  vpn_ike_policy_lifetime             = var.vpn_ike_policy_lifetime
 
   vpn_ipsec_policy_protocol             = var.vpn_ipsec_policy_protocol
   vpn_ipsec_policy_auth_algorithm       = var.vpn_ipsec_policy_auth_algorithm
   vpn_ipsec_policy_encryption_algorithm = var.vpn_ipsec_policy_encryption_algorithm
-  vpn_ipsec_policy_lifetime             = var.vpn_ipsec_policy_lifetime
   vpn_ipsec_policy_pfs                  = var.vpn_ipsec_policy_pfs
 
   tags = local.tags

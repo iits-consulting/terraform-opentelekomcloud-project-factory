@@ -38,15 +38,26 @@ resource "opentelekomcloud_vpnaas_ipsec_policy_v2" "ipsec_policy" {
   }
 }
 
+data "opentelekomcloud_vpc_subnet_ids_v1" "subnet_ids" {
+  vpc_id = var.local_router
+}
+
+data "opentelekomcloud_vpc_subnet_v1" "subnet" {
+  count = length(data.opentelekomcloud_vpc_subnet_ids_v1.subnet_ids.ids)
+  id    = data.opentelekomcloud_vpc_subnet_ids_v1.subnet_ids.ids[count.index]
+}
+locals {
+  local_subnets = length(var.local_subnets) == 0 ? data.opentelekomcloud_vpc_subnet_v1.subnet.*.cidr : var.local_subnets
+}
+
 resource "opentelekomcloud_vpnaas_endpoint_group_v2" "local_peer" {
   name      = "${var.name}-local-peer"
   type      = "cidr"
-  endpoints = var.local_subnets
+  endpoints = local.local_subnets
   lifecycle {
     create_before_destroy = true
   }
 }
-
 
 resource "opentelekomcloud_vpnaas_endpoint_group_v2" "remote_peer" {
   name      = "${var.name}-remote-peer"
