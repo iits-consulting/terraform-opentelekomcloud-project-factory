@@ -3,8 +3,8 @@
 export VAULT_TOKEN=$(vault write -field=token $VAULT_TOKEN_PATH role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID) || true
 
 #### OTC CREDENTIALS #####
-export OS_ACCESS_KEY=$(vault kv get --field access_key $OS_KEY_PATH)
-export OS_SECRET_KEY=$(vault kv get --field secret_key $OS_KEY_PATH)
+export OS_ACCESS_KEY=$(vault kv get --field access_key $KEY_PATH)
+export OS_SECRET_KEY=$(vault kv get --field secret_key $KEY_PATH)
 
 export OS_AUTH_URL="https://iam.${TF_VAR_region}.otc.t-systems.com/v3"
 
