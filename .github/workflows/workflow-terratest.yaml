@@ -14,14 +14,23 @@ on:
         required: false
         type: boolean
         default: false
-      
 
+env:
+  OS_DOMAIN_NAME: ${{ secrets.OS_DOMAIN_NAME }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+  VAULT_ROLE_ID: ${{ secrets.VAULT_ROLE_ID }}
+  VAULT_SECRET_ID: ${{ secrets.VAULT_SECRET_ID }}
+  VAULT_TOKEN_PATH: ${{ secrets.VAULT_TOKEN_PATH }}
+  OS_KEY_PATH: ${{ secrets.OS_KEY_PATH }}
 
 jobs:
   run-terratest-eu-de:
     if: ${{ inputs.region_eu-de }}
     name: ${{ inputs.context }} on eu-de
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_region: "eu-de"
+      TF_VAR_context: ${{ inputs.context }}
     container:
         image: vault
     steps:
@@ -38,7 +47,7 @@ jobs:
           mv terraform /usr/bin/terraform
 
           cd .github/workflows
-          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "eu-de" "${{ inputs.context }}"
+          source .workflowenv
           cd ../../Terratest
           ### download go modules
           go get -t ./...
@@ -49,6 +58,9 @@ jobs:
     if: ${{ inputs.region_eu-nl }}
     name: ${{ inputs.context }} on eu-nl
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_region: "eu-nl"
+      TF_VAR_context: ${{ inputs.context }}
     container:
         image: vault
     steps:
@@ -65,7 +77,7 @@ jobs:
           mv terraform /usr/bin/terraform
 
           cd .github/workflows
-          source .workflowenv "${{ secrets.VAULT_ADDR }}" "${{ secrets.VAULT_ROLE_ID }}" "${{ secrets.VAULT_SECRET_ID }}" "${{ secrets.VAULT_TOKEN_PATH }}" "${{ secrets.OS_DOMAIN_NAME }}" "${{ secrets.OS_KEY_PATH }}" "eu-nl" "${{ inputs.context }}"
+          source .workflowenv
           cd ../../Terratest
           ### download go modules
           go get -t ./...
