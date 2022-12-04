@@ -16,12 +16,12 @@ on:
         default: false
 
 env:
-  OS_DOMAIN_NAME: ${{ secrets.OS_DOMAIN_NAME }}
-  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-  VAULT_ROLE_ID: ${{ secrets.VAULT_ROLE_ID }}
-  VAULT_SECRET_ID: ${{ secrets.VAULT_SECRET_ID }}
-  VAULT_TOKEN_PATH: ${{ secrets.VAULT_TOKEN_PATH }}
-  KEY_PATH: ${{ secrets.OS_KEY_PATH }}
+  OS_DOMAIN_NAME: "${{ secrets.OS_DOMAIN_NAME }}"
+  VAULT_ADDR: "${{ secrets.VAULT_ADDR }}"
+  VAULT_ROLE_ID: "${{ secrets.VAULT_ROLE_ID }}"
+  VAULT_SECRET_ID: "${{ secrets.VAULT_SECRET_ID }}"
+  VAULT_TOKEN_PATH: "${{ secrets.VAULT_TOKEN_PATH }}"
+  OS_KEY_PATH: "${{ secrets.OS_KEY_PATH }}"
 
 jobs:
   run-terratest-eu-de:
@@ -45,12 +45,12 @@ jobs:
           wget -q https://releases.hashicorp.com/terraform/1.3.3/terraform_1.3.3_linux_amd64.zip
           unzip terraform_1.3.3_linux_amd64.zip && rm terraform_1.3.3_linux_amd64.zip
           mv terraform /usr/bin/terraform
+
           ###### grab missing values from vault ######
-          echo $TF_VAR_context
           cd .github/workflows
           source .workflowenv
-          echo $OS_PROJECT_NAME
           cd ../../Terratest
+
           ### download go modules
           go get -t ./...
           ### run go terratest 
