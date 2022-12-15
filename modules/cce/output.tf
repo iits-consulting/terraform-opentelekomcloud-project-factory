@@ -19,6 +19,16 @@ output "node_pool_keypair_name" {
   value = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
 }
 
+output "node_pool_keypair_private_key" {
+  sensitive = true
+  value     = tls_private_key.cluster_keypair.private_key_openssh
+}
+
+output "node_pool_keypair_public_key" {
+  sensitive = true
+  value     = tls_private_key.cluster_keypair.public_key_openssh
+}
+
 output "cluster_credentials" {
   value = {
     kubectl_config                     = local.kubectl_config_yaml
