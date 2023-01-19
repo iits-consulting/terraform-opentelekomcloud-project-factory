@@ -232,3 +232,9 @@ variable "metrics_server_version" {
   description = "Version of the Metrics Server Addon Template (default: 1.2.1)"
   default     = "1.2.1"
 }
+
+variable "authentication_mode" {
+  type        = string
+  description = "rbac or x509"
+  default     = "x509"
+}
