@@ -114,8 +114,8 @@ jobs:
           
           #### OTC CREDENTIALS #####
           export OS_DOMAIN_NAME=${{ secrets.SWISS_OS_DOMAIN_NAME }}
-          export OS_ACCESS_KEY=$(vault kv get --field access_key secret/otc_credentials/swiss
-          export OS_SECRET_KEY=$(vault kv get --field secret_key secret/otc_credentials/swiss
+          export OS_ACCESS_KEY=$(vault kv get --field access_key secret/otc_credentials/swiss)
+          export OS_SECRET_KEY=$(vault kv get --field secret_key secret/otc_credentials/swiss)
           
           export TF_VAR_region="eu-ch2"
           export OS_AUTH_URL="https://iam-pub.${TF_VAR_region}.sc.otc.t-systems.com/v3"
