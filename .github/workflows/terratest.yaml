@@ -85,6 +85,14 @@ jobs:
           
           ### run go terratest 
           go test -v -tags=unit -timeout 90m
+  go-test-eu-ch2:
+    name: Run Terratest for eu-ch2
+    runs-on: ubuntu-latest
+    container:
+      image: vault
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Setup && Terratest eu-ch2
         shell: sh
         run: |
