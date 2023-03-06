@@ -28,14 +28,11 @@ module "cce" {
   cluster_high_availability = var.cce_high_availability
   cluster_enable_scaling    = var.cce_enable_scaling
 
-  node_availability_zones = [
-    "${var.region}-03",
-    "${var.region}-01"
-  ]
-  node_count        = var.cce_node_count
-  node_flavor       = var.cce_node_flavor
-  node_storage_type = var.cce_node_storage_type
-  node_storage_size = var.cce_node_storage_size
+  node_availability_zones = local.node_availability_zones
+  node_count              = var.cce_node_count
+  node_flavor             = var.cce_node_flavor
+  node_storage_type       = var.cce_node_storage_type
+  node_storage_size       = var.cce_node_storage_size
 
   autoscaler_node_max = var.cce_node_max
 

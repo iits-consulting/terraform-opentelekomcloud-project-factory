@@ -62,4 +62,5 @@ locals {
     Stage   = var.stage
     Context = var.context
   }
+  node_availability_zones = var.region == "eu-ch2" ? ["${var.region}b", "${var.region}a"] : ["${var.region}-03", "${var.region}-01"]
 }
