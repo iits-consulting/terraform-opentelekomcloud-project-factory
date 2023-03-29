@@ -20,3 +20,5 @@ export OS_PROJECT_NAME=$TF_VAR_region"_terratest"
 #### TERRAFORM LOCAL PLUGIN CACHING #####
 mkdir -p ${HOME}/Terraform/plugins
 export TF_PLUGIN_CACHE_DIR=${HOME}/Terraform/plugins
+
+env

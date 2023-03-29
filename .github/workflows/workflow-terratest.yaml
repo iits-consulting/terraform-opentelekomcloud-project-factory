@@ -50,7 +50,7 @@ jobs:
           cd .github/workflows
           source .workflowenv
           cd ../../Terratest
-
+          env
           ### download go modules
           go get -t ./...
           ### run go terratest 
