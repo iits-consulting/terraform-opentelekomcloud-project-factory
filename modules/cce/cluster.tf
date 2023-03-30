@@ -1,15 +1,9 @@
-resource "tls_private_key" "cluster_keypair" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P256"
-}
-
-resource "random_id" "cluster_keypair_id" {
-  byte_length = 4
-}
-
-resource "opentelekomcloud_compute_keypair_v2" "cluster_keypair" {
-  name       = "${var.name}-cluster-keypair-${random_id.cluster_keypair_id.hex}"
-  public_key = tls_private_key.cluster_keypair.public_key_openssh
+resource "random_password" "node_password" {
+  length      = 32
+  special     = false
+  min_lower   = 1
+  min_numeric = 1
+  min_upper   = 1
 }
 
 resource "opentelekomcloud_vpc_eip_v1" "cce_eip" {
@@ -77,7 +71,7 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   flavor             = var.node_flavor
   initial_node_count = var.node_count
   availability_zone  = each.value
-  key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
+  password           = var.node_password == "" ? random_password.node_password.result : var.node_password
   os                 = var.node_os
   runtime            = var.node_container_runtime
 
