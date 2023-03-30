@@ -9,6 +9,12 @@ variable "create_bucket" {
   default     = true
 }
 
+variable "enable_versioning" {
+  type        = bool
+  description = "Disable the versioning for the bucket. Default: true"
+  default     = true
+}
+
 variable "secrets" {
   type      = map(any)
   sensitive = true

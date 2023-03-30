@@ -13,7 +13,7 @@ resource "opentelekomcloud_obs_bucket" "secrets" {
   count      = var.create_bucket ? 1 : 0
   bucket     = var.bucket_name
   acl        = "private"
-  versioning = true
+  versioning = var.enable_versioning
   tags       = var.tags
   server_side_encryption {
     algorithm  = "kms"
