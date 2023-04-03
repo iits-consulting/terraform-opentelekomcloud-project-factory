@@ -23,6 +23,12 @@ jobs:
     env:
       TF_VAR_region: "eu-de"
       TF_VAR_context: ${{ inputs.context }}
+      OS_DOMAIN_NAME: ${{ secrets.OS_DOMAIN_NAME }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+      VAULT_ROLE_ID: ${{ secrets.VAULT_ROLE_ID }}
+      VAULT_SECRET_ID: ${{ secrets.VAULT_SECRET_ID }}
+      VAULT_TOKEN_PATH: ${{ secrets.VAULT_TOKEN_PATH }}
+      OS_KEY_PATH: ${{ secrets.OS_KEY_PATH }}
     container:
         image: vault
     steps:
@@ -41,10 +47,7 @@ jobs:
           ###### grab missing values from vault ######
           cd .github/workflows
           ###### VAULT LOGIN #####
-          export VAULT_ADDR=${{ secrets.VAULT_ADDR }}
-          export VAULT_ROLE_ID=${{ secrets.VAULT_ROLE_ID }}
-          export VAULT_SECRET_ID=${{ secrets.VAULT_SECRET_ID }}
-          vault write -field=token ${{ secrets.VAULT_TOKEN_PATH }} role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID
+          vault write -field=token $VAULT_TOKEN_PATH role_id=$VAULT_ROLE_ID secret_id=$VAULT_SECRET_ID
 
           #### OTC CREDENTIALS #####
           export OS_ACCESS_KEY=$(vault kv get --field access_key $OS_KEY_PATH)
