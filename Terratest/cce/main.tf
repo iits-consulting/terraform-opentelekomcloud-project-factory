@@ -43,6 +43,7 @@ module "encyrpted_secrets_bucket" {
   providers         = { opentelekomcloud = opentelekomcloud.top_level_project }
   source            = "../../modules/obs_secrets_writer"
   bucket_name       = replace(lower("${data.opentelekomcloud_identity_project_v3.current.name}-${var.context}-${var.stage}-stage-secrets"), "_", "-")
+  enable_versioning = false
   bucket_object_key = "terraform-secrets"
   secrets = {
     kubectl_config          = module.cce.cluster_credentials.kubectl_config
