@@ -92,3 +92,8 @@ variable "vpn_ipsec_policy_pfs" {
   type        = string
   description = "The perfect forward secrecy mode"
 }
+
+variable "subnet_ids" {
+  type        = any
+  description = "IDs of VPC subnets"
+}
