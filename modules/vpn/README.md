@@ -50,6 +50,4 @@ module "vpn_tunnel" {
 ```
 
 Notes:
-- this creates a vpn tunnel from vpc1 into a vpc2
-- if not specified explicitly the local_subnets are going to be the subnets of the local_router
 - example of a full vpn tunnel to be found in the [Terratest section](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/terratest/vpn)  
