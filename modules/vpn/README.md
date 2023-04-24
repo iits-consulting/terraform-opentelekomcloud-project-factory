@@ -4,19 +4,35 @@ A module designed to create a vpn tunnel.
 
 Usage example:
 ```hcl
-module "vpn_tunnel_eu_nl" {
+module "vpc" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  name   = "${var.context}-${var.stage}-vpc"
+
+  cidr_block = var.vpc_cidr
+  subnets    = {
+    "vpn-subnet" = cidrsubnet(var.vpc_cidr, 1, 0)
+  }
+  tags       = local.tags
+}
+
+resource "random_password" "vpn_psk" {
+  length      = 32
+  special     = false
+  min_lower   = 1
+  min_numeric = 1
+  min_upper   = 1
+}
+
+module "vpn_tunnel" {
   source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpn"
   name   = "${var.context}-${var.stage}-VPN"
-  providers = {
-    opentelekomcloud = opentelekomcloud.nl
-  }
 
   psk            = random_password.vpn_psk.result
   dpd            = var.vpn_dpd
-  remote_gateway = module.vpn_tunnel_eu_de.vpn_tunnel_gateway
-  remote_subnets = values(local.eu_de_subnets)
-  local_router   = module.vpc_eu_nl.vpc.id
-  local_subnets  = values(local.eu_nl_subnets)
+  remote_gateway = "180.12.12.0"
+  remote_subnets = ["170.10.1.0/24"]
+  local_router   = module.vpc.vpc.id
+  local_subnets  = values(module.vpc.subnets).*.cidr
 
   vpn_ike_policy_dh_algorithm         = var.vpn_ike_policy_dh_algorithm
   vpn_ike_policy_auth_algorithm       = var.vpn_ike_policy_auth_algorithm
@@ -34,6 +50,6 @@ module "vpn_tunnel_eu_nl" {
 ```
 
 Notes:
-- this creates a vpn tunnel from a vpc on region eu-nl into a vpc on region eu-de
+- this creates a vpn tunnel from vpc1 into a vpc2
 - if not specified explicitly the local_subnets are going to be the subnets of the local_router
 - example of a full vpn tunnel to be found in the [Terratest section](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/terratest/vpn)  
