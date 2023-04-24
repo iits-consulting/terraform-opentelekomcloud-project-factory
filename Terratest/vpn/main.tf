@@ -20,10 +20,10 @@ module "vpc_eu_nl" {
   }
 
   cidr_block = var.vpc_cidr_eu_nl
-  subnets    = {
+  subnets = {
     "test-subnet" = cidrsubnet(var.vpc_cidr_eu_nl, 1, 0)
   }
-  tags       = local.tags
+  tags = local.tags
 }
 
 module "vpc_eu_de" {
@@ -34,10 +34,10 @@ module "vpc_eu_de" {
   }
 
   cidr_block = var.vpc_cidr_eu_de
-  subnets    = {
+  subnets = {
     "test-subnet" = cidrsubnet(var.vpc_cidr_eu_de, 1, 0)
   }
-  tags       = local.tags
+  tags = local.tags
 }
 
 resource "random_password" "vpn_psk" {
