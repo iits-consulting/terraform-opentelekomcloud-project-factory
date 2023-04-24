@@ -5,14 +5,11 @@ locals {
   eu_nl_subnets = {
     "test-subnet" = cidrsubnet(var.vpc_cidr_eu_nl, 1, 0)
   }
-
-  eu_de_subnet_cidr = cidrsubnet(var.vpc_cidr_eu_de, 1, 0)
 }
 
 resource "tls_private_key" "terraform_ssh_key" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P521"
-
 }
 
 module "vpc_eu_nl" {
@@ -62,7 +59,7 @@ module "vpn_tunnel_eu_nl" {
   remote_gateway = module.vpn_tunnel_eu_de.vpn_tunnel_gateway
   remote_subnets = values(local.eu_de_subnets)
   local_router   = module.vpc_eu_nl.vpc.id
-  subnet_ids = module.vpc_eu_nl.subnets
+  local_subnets  = values(module.vpc_eu_nl.subnets).*.cidr
 
   vpn_ike_policy_dh_algorithm         = var.vpn_ike_policy_dh_algorithm
   vpn_ike_policy_auth_algorithm       = var.vpn_ike_policy_auth_algorithm
@@ -87,8 +84,7 @@ module "vpn_tunnel_eu_de" {
   remote_gateway = module.vpn_tunnel_eu_nl.vpn_tunnel_gateway
   remote_subnets = values(local.eu_nl_subnets)
   local_router   = module.vpc_eu_de.vpc.id
-  subnet_ids     = module.vpc_eu_de.subnets
-  local_subnets  = [local.eu_de_subnet_cidr]
+  local_subnets  = values(module.vpc_eu_de.subnets).*.cidr
 
   vpn_ike_policy_dh_algorithm         = var.vpn_ike_policy_dh_algorithm
   vpn_ike_policy_auth_algorithm       = var.vpn_ike_policy_auth_algorithm

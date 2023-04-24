@@ -27,9 +27,8 @@ variable "local_router" {
 }
 
 variable "local_subnets" {
-  type        = list(string)
+  type        = set(string)
   description = "Local subnet CIDR ranges."
-  default     = []
 }
 
 
@@ -40,7 +39,7 @@ variable "remote_gateway" {
 
 // If remote subnet ranges include 100.64.0.0/10 range, it may cause services such as OBS, DNS, API Gateway to become unavailable.
 variable "remote_subnets" {
-  type        = list(string)
+  type        = set(string)
   description = "Remote subnet CIDR ranges."
 }
 
@@ -91,9 +90,4 @@ variable "vpn_ipsec_policy_lifetime" {
 variable "vpn_ipsec_policy_pfs" {
   type        = string
   description = "The perfect forward secrecy mode"
-}
-
-variable "subnet_ids" {
-  type        = any
-  description = "IDs of VPC subnets"
 }
