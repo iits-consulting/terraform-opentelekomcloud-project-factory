@@ -155,7 +155,7 @@ module "jumphost_de" {
   subnet_id                       = values(module.vpc_eu_de.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_de.id
-  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
+  cloud_init                      = replace(file("${path.root}/users.yaml"), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
   additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_de.name]
 }
 
@@ -168,13 +168,16 @@ module "jumphost_nl" {
   subnet_id                       = values(module.vpc_eu_nl.subnets)[0].id
   node_name                       = "jumphost-${var.context}-${var.stage}"
   node_image_id                   = data.opentelekomcloud_images_image_v2.ubuntu_nl.id
-  cloud_init                      = replace(join("\n", concat(["#cloud-config"], [for path in fileset("", "${path.root}/../../example_cloud_init/*.{yml,yaml}") : file(path)])), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
+  cloud_init                      = replace(file("${path.root}/users.yaml"), "{terraform_public_key}", tls_private_key.terraform_ssh_key.public_key_openssh)
   additional_security_groups      = [opentelekomcloud_networking_secgroup_v2.jumphost_secgroup_icmp_nl.name]
 }
 
 #the connection test will only succeed once both jumphosts are done initializing
 resource "time_sleep" "wait_180_seconds" {
-  depends_on = [module.jumphost_nl, module.jumphost_de]
+  triggers   = {
+    jumphost_nl = module.jumphost_nl.jumphost_private_address
+    jumphost_de = module.jumphost_de.jumphost_private_address
+  }
 
   create_duration = "180s"
 }

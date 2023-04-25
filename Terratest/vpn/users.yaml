@@ -1,0 +1,10 @@
+#cloud-config
+users: 
+  - name: terraform
+    gecos: Terra Form
+    primary_group: iits
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, ubuntu
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - {terraform_public_key}

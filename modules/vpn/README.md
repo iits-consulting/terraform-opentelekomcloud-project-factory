@@ -10,7 +10,7 @@ module "vpc" {
 
   cidr_block = var.vpc_cidr
   subnets    = {
-    "vpn-subnet" = cidrsubnet(var.vpc_cidr, 1, 0)
+    "vpn-subnet" = "175.1.2.0/24"
   }
   tags       = local.tags
 }
@@ -25,7 +25,7 @@ resource "random_password" "vpn_psk" {
 
 module "vpn_tunnel" {
   source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpn"
-  name   = "${var.context}-${var.stage}-VPN"
+  name   = "${var.context}-${var.stage}-vpn"
 
   psk            = random_password.vpn_psk.result
   dpd            = var.vpn_dpd
