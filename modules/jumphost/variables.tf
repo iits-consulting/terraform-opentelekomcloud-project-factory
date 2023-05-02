@@ -69,7 +69,7 @@ variable "trusted_ssh_origins" {
 
 variable "additional_security_groups" {
   type        = list(string)
-  description = "Additional security group IDs for Jumphost."
+  description = "Additional security group names for Jumphost."
   default     = []
 }
 
