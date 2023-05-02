@@ -156,6 +156,12 @@ variable "node_os" {
   default     = "EulerOS 2.9"
 }
 
+variable "node_container_runtime" {
+  type        = string
+  description = "The container runtime to use. If not set OTC default will be used"
+  default     = null
+}
+
 variable "node_storage_type" {
   type        = string
   description = "Type of node storage SATA, SAS or SSD (default: SATA)"
@@ -238,3 +244,4 @@ variable "authentication_mode" {
   description = "rbac or x509"
   default     = "x509"
 }
+
