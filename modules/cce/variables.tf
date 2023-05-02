@@ -163,7 +163,7 @@ variable "node_container_runtime" {
 }
 
 variable "node_password" {
-  type        = string
+  type        = number
   description = "Password to access the nodes directly. Default: (32 Character Alphanumeric Random Generated)"
   default     = ""
 }
