@@ -17,7 +17,7 @@ You pick modules which you would like to use like this:
 ```hcl
 module "vpc" {
    source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
-   version    = "4.1.7"
+   version    = "5.2.0"
    name       = "myproject-dev-vpc"
    cidr_block = "192.168.0.0/16"
    subnets = {
