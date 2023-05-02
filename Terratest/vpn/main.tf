@@ -174,7 +174,7 @@ module "jumphost_nl" {
 
 #the connection test will only succeed once both jumphosts are done initializing
 resource "time_sleep" "wait_180_seconds" {
-  triggers   = {
+  triggers = {
     jumphost_nl = module.jumphost_nl.jumphost_private_address
     jumphost_de = module.jumphost_de.jumphost_private_address
   }
