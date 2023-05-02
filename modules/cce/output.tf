@@ -15,8 +15,18 @@ output "node_pool_ids" {
   value = { for node_pool in opentelekomcloud_cce_node_pool_v3.cluster_node_pool : node_pool.name => node_pool.id }
 }
 
-output "node_password" {
-  value = var.node_password == "" ? random_password.node_password.result : var.node_password
+output "node_pool_keypair_name" {
+  value = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
+}
+
+output "node_pool_keypair_private_key" {
+  sensitive = true
+  value     = tls_private_key.cluster_keypair.private_key_openssh
+}
+
+output "node_pool_keypair_public_key" {
+  sensitive = true
+  value     = tls_private_key.cluster_keypair.public_key_openssh
 }
 
 output "cluster_credentials" {

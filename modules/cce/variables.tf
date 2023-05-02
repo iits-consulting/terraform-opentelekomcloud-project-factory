@@ -162,12 +162,6 @@ variable "node_container_runtime" {
   default     = null
 }
 
-variable "node_password" {
-  type        = number
-  description = "Password to access the nodes directly. Default: (32 Character Alphanumeric Random Generated)"
-  default     = ""
-}
-
 variable "node_storage_type" {
   type        = string
   description = "Type of node storage SATA, SAS or SSD (default: SATA)"
@@ -250,3 +244,4 @@ variable "authentication_mode" {
   description = "rbac or x509"
   default     = "x509"
 }
+
