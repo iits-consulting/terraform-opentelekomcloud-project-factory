@@ -79,6 +79,7 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   availability_zone  = each.value
   key_pair           = opentelekomcloud_compute_keypair_v2.cluster_keypair.name
   os                 = var.node_os
+  runtime            = var.node_container_runtime
 
   scale_enable             = var.cluster_enable_scaling
   min_node_count           = local.autoscaler_node_min
