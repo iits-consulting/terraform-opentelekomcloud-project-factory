@@ -157,9 +157,11 @@ variable "node_os" {
 }
 
 variable "node_container_runtime" {
-  type        = string
-  description = "The container runtime to use. If not set OTC default will be used"
-  default     = null
+  type          = string
+  description   = "The container runtime to use. Must be set to either containerd or docker"
+  default       = "containerd"
+  condition     = contains(["containerd", "docker"], lower(var.node_container_runtime))
+  error_message = "Allowed values for node_container_runtime are either \"containerd\" or \"docker\"."
 }
 
 variable "node_storage_type" {
