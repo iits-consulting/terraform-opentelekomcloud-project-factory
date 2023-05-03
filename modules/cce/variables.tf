@@ -242,8 +242,16 @@ variable "metrics_server_version" {
 }
 
 variable "authentication_mode" {
-  type        = string
-  description = "rbac or x509"
-  default     = "rbac"
+  type          = string
+  description   = "Authentication mode of the Cluster. Either rbac or authentication_proxy"
+  default       = "rbac"
+  condition     = contains(["rbac", "authentication_proxy"], lower(var.authentication_mode))
+  error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authentication_proxy\"."
+}
+
+variable "authentication_proxy" {
+  type        = map(any)
+  description = "Optional TLS settings if using authentication_proxy mode. Needs ca, cert and private_key settings: https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cce_cluster_v3#authenticating_proxy"
+  default     = {}
 }
 
