@@ -244,6 +244,6 @@ variable "metrics_server_version" {
 variable "authentication_mode" {
   type        = string
   description = "rbac or x509"
-  default     = "x509"
+  default     = "rbac"
 }
 
