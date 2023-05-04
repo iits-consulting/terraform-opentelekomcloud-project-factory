@@ -23,25 +23,22 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
       "swr_user"    = data.opentelekomcloud_cce_addon_template_v3.autoscaler[0].swr_user
     }
     custom = {
-      "cluster_id"                     = opentelekomcloud_cce_cluster_v3.cluster.id
-      "tenant_id"                      = data.opentelekomcloud_identity_project_v3.current.id
-      "coresTotal"                     = 16000
-      "expander"                       = "priority"
-      "logLevel"                       = 4
-      "maxEmptyBulkDeleteFlag"         = 11
-      "maxNodesTotal"                  = 100
-      "memoryTotal"                    = 64000
-      "scaleDownDelayAfterAdd"         = 15
-      "scaleDownDelayAfterDelete"      = 15
-      "scaleDownDelayAfterFailure"     = 3
-      "scaleDownEnabled"               = true
-      "scaleDownUnneededTime"          = 7
-      "scaleDownUtilizationThreshold"  = var.autoscaler_lower_bound
-      "scaleUpCpuUtilizationThreshold" = var.autoscaler_cpu_upper_bound
-      "scaleUpMemUtilizationThreshold" = var.autoscaler_mem_upper_bound
-      "scaleUpUnscheduledPodEnabled"   = true
-      "scaleUpUtilizationEnabled"      = true
-      "unremovableNodeRecheckTimeout"  = 7
+      "cluster_id"                    = opentelekomcloud_cce_cluster_v3.cluster.id
+      "tenant_id"                     = data.opentelekomcloud_identity_project_v3.current.id
+      "coresTotal"                    = 16000
+      "expander"                      = "priority"
+      "logLevel"                      = 4
+      "maxEmptyBulkDeleteFlag"        = 11
+      "maxNodesTotal"                 = 100
+      "memoryTotal"                   = 64000
+      "scaleDownDelayAfterAdd"        = 15
+      "scaleDownDelayAfterDelete"     = 15
+      "scaleDownDelayAfterFailure"    = 3
+      "scaleDownEnabled"              = true
+      "scaleDownUnneededTime"         = 7
+      "scaleUpUnscheduledPodEnabled"  = true
+      "scaleUpUtilizationEnabled"     = true
+      "unremovableNodeRecheckTimeout" = 7
     }
   }
 }

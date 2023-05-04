@@ -160,7 +160,7 @@ variable "node_container_runtime" {
   type          = string
   description   = "The container runtime to use. Must be set to either containerd or docker"
   default       = "containerd"
-  condition     = contains(["containerd", "docker"], lower(var.node_container_runtime))
+  condition     = contains(["containerd", "docker"], var.node_container_runtime)
   error_message = "Allowed values for node_container_runtime are either \"containerd\" or \"docker\"."
 }
 
@@ -206,22 +206,9 @@ variable "autoscaler_node_min" {
   default     = null
 }
 
-variable "autoscaler_cpu_upper_bound" {
-  type        = number
-  description = "Cpu utilization upper bound for upscaling (default: 0.8)"
-  default     = 0.8
-}
-
-variable "autoscaler_mem_upper_bound" {
-  type        = number
-  description = "Memory utilization upper bound for upscaling (default: 0.8)"
-  default     = 0.8
-}
-
-variable "autoscaler_lower_bound" {
-  type        = number
-  description = "Memory AND cpu utilization lower bound for downscaling (default: 0.2)"
-  default     = 0.2
+locals {
+  // Lower bound of servers to always keep (default: <node_count>)
+  autoscaler_node_min = var.autoscaler_node_min != null ? var.node_count : var.autoscaler_node_min
 }
 
 variable "autoscaler_version" {
@@ -230,28 +217,46 @@ variable "autoscaler_version" {
   default     = "1.25.7"
 }
 
-locals {
-  // Lower bound of servers to always keep (default: <node_count>)
-  autoscaler_node_min = var.autoscaler_node_min != null ? var.node_count : var.autoscaler_node_min
-}
-
 variable "metrics_server_version" {
   type        = string
   description = "Version of the Metrics Server Addon Template (default: 1.3.2)"
   default     = "1.3.2"
 }
 
-variable "authentication_mode" {
+variable "cluster_authentication_mode" {
   type          = string
-  description   = "Authentication mode of the Cluster. Either rbac or authentication_proxy"
+  description   = "Authentication mode of the Cluster. Either rbac or authenticating_proxy"
   default       = "rbac"
-  condition     = contains(["rbac", "authentication_proxy"], lower(var.authentication_mode))
-  error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authentication_proxy\"."
+  condition     = contains(["rbac", "authenticating_proxy"], var.cluster_authentication_mode)
+  error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authenticating_proxy\"."
 }
 
-variable "authentication_proxy" {
-  type        = map(any)
-  description = "Optional TLS settings if using authentication_proxy mode. Needs ca, cert and private_key settings: https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cce_cluster_v3#authenticating_proxy"
-  default     = {}
+variable "cluster_authenticating_proxy_ca" {
+  type        = string
+  description = "X509 CA certificate configured in authenticating_proxy mode. The maximum size of the certificate is 1 MB."
+  default     = null
 }
 
+variable "cluster_authenticating_proxy_cert" {
+  type        = string
+  description = "Client certificate issued by the X509 CA certificate configured in authenticating_proxy mode."
+  default     = null
+}
+
+variable "cluster_authenticating_proxy_private_key" {
+  type        = string
+  description = "Private key of the client certificate issued by the X509 CA certificate configured in authenticating_proxy mode."
+  default     = null
+}
+
+resource "errorcheck_is_valid" "cluster_authenticating_proxy_config" {
+  name = "Check if cluster_authenticating_proxy is set up correctly."
+  test = {
+    assert = (
+      var.cluster_authentication_mode == "authenticating_proxy" ||
+      length(compact([var.cluster_authenticating_proxy_ca, var.cluster_authenticating_proxy_cert, var.cluster_authenticating_proxy_private_key])) < 3
+    )
+
+    error_message = "Variables \"cluster_authenticating_proxy_ca\", \"cluster_authenticating_proxy_cert\" and \"cluster_authenticating_proxy_private_key\" when \"cluster_authentication_mode\" is set to \"authenticating_proxy\"!"
+  }
+}
