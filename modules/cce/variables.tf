@@ -158,10 +158,12 @@ variable "node_os" {
 
 variable "node_container_runtime" {
   type          = string
-  description   = "The container runtime to use. Must be set to either containerd or docker"
+  description   = "The container runtime to use. Must be set to either containerd or docker. (default: containerd)"
   default       = "containerd"
-  condition     = contains(["containerd", "docker"], var.node_container_runtime)
-  error_message = "Allowed values for node_container_runtime are either \"containerd\" or \"docker\"."
+  validation {
+    condition     = contains(["containerd", "docker"], var.node_container_runtime)
+    error_message = "Allowed values for node_container_runtime are either \"containerd\" or \"docker\"."
+  }
 }
 
 variable "node_storage_type" {
@@ -225,10 +227,12 @@ variable "metrics_server_version" {
 
 variable "cluster_authentication_mode" {
   type          = string
-  description   = "Authentication mode of the Cluster. Either rbac or authenticating_proxy"
+  description   = "Authentication mode of the Cluster. Either rbac or authenticating_proxy (default: rbac)"
   default       = "rbac"
-  condition     = contains(["rbac", "authenticating_proxy"], var.cluster_authentication_mode)
-  error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authenticating_proxy\"."
+  validation {
+    condition     = contains(["rbac", "authenticating_proxy"], var.cluster_authentication_mode)
+    error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authenticating_proxy\"."
+  }
 }
 
 variable "cluster_authenticating_proxy_ca" {
