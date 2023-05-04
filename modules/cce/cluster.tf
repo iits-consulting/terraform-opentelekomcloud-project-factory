@@ -61,8 +61,15 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   description             = "Kubernetes Cluster ${var.name}."
   eip                     = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
   cluster_version         = var.cluster_version
-  authentication_mode     = var.authentication_mode
-  annotations             = var.cluster_install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
+  authentication_mode     = var.cluster_authentication_mode
+  dynamic "authenticating_proxy" {
+    for_each = var.cluster_authentication_mode != "authenticating_proxy" ? toset([]) : toset(["authenticating_proxy"])
+    content {
+      ca          = var.cluster_authenticating_proxy_ca
+      cert        = var.cluster_authenticating_proxy_cert
+      private_key = var.cluster_authenticating_proxy_private_key
+    }
+  }
 
   timeouts {
     create = "60m"

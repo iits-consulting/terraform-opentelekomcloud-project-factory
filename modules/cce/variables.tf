@@ -23,7 +23,7 @@ variable "cluster_subnet_id" {
 variable "cluster_version" {
   type        = string
   description = "CCE cluster version."
-  default     = "v1.23"
+  default     = "v1.25"
 }
 
 variable "cluster_size" {
@@ -158,8 +158,12 @@ variable "node_os" {
 
 variable "node_container_runtime" {
   type        = string
-  description = "The container runtime to use. If not set OTC default will be used"
-  default     = null
+  description = "The container runtime to use. Must be set to either containerd or docker. (default: containerd)"
+  default     = "containerd"
+  validation {
+    condition     = contains(["containerd", "docker"], var.node_container_runtime)
+    error_message = "Allowed values for node_container_runtime are either \"containerd\" or \"docker\"."
+  }
 }
 
 variable "node_storage_type" {
@@ -204,44 +208,59 @@ variable "autoscaler_node_min" {
   default     = null
 }
 
-variable "autoscaler_cpu_upper_bound" {
-  type        = number
-  description = "Cpu utilization upper bound for upscaling (default: 0.8)"
-  default     = 0.8
-}
-
-variable "autoscaler_mem_upper_bound" {
-  type        = number
-  description = "Memory utilization upper bound for upscaling (default: 0.8)"
-  default     = 0.8
-}
-
-variable "autoscaler_lower_bound" {
-  type        = number
-  description = "Memory AND cpu utilization lower bound for downscaling (default: 0.2)"
-  default     = 0.2
-}
-
-variable "autoscaler_version" {
-  type        = string
-  description = "Version of the Autoscaler Addon Template (default: 1.23.6)"
-  default     = "1.23.6"
-}
-
 locals {
   // Lower bound of servers to always keep (default: <node_count>)
   autoscaler_node_min = var.autoscaler_node_min != null ? var.node_count : var.autoscaler_node_min
 }
 
+variable "autoscaler_version" {
+  type        = string
+  description = "Version of the Autoscaler Addon Template (default: 1.25.7)"
+  default     = "1.25.7"
+}
+
 variable "metrics_server_version" {
   type        = string
-  description = "Version of the Metrics Server Addon Template (default: 1.2.1)"
-  default     = "1.2.1"
+  description = "Version of the Metrics Server Addon Template (default: 1.3.2)"
+  default     = "1.3.2"
 }
 
-variable "authentication_mode" {
+variable "cluster_authentication_mode" {
   type        = string
-  description = "rbac or x509"
-  default     = "x509"
+  description = "Authentication mode of the Cluster. Either rbac or authenticating_proxy (default: rbac)"
+  default     = "rbac"
+  validation {
+    condition     = contains(["rbac", "authenticating_proxy"], var.cluster_authentication_mode)
+    error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authenticating_proxy\"."
+  }
 }
 
+variable "cluster_authenticating_proxy_ca" {
+  type        = string
+  description = "X509 CA certificate configured in authenticating_proxy mode. The maximum size of the certificate is 1 MB."
+  default     = null
+}
+
+variable "cluster_authenticating_proxy_cert" {
+  type        = string
+  description = "Client certificate issued by the X509 CA certificate configured in authenticating_proxy mode."
+  default     = null
+}
+
+variable "cluster_authenticating_proxy_private_key" {
+  type        = string
+  description = "Private key of the client certificate issued by the X509 CA certificate configured in authenticating_proxy mode."
+  default     = null
+}
+
+resource "errorcheck_is_valid" "cluster_authenticating_proxy_config" {
+  name = "Check if cluster_authenticating_proxy is set up correctly."
+  test = {
+    assert = (
+      var.cluster_authentication_mode == "authenticating_proxy" ||
+      length(compact([var.cluster_authenticating_proxy_ca, var.cluster_authenticating_proxy_cert, var.cluster_authenticating_proxy_private_key])) < 3
+    )
+
+    error_message = "Variables \"cluster_authenticating_proxy_ca\", \"cluster_authenticating_proxy_cert\" and \"cluster_authenticating_proxy_private_key\" when \"cluster_authentication_mode\" is set to \"authenticating_proxy\"!"
+  }
+}
