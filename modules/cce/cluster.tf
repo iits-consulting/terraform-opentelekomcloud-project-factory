@@ -62,7 +62,7 @@ resource "opentelekomcloud_cce_cluster_v3" "cluster" {
   eip                     = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
   cluster_version         = var.cluster_version
   authentication_mode     = var.cluster_authentication_mode
-  authentication_proxy = var.cluster_authentication_mode != "authenticating_proxy" ? null : {
+  authenticating_proxy = var.cluster_authentication_mode != "authenticating_proxy" ? null : {
     ca          = var.cluster_authenticating_proxy_ca
     cert        = var.cluster_authenticating_proxy_cert
     private_key = var.cluster_authenticating_proxy_private_key
