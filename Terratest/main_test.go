@@ -7,13 +7,19 @@ import (
 	"testing"
 )
 
-func TestNetworkSetup(t *testing.T) {
-	context := "network"
-	performTerratest(t, context)
-}
+//TODO: https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/issues/82
+// func TestNetworkSetup(t *testing.T) {
+// 	context := "network"
+// 	performTerratest(t, context)
+// }
 
 func TestCCE(t *testing.T) {
 	context := "cce"
+	performTerratest(t, context)
+}
+
+func TestOBSRestricted(t *testing.T) {
+	context := "obs_restricted"
 	performTerratest(t, context)
 }
 
