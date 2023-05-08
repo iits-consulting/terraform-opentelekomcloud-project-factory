@@ -11,7 +11,8 @@ on:
 jobs:
   go-test-eu-de:
     name: Run Terratest for eu-de
-    concurrency: {{ github.head_ref ||  github.ref }}
+    concurrency:
+      group: {{ github.head_ref ||  github.ref }}
     runs-on: ubuntu-latest
     container:
         image: vault
@@ -53,7 +54,8 @@ jobs:
           go test -v -tags=unit -timeout 90m
   go-test-eu-nl:
     name: Run Terratest for eu-nl
-    concurrency: {{ github.head_ref ||  github.ref }}
+    concurrency:
+      group: {{ github.head_ref ||  github.ref }}
     runs-on: ubuntu-latest
     container:
         image: vault
@@ -95,7 +97,8 @@ jobs:
           go test -v -tags=unit -timeout 90m
   go-test-eu-ch2:
     name: Run Terratest for eu-ch2
-    concurrency: {{ github.head_ref ||  github.ref }}
+    concurrency:
+      group: {{ github.head_ref ||  github.ref }}
     runs-on: ubuntu-latest
     container:
       image: vault
