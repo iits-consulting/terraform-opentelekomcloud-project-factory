@@ -24,7 +24,6 @@ module "cce" {
 
   cluster_vpc_id            = module.vpc.vpc.id
   cluster_subnet_id         = module.vpc.subnets["test-subnet"].id
-  cluster_version           = "v1.23"
   cluster_high_availability = var.cce_high_availability
   cluster_enable_scaling    = var.cce_enable_scaling
 
