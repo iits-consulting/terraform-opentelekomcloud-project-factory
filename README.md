@@ -64,7 +64,6 @@ There are some variables that occur on multiple modules. The ideas behind them a
 The following modules are currently not working for Swiss OTC:
 - [public_dns:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/public_dns) Create and manage a public DNS zone
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
-- [snat:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
 
 ## Recommendations
 
