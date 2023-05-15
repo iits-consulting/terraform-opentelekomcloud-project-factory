@@ -15,6 +15,8 @@ jobs:
       - if: ${{ !env.ACT }}
         name: Clone repo
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: dorny/paths-filter@v2
         id: changes
@@ -23,6 +25,7 @@ jobs:
             tf:
               - '**/*.tf'
               - '**/README.md'
+
       - if: steps.changes.outputs.tf == 'true'
         name: Render terraform docs and push changes back to PR
         uses: terraform-docs/gh-actions@main
