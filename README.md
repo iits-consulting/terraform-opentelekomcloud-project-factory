@@ -29,7 +29,7 @@ module "vpc" {
 ## Currently Available Modules
 - [ACME:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/acme) Create, sign and update HTTPS certificates via OTC DNS
 - [CCE:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cce) A module designed to support full capabilities of OTC CCE while simplifying the configuration for ease of use.
-- [cloud_tracing_service:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cloud_tracing_service) This module enables the Cloud Tracing functionality in the OTC.
+- [cts:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cts) This module enables the Cloud Tracing functionality in the OTC.
 - [jumphost:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/jumphost) A module designed to create SSH jumphosts via OTC ECS for private networks.
 - [loadbalancer:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/loadbalancer) Module for creating an OTC ELB resource with public EIP
 - [obs_secrets_reader:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/obs_secrets_reader) This modules reads JSON formatted secrets from an OBS bucket.
