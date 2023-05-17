@@ -80,12 +80,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_domain"></a> [domain](#input\_domain) | The public domain to create public DNS zone for. | `string` | n/a | yes |
+| <a name="input_email"></a> [email](#input\_email) | The email address to create public DNS zone with. | `string` | n/a | yes |
 | <a name="input_a_records"></a> [a\_records](#input\_a\_records) | Map of DNS A records. Maps domains to IPv4 addresses. | `map(list(string))` | `{}` | no |
 | <a name="input_aaaa_records"></a> [aaaa\_records](#input\_aaaa\_records) | Map of DNS AAAA records. Map domains to IPv6 addresses. | `map(list(string))` | `{}` | no |
 | <a name="input_caa_records"></a> [caa\_records](#input\_caa\_records) | Map of DNS CAA records. Grant certificate issuing permissions to CAs. | `map(list(string))` | `{}` | no |
 | <a name="input_cname_records"></a> [cname\_records](#input\_cname\_records) | Map of DNS CNAME records. Map one domain to another. | `map(list(string))` | `{}` | no |
-| <a name="input_domain"></a> [domain](#input\_domain) | The public domain to create public DNS zone for. | `string` | n/a | yes |
-| <a name="input_email"></a> [email](#input\_email) | The email address to create public DNS zone with. | `string` | n/a | yes |
 | <a name="input_mx_records"></a> [mx\_records](#input\_mx\_records) | Map of DNS MX records. Map domains to email servers. | `map(list(string))` | `{}` | no |
 | <a name="input_ns_records"></a> [ns\_records](#input\_ns\_records) | Map of DNS NS records. Delegate subdomains to other name servers. | `map(list(string))` | `{}` | no |
 | <a name="input_srv_records"></a> [srv\_records](#input\_srv\_records) | Map of DNS SRV records. Record servers providing specific services. | `map(list(string))` | `{}` | no |

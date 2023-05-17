@@ -73,16 +73,16 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_domain"></a> [domain](#input\_domain) | The domain name to create private DNS zone for. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID to associate this private DNS zone with. | `string` | n/a | yes |
 | <a name="input_a_records"></a> [a\_records](#input\_a\_records) | Map of DNS A records. Maps domains to IPv4 addresses. | `map(list(string))` | `{}` | no |
 | <a name="input_aaaa_records"></a> [aaaa\_records](#input\_aaaa\_records) | Map of DNS AAAA records. Map domains to IPv6 addresses. | `map(list(string))` | `{}` | no |
 | <a name="input_cname_records"></a> [cname\_records](#input\_cname\_records) | Map of DNS CNAME records. Map one domain to another. | `map(list(string))` | `{}` | no |
-| <a name="input_domain"></a> [domain](#input\_domain) | The domain name to create private DNS zone for. | `string` | n/a | yes |
 | <a name="input_mx_records"></a> [mx\_records](#input\_mx\_records) | Map of DNS MX records. Map domains to email servers. | `map(list(string))` | `{}` | no |
 | <a name="input_ptr_records"></a> [ptr\_records](#input\_ptr\_records) | Map of DNS SRV records. Map IP addresses to domains. | `map(list(string))` | `{}` | no |
 | <a name="input_srv_records"></a> [srv\_records](#input\_srv\_records) | Map of DNS SRV records. Record servers providing specific services. | `map(list(string))` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for project resources | `map(string)` | `{}` | no |
 | <a name="input_txt_records"></a> [txt\_records](#input\_txt\_records) | Map of DNS TXT records. Specify text records. | `map(list(string))` | `{}` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC ID to associate this private DNS zone with. | `string` | n/a | yes |
 
 ## Outputs
 

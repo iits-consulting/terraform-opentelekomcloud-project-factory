@@ -97,19 +97,19 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_node_name"></a> [node\_name](#input\_node\_name) | Jumphost node name. | `any` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Jumphost subnet id for node network configuration | `any` | n/a | yes |
 | <a name="input_additional_security_groups"></a> [additional\_security\_groups](#input\_additional\_security\_groups) | Additional security group names for Jumphost. | `list(string)` | `[]` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone for the jumphost node. | `string` | `""` | no |
 | <a name="input_cloud_init"></a> [cloud\_init](#input\_cloud\_init) | Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read. | `string` | `""` | no |
 | <a name="input_node_bandwidth_size"></a> [node\_bandwidth\_size](#input\_node\_bandwidth\_size) | Jumphost node external IP bandwidth size in Mbps. (default: 10) | `number` | `10` | no |
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Jumphost node specifications in otc flavor format. (default: s3.medium.2 (3rd generation 1 Core 2GB RAM)) | `string` | `"s3.medium.2"` | no |
 | <a name="input_node_image_id"></a> [node\_image\_id](#input\_node\_image\_id) | Jumphost node image name. Image must exist within the same project as the jumphost node. (default: 9f92079d-9d1b-4832-90c1-a3b4a1c00b9b (Standard\_Ubuntu\_20.04\_latest)) | `string` | `"9f92079d-9d1b-4832-90c1-a3b4a1c00b9b"` | no |
-| <a name="input_node_name"></a> [node\_name](#input\_node\_name) | Jumphost node name. | `any` | n/a | yes |
 | <a name="input_node_storage_encryption_enabled"></a> [node\_storage\_encryption\_enabled](#input\_node\_storage\_encryption\_enabled) | Jumphost node system disk storage KMS encryption toggle. | `bool` | `false` | no |
 | <a name="input_node_storage_encryption_key_name"></a> [node\_storage\_encryption\_key\_name](#input\_node\_storage\_encryption\_key\_name) | If jumphost system disk KMS encryption is enabled, use this KMS key name instead of creating a new one. | `string` | `null` | no |
 | <a name="input_node_storage_size"></a> [node\_storage\_size](#input\_node\_storage\_size) | Jumphost node system disk storage size in GB. (default: 20) | `number` | `20` | no |
 | <a name="input_node_storage_type"></a> [node\_storage\_type](#input\_node\_storage\_type) | Jumphost node system disk storage type. Must be one of "SATA", "SAS", or "SSD". (default: SSD) | `string` | `"SSD"` | no |
 | <a name="input_preserve_host_keys"></a> [preserve\_host\_keys](#input\_preserve\_host\_keys) | Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true) | `bool` | `true` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Jumphost subnet id for node network configuration | `any` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Jumphost tag set. | `map(string)` | `{}` | no |
 | <a name="input_trusted_ssh_origins"></a> [trusted\_ssh\_origins](#input\_trusted\_ssh\_origins) | IP addresses and/or ranges allowed to SSH into the jumphost. (default: ["0.0.0.0/0"] (Allow access from all IP addresses.)) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 

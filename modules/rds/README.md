@@ -84,6 +84,11 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_db_type"></a> [db\_type](#input\_db\_type) | RDS database product type. (MySQL, PostgreSQL or SQLServer) | `string` | n/a | yes |
+| <a name="input_db_version"></a> [db\_version](#input\_db\_version) | RDS database product version. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name of the RDS instance. | `string` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Id of the subnet to create database cluster in. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Id of the VPC to create database cluster in. | `string` | n/a | yes |
 | <a name="input_db_availability_zones"></a> [db\_availability\_zones](#input\_db\_availability\_zones) | Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively. | `set(string)` | `[]` | no |
 | <a name="input_db_backup_days"></a> [db\_backup\_days](#input\_db\_backup\_days) | Retain time for automated backups in days. (default: 7) | `number` | `"7"` | no |
 | <a name="input_db_backup_interval"></a> [db\_backup\_interval](#input\_db\_backup\_interval) | UTC time window for automated database backups in "HH:MM-HH:MM" format. Must be at least 1 hour (default: 03:00-04:00) | `string` | `"03:00-04:00"` | no |
@@ -98,17 +103,12 @@ No modules.
 | <a name="input_db_size"></a> [db\_size](#input\_db\_size) | Amount of storage desired for the database in GB. (default: 10) | `number` | `100` | no |
 | <a name="input_db_storage_alarm_threshold"></a> [db\_storage\_alarm\_threshold](#input\_db\_storage\_alarm\_threshold) | CES alarm threshold (in percent) for database storage capacity. Can be disabled by setting to 0. (default: 75) | `number` | `75` | no |
 | <a name="input_db_storage_type"></a> [db\_storage\_type](#input\_db\_storage\_type) | Type of storage desired for the database. Allowed values are COMMON (SATA) or ULTRAHIGH (SSD) (default: ULTRAHIGH) | `string` | `"ULTRAHIGH"` | no |
-| <a name="input_db_type"></a> [db\_type](#input\_db\_type) | RDS database product type. (MySQL, PostgreSQL or SQLServer) | `string` | n/a | yes |
-| <a name="input_db_version"></a> [db\_version](#input\_db\_version) | RDS database product version. | `string` | n/a | yes |
 | <a name="input_db_volume_encryption"></a> [db\_volume\_encryption](#input\_db\_volume\_encryption) | Enable OTC KMS volume encryption for the database volumes. (default: true) | `bool` | `true` | no |
 | <a name="input_db_volume_encryption_key_name"></a> [db\_volume\_encryption\_key\_name](#input\_db\_volume\_encryption\_key\_name) | If KMS volume encryption is enabled for the database volumes, use this kms key name instead of creating a new one. (default: null) | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of the RDS instance. | `string` | n/a | yes |
 | <a name="input_sg_allowed_cidr"></a> [sg\_allowed\_cidr](#input\_sg\_allowed\_cidr) | CIDR ranges that are allowed to connect to the database. (default: <var.subnet\_id.cidr>) | `set(string)` | `[]` | no |
 | <a name="input_sg_allowed_secgroups"></a> [sg\_allowed\_secgroups](#input\_sg\_allowed\_secgroups) | Security groups that are allowed to connect to the database. (default: []) | `set(string)` | `[]` | no |
 | <a name="input_sg_secgroup_id"></a> [sg\_secgroup\_id](#input\_sg\_secgroup\_id) | Security group override to allow user defined security group definitions. | `string` | `""` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Id of the subnet to create database cluster in. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for project resources | `map(string)` | `{}` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Id of the VPC to create database cluster in. | `string` | n/a | yes |
 
 ## Outputs
 

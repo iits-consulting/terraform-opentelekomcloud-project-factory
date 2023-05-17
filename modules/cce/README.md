@@ -188,6 +188,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cluster_subnet_id"></a> [cluster\_subnet\_id](#input\_cluster\_subnet\_id) | Subnet network id where the cluster will be created in | `string` | n/a | yes |
+| <a name="input_cluster_vpc_id"></a> [cluster\_vpc\_id](#input\_cluster\_vpc\_id) | VPC id where the cluster will be created in | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | CCE cluster name | `string` | n/a | yes |
+| <a name="input_node_availability_zones"></a> [node\_availability\_zones](#input\_node\_availability\_zones) | Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone. | `set(string)` | n/a | yes |
+| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of nodes to create | `number` | n/a | yes |
+| <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Node specifications in otc flavor format | `string` | n/a | yes |
 | <a name="input_autoscaler_node_max"></a> [autoscaler\_node\_max](#input\_autoscaler\_node\_max) | Maximum limit of servers to create (default: 10) | `number` | `10` | no |
 | <a name="input_autoscaler_node_min"></a> [autoscaler\_node\_min](#input\_autoscaler\_node\_min) | Lower bound of servers to always keep (default: <node\_count>) | `number` | `null` | no |
 | <a name="input_autoscaler_version"></a> [autoscaler\_version](#input\_autoscaler\_version) | Version of the Autoscaler Addon Template (default: 1.25.7) | `string` | `"1.25.7"` | no |
@@ -203,16 +209,10 @@ No modules.
 | <a name="input_cluster_public_access"></a> [cluster\_public\_access](#input\_cluster\_public\_access) | Bind a public IP to the CLuster to make it public available (default: true) | `bool` | `true` | no |
 | <a name="input_cluster_service_cidr"></a> [cluster\_service\_cidr](#input\_cluster\_service\_cidr) | Kubernetes service network CIDR range (default: 10.247.0.0/16) | `string` | `"10.247.0.0/16"` | no |
 | <a name="input_cluster_size"></a> [cluster\_size](#input\_cluster\_size) | Size of the cluster: small, medium, large (default: small) | `string` | `"small"` | no |
-| <a name="input_cluster_subnet_id"></a> [cluster\_subnet\_id](#input\_cluster\_subnet\_id) | Subnet network id where the cluster will be created in | `string` | n/a | yes |
 | <a name="input_cluster_type"></a> [cluster\_type](#input\_cluster\_type) | Cluster type: VirtualMachine or BareMetal (default: VirtualMachine) | `string` | `"VirtualMachine"` | no |
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | CCE cluster version. | `string` | `"v1.25"` | no |
-| <a name="input_cluster_vpc_id"></a> [cluster\_vpc\_id](#input\_cluster\_vpc\_id) | VPC id where the cluster will be created in | `string` | n/a | yes |
 | <a name="input_metrics_server_version"></a> [metrics\_server\_version](#input\_metrics\_server\_version) | Version of the Metrics Server Addon Template (default: 1.3.2) | `string` | `"1.3.2"` | no |
-| <a name="input_name"></a> [name](#input\_name) | CCE cluster name | `string` | n/a | yes |
-| <a name="input_node_availability_zones"></a> [node\_availability\_zones](#input\_node\_availability\_zones) | Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone. | `set(string)` | n/a | yes |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
-| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of nodes to create | `number` | n/a | yes |
-| <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Node specifications in otc flavor format | `string` | n/a | yes |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9) | `string` | `"EulerOS 2.9"` | no |
 | <a name="input_node_postinstall"></a> [node\_postinstall](#input\_node\_postinstall) | Post install script for the cluster ECS node pool. | `string` | `""` | no |
 | <a name="input_node_storage_encryption_enabled"></a> [node\_storage\_encryption\_enabled](#input\_node\_storage\_encryption\_enabled) | Enable OTC KMS volume encryption for the node pool volumes. (default: false) | `bool` | `false` | no |

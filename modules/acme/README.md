@@ -60,14 +60,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cert_key_type"></a> [cert\_key\_type](#input\_cert\_key\_type) | The key type for the certificate's private key. Can be one of: P256 and P384 (for ECDSA keys of respective length) or 2048, 4096, and 8192 (for RSA keys of respective length). (default: P256) | `string` | `"P256"` | no |
-| <a name="input_cert_min_days_remaining"></a> [cert\_min\_days\_remaining](#input\_cert\_min\_days\_remaining) | Number of days remaining when terraform apply will automatically renew the certificate. (default: 30) | `number` | `30` | no |
 | <a name="input_cert_registration_email"></a> [cert\_registration\_email](#input\_cert\_registration\_email) | E-mail associated with certificate generation. | `string` | n/a | yes |
-| <a name="input_cert_registration_key_type"></a> [cert\_registration\_key\_type](#input\_cert\_registration\_key\_type) | The key type for the ACME registration private key. Can be one of: P256 and P384 (for ECDSA keys of respective length) or 2048, 4096, and 8192 (for RSA keys of respective length). (default: P256) | `string` | `"P256"` | no |
-| <a name="input_dns_admin_name"></a> [dns\_admin\_name](#input\_dns\_admin\_name) | Name of the automated DNS admin user. (default: terraform\_acme\_dns\_manager) | `string` | `"terraform_acme_dns_manager"` | no |
 | <a name="input_domains"></a> [domains](#input\_domains) | Map of common names to alternative names to create ACME certificates. Module supports wildcard certificates, common name does not need to be included in alternative names. | `map(list(string))` | n/a | yes |
 | <a name="input_otc_domain_name"></a> [otc\_domain\_name](#input\_otc\_domain\_name) | OTC domain name for the cloud subscription. Usually in form OTC-EU-DE-000000000010XXXXXXXX | `string` | n/a | yes |
 | <a name="input_otc_project_name"></a> [otc\_project\_name](#input\_otc\_project\_name) | OTC project name in format "eu-de\_<project\_name>" or "eu-nl\_<project\_name>". The project must have the dns zone(s) created. | `string` | n/a | yes |
+| <a name="input_cert_key_type"></a> [cert\_key\_type](#input\_cert\_key\_type) | The key type for the certificate's private key. Can be one of: P256 and P384 (for ECDSA keys of respective length) or 2048, 4096, and 8192 (for RSA keys of respective length). (default: P256) | `string` | `"P256"` | no |
+| <a name="input_cert_min_days_remaining"></a> [cert\_min\_days\_remaining](#input\_cert\_min\_days\_remaining) | Number of days remaining when terraform apply will automatically renew the certificate. (default: 30) | `number` | `30` | no |
+| <a name="input_cert_registration_key_type"></a> [cert\_registration\_key\_type](#input\_cert\_registration\_key\_type) | The key type for the ACME registration private key. Can be one of: P256 and P384 (for ECDSA keys of respective length) or 2048, 4096, and 8192 (for RSA keys of respective length). (default: P256) | `string` | `"P256"` | no |
+| <a name="input_dns_admin_name"></a> [dns\_admin\_name](#input\_dns\_admin\_name) | Name of the automated DNS admin user. (default: terraform\_acme\_dns\_manager) | `string` | `"terraform_acme_dns_manager"` | no |
 
 ## Outputs
 

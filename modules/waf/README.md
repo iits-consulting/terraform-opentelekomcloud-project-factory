@@ -59,12 +59,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_certificate"></a> [certificate](#input\_certificate) | Signed certificate in PEM format for the domain(s). | `string` | `""` | no |
-| <a name="input_certificate_private_key"></a> [certificate\_private\_key](#input\_certificate\_private\_key) | Private key of the certificate in PEM format for the domain(s). | `string` | `""` | no |
-| <a name="input_client_insecure"></a> [client\_insecure](#input\_client\_insecure) | Use HTTP (insecure) protocol between WAF and client. (default: false). | `bool` | `false` | no |
 | <a name="input_dns_zone_id"></a> [dns\_zone\_id](#input\_dns\_zone\_id) | OTC DNS zone to create the WAF CNAME records in. | `string` | n/a | yes |
 | <a name="input_domain"></a> [domain](#input\_domain) | Domain name to create DNS and WAF resources for. | `string` | n/a | yes |
 | <a name="input_server_addresses"></a> [server\_addresses](#input\_server\_addresses) | Set of destination endpoint(s) external IP address(es) and ports they are listening on in format <ip\_addr>:<port> | `set(string)` | n/a | yes |
+| <a name="input_certificate"></a> [certificate](#input\_certificate) | Signed certificate in PEM format for the domain(s). | `string` | `""` | no |
+| <a name="input_certificate_private_key"></a> [certificate\_private\_key](#input\_certificate\_private\_key) | Private key of the certificate in PEM format for the domain(s). | `string` | `""` | no |
+| <a name="input_client_insecure"></a> [client\_insecure](#input\_client\_insecure) | Use HTTP (insecure) protocol between WAF and client. (default: false). | `bool` | `false` | no |
 | <a name="input_server_insecure"></a> [server\_insecure](#input\_server\_insecure) | Use HTTP (insecure) protocol between WAF and destination endpoint(s). (default: false). | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for PEGA project resources | `map(string)` | `{}` | no |
 | <a name="input_tls_cipher"></a> [tls\_cipher](#input\_tls\_cipher) | Cipher suite to use with TLS. Accepted values are "cipher\_default", "cipher\_1", "cipher\_2" and "cipher\_3". (default: cipher\_1) | `string` | `"cipher_1"` | no |

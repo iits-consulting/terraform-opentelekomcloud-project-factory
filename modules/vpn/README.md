@@ -84,7 +84,6 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_dpd"></a> [dpd](#input\_dpd) | Dead peer detection (true = hold (default) false = disabled). | `bool` | `true` | no |
 | <a name="input_local_router"></a> [local\_router](#input\_local\_router) | VPC id of the vpnaas service. | `string` | n/a | yes |
 | <a name="input_local_subnets"></a> [local\_subnets](#input\_local\_subnets) | Local subnet CIDR ranges. | `set(string)` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Prefix for all OTC resource names | `string` | n/a | yes |
@@ -95,12 +94,13 @@ No modules.
 | <a name="input_vpn_ike_policy_auth_algorithm"></a> [vpn\_ike\_policy\_auth\_algorithm](#input\_vpn\_ike\_policy\_auth\_algorithm) | Authentication hash algorithm | `string` | n/a | yes |
 | <a name="input_vpn_ike_policy_dh_algorithm"></a> [vpn\_ike\_policy\_dh\_algorithm](#input\_vpn\_ike\_policy\_dh\_algorithm) | Diffie-Hellman key exchange algorithm | `string` | n/a | yes |
 | <a name="input_vpn_ike_policy_encryption_algorithm"></a> [vpn\_ike\_policy\_encryption\_algorithm](#input\_vpn\_ike\_policy\_encryption\_algorithm) | Encryption algorithm | `string` | n/a | yes |
-| <a name="input_vpn_ike_policy_lifetime"></a> [vpn\_ike\_policy\_lifetime](#input\_vpn\_ike\_policy\_lifetime) | Lifetime of the security association in seconds. | `number` | `86400` | no |
 | <a name="input_vpn_ipsec_policy_auth_algorithm"></a> [vpn\_ipsec\_policy\_auth\_algorithm](#input\_vpn\_ipsec\_policy\_auth\_algorithm) | Authentication hash algorithm | `string` | n/a | yes |
 | <a name="input_vpn_ipsec_policy_encryption_algorithm"></a> [vpn\_ipsec\_policy\_encryption\_algorithm](#input\_vpn\_ipsec\_policy\_encryption\_algorithm) | Encryption algorithm | `string` | n/a | yes |
-| <a name="input_vpn_ipsec_policy_lifetime"></a> [vpn\_ipsec\_policy\_lifetime](#input\_vpn\_ipsec\_policy\_lifetime) | Lifetime of the security association in seconds. | `number` | `3600` | no |
 | <a name="input_vpn_ipsec_policy_pfs"></a> [vpn\_ipsec\_policy\_pfs](#input\_vpn\_ipsec\_policy\_pfs) | The perfect forward secrecy mode | `string` | n/a | yes |
 | <a name="input_vpn_ipsec_policy_protocol"></a> [vpn\_ipsec\_policy\_protocol](#input\_vpn\_ipsec\_policy\_protocol) | The security protocol used for IPSec to transmit and encapsulate user data. | `string` | n/a | yes |
+| <a name="input_dpd"></a> [dpd](#input\_dpd) | Dead peer detection (true = hold (default) false = disabled). | `bool` | `true` | no |
+| <a name="input_vpn_ike_policy_lifetime"></a> [vpn\_ike\_policy\_lifetime](#input\_vpn\_ike\_policy\_lifetime) | Lifetime of the security association in seconds. | `number` | `86400` | no |
+| <a name="input_vpn_ipsec_policy_lifetime"></a> [vpn\_ipsec\_policy\_lifetime](#input\_vpn\_ipsec\_policy\_lifetime) | Lifetime of the security association in seconds. | `number` | `3600` | no |
 
 ## Outputs
 

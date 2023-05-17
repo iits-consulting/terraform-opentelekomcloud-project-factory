@@ -67,9 +67,9 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Bucket name to read secrets from. Make sure the provider for this module has tennant\_name=<region> set | `string` | n/a | yes |
 | <a name="input_bucket_object_key"></a> [bucket\_object\_key](#input\_bucket\_object\_key) | n/a | `string` | n/a | yes |
+| <a name="input_secrets"></a> [secrets](#input\_secrets) | n/a | `map(any)` | n/a | yes |
 | <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | Create a new bucket or use an existing one. Default: true | `bool` | `true` | no |
 | <a name="input_enable_versioning"></a> [enable\_versioning](#input\_enable\_versioning) | Disable the versioning for the bucket. Default: true | `bool` | `true` | no |
-| <a name="input_secrets"></a> [secrets](#input\_secrets) | n/a | `map(any)` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `null` | no |
 
 ## Outputs
