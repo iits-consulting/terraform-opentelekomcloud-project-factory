@@ -32,3 +32,4 @@ jobs:
         with:
           config-file: .terraform-docs.yaml
           git-push: "true"
+          working-dir: .

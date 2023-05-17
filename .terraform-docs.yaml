@@ -14,4 +14,4 @@ output:
 
 sort:
   enabled: true
-  by: name
+  by: required
