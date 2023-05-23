@@ -7,11 +7,10 @@ import (
 	"testing"
 )
 
-//TODO: https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/issues/82
-// func TestNetworkSetup(t *testing.T) {
-// 	context := "network"
-// 	performTerratest(t, context)
-// }
+func TestNetworkSetup(t *testing.T) {
+	context := "network"
+	performTerratest(t, context)
+}
 
 func TestCCE(t *testing.T) {
 	context := "cce"
