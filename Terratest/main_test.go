@@ -19,6 +19,11 @@ func TestCCE(t *testing.T) {
 
 func TestOBSRestricted(t *testing.T) {
 	context := "obs_restricted"
+	if os.Getenv("TF_VAR_region") == "eu-de" {
+		performTerratest(t, context)
+	} else {
+		fmt.Println("Skipping Test OBSRestricted for Region ", os.Getenv("TF_VAR_region"))
+	}
 	performTerratest(t, context)
 }
 
