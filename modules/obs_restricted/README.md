@@ -1,6 +1,6 @@
 ## Restricted OBS Bucket
 
-This modules creates an OBS Bucket with KMS SSE default encryption and user with access to it.
+This modules creates an OBS Bucket with KMS SSE default encryption and user that able to access to it.
 
 > **Note**  
 > Please remember that OBS and KMS work only on top level projects (eu-de or eu-nl) !!!
