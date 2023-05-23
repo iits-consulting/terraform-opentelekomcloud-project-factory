@@ -1,15 +1,7 @@
-module "obs_restricted_eu_nl" {
+module "obs_restricted" {
   source      = "../../modules/obs_restricted"
   bucket_name = var.bucket_name
   providers = {
-    opentelekomcloud = opentelekomcloud.nl
-  }
-}
-
-module "obs_restricted_eu_de" {
-  source      = "../../modules/obs_restricted"
-  bucket_name = var.bucket_name
-  providers = {
-    opentelekomcloud = opentelekomcloud.de
+    opentelekomcloud = opentelekomcloud.top_level_project
   }
 }

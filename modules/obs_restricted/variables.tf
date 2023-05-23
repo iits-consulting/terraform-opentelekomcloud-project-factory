@@ -13,6 +13,16 @@ variable "enable_versioning" {
   default     = true
 }
 
+variable "region" {
+  type        = string
+  description = "OTC region for the project: eu-de(default), eu-ch2 or eu-nl"
+  default     = "eu-de"
+  validation {
+    condition     = contains(["eu-de", "eu-ch2", "eu-nl"], var.region)
+    error_message = "Allowed values for region are \"eu-de\", \"eu-ch2\" and \"eu-nl\"."
+  }
+}
+
 variable "tags" {
   type    = map(string)
   default = null

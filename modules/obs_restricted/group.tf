@@ -1,5 +1,5 @@
 data "opentelekomcloud_identity_project_v3" "toplevel" {
-  name = "eu-de"
+  name = var.region
 }
 
 data "opentelekomcloud_identity_project_v3" "obs_project" {
