@@ -9,7 +9,7 @@ This modules creates an OBS Bucket with KMS SSE default encryption and user that
 
 ```hcl
 provider "opentelekomcloud" {
-  alias       = "toplevel-de"
+  alias       = "top_level_project"
   max_retries = 100
   auth_url    = "https://iam.eu-de.otc.t-systems.com/v3"
   tenant_name = "eu-de"
@@ -20,7 +20,7 @@ module "obs_restricted_eu_de" {
   source      = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/obs_restricted"
   bucket_name = var.bucket_name
   providers = {
-    opentelekomcloud = opentelekomcloud.toplevel-de
+    opentelekomcloud = opentelekomcloud.top_level_project
   }
 }
 ```
