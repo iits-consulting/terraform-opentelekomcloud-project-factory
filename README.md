@@ -42,6 +42,7 @@ module "vpc" {
 - [snat:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/snat) Public SNAT gateway to grant internet access from a VPC without shared SNAT.
 - [vpn:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/vpn) Creates a VPN tunnel.
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
+- [evs:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/evs) Create an encrypted Elastic Volume Service (EVS)
 
 ## Quickstart
 
