@@ -10,12 +10,6 @@ resource "opentelekomcloud_kms_key_v1" "bucket_kms_key" {
   tags            = var.tags
 }
 
-resource "opentelekomcloud_kms_grant_v1" "obs_user" {
-  key_id            = opentelekomcloud_kms_key_v1.bucket_kms_key.id
-  grantee_principal = opentelekomcloud_identity_user_v3.user.id
-  operations        = ["create-datakey", "encrypt-datakey", "decrypt-datakey", "describe-key"]
-}
-
 resource "opentelekomcloud_obs_bucket" "bucket" {
   bucket     = var.bucket_name
   acl        = "private"
@@ -25,30 +19,4 @@ resource "opentelekomcloud_obs_bucket" "bucket" {
     kms_key_id = opentelekomcloud_kms_key_v1.bucket_kms_key.id
   }
   tags = var.tags
-}
-
-resource "opentelekomcloud_obs_bucket_policy" "bucket_policy" {
-  bucket = opentelekomcloud_obs_bucket.bucket.id
-  policy = jsonencode({
-    Statement = [
-      {
-        Sid    = "UserObjectAccess"
-        Effect = "Allow"
-        Principal = {
-          ID = ["domain/${opentelekomcloud_identity_user_v3.user.domain_id}:user/${opentelekomcloud_identity_user_v3.user.id}"]
-        }
-        Action   = ["*"]
-        Resource = ["${opentelekomcloud_obs_bucket.bucket.bucket}/*"]
-      },
-      {
-        Sid    = "UserBucketAccess"
-        Effect = "Allow"
-        Principal = {
-          ID = ["domain/${opentelekomcloud_identity_user_v3.user.domain_id}:user/${opentelekomcloud_identity_user_v3.user.id}"]
-        }
-        Action   = ["*"]
-        Resource = [opentelekomcloud_obs_bucket.bucket.bucket]
-      },
-    ]
-  })
 }
