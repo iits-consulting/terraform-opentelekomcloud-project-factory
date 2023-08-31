@@ -43,6 +43,14 @@ resource "opentelekomcloud_identity_role_assignment_v3" "obs_role_to_obs_group" 
 
 data "opentelekomcloud_identity_project_v3" "current" {}
 
+resource "errorcheck_is_valid" "provider_project_constraint" {
+  name = "Check if the provider is correctly set to top level project."
+  test = {
+    assert        = data.opentelekomcloud_identity_project_v3.current.name == data.opentelekomcloud_identity_project_v3.current.region
+    error_message = "ERROR! This module requires the provider project (tenant_name) to be a region level project. See README.md for more information."
+  }
+}
+
 resource "opentelekomcloud_identity_role_v3" "kms_access" {
   display_name  = "${var.bucket_name}-kms-role"
   description   = "KMS encryption access role for ${var.bucket_name}."
