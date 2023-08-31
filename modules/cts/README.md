@@ -17,6 +17,24 @@ module "cts" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_opentelekomcloud"></a> [opentelekomcloud](#requirement\_opentelekomcloud) | >=1.32.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.32.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+No modules.
+
 ## Resources
 
 | Name | Type |
@@ -39,3 +57,5 @@ module "cts" {
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->
+

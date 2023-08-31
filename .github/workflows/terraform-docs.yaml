@@ -1,0 +1,35 @@
+name: Terraform documentation generation
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  terraform-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      contents: write
+    steps:
+      - if: ${{ !env.ACT }}
+        name: Clone repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            tf:
+              - '**/*.tf'
+              - '**/README.md'
+
+      - if: steps.changes.outputs.tf == 'true'
+        name: Render terraform docs and push changes back to PR
+        uses: terraform-docs/gh-actions@main
+        with:
+          config-file: .terraform-docs.yaml
+          git-push: "true"
+          working-dir: .

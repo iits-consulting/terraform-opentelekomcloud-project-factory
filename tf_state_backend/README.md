@@ -33,3 +33,6 @@ backend "s3" {
   skip_credentials_validation = true
 }
 ```
+
+<!-- BEGIN_TF_DOCS -->
+<!-- END_TF_DOCS -->
