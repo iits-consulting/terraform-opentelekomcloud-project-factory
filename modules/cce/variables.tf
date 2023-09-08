@@ -97,7 +97,7 @@ variable "cluster_enable_scaling" {
 
 variable "cluster_install_icagent" {
   type        = bool
-  description = "install icagent for logging and metrics (default: false)"
+  description = "Install icagent for logging and metrics via AOM (default: false)"
   default     = false
 }
 
