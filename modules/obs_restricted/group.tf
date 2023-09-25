@@ -12,9 +12,8 @@ resource "opentelekomcloud_identity_role_v3" "bucket_access" {
   description   = "OBS bucket access role for ${var.bucket_name}."
   display_layer = "domain"
   statement {
-    effect = "Allow"
+    effect   = "Allow"
     resource = [
-      "obs:*:*:object:${opentelekomcloud_obs_bucket.bucket.id}/*",
       "obs:*:*:bucket:${opentelekomcloud_obs_bucket.bucket.id}"
     ]
     action = [
@@ -22,6 +21,15 @@ resource "opentelekomcloud_identity_role_v3" "bucket_access" {
       "obs:bucket:HeadBucket",
       "obs:bucket:ListBucket",
       "obs:bucket:GetBucketLocation",
+      "obs:bucket:ListBucketMultipartUploads",
+    ]
+  }
+  statement {
+    effect   = "Allow"
+    resource = [
+      "obs:*:*:object:${opentelekomcloud_obs_bucket.bucket.id}/*",
+    ]
+    action = [
       "obs:object:GetObject",
       "obs:object:GetObjectVersion",
       "obs:object:PutObject",
@@ -31,6 +39,7 @@ resource "opentelekomcloud_identity_role_v3" "bucket_access" {
       "obs:object:AbortMultipartUpload",
       "obs:object:GetObjectAcl",
       "obs:object:GetObjectVersionAcl",
+      "obs:object:ModifyObjectMetaData",
     ]
   }
 }
@@ -57,12 +66,17 @@ resource "opentelekomcloud_identity_role_v3" "kms_access" {
   display_layer = "project"
   statement {
     effect = "Allow"
+    action = [
+      "kms:cmk:list",
+      "kms:cmk:get",
+    ]
+  }
+  statement {
+    effect = "Allow"
     resource = [
       "KMS:*:*:KeyId:${opentelekomcloud_kms_key_v1.bucket_kms_key.id}"
     ]
     action = [
-      "kms:cmk:list",
-      "kms:cmk:get",
       "kms:cmk:generate",
       "kms:dek:create",
       "kms:cmk:crypto",
