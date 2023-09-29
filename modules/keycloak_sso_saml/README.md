@@ -1,10 +1,10 @@
-## Configure Keycloak as a single sign on identity provider for OTC.
+## Configure Keycloak as a single sign on identity provider for OTC. (SAML)
 
 Usage Example:
 
 ```hcl
-  module "otc_keycloak_sso" {
-    source               = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/keycloak_sso"
+  module "otc_keycloak_sso_saml" {
+    source               = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/keycloak_sso_saml"
     keycloak_realm       = "my_keycloak_realm"
     keycloak_domain_name = "https://auth.mydomain.de"
     otc_idp_name         = "my_project_keycloak_SSO"
@@ -42,8 +42,8 @@ Notes:
 - The rule mapping syntax for OTC is documented [here](https://docs.otc.t-systems.com/en-us/usermanual/iam/en-us_topic_0079620340.html).
 - Variable `otc_idp_rules` accepts any JSON string for fully customizable rules. For complex rule structures, it is possible to read it from a file:
 ```hcl
-    module "otc_keycloak_sso" {
-      source               = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/keycloak_sso"
+    module "otc_keycloak_sso_saml" {
+      source               = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/keycloak_sso_saml"
       keycloak_realm       = "my_keycloak_realm"
       keycloak_domain_name = "https://auth.mydomain.de"
       otc_idp_name         = "my_project_keycloak_SSO"
@@ -86,7 +86,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_keycloak_domain_name"></a> [keycloak\_domain\_name](#input\_keycloak\_domain\_name) | The domain name for the. | `string` | n/a | yes |
+| <a name="input_keycloak_domain_name"></a> [keycloak\_domain\_name](#input\_keycloak\_domain\_name) | The domain name. | `string` | n/a | yes |
 | <a name="input_keycloak_realm"></a> [keycloak\_realm](#input\_keycloak\_realm) | Keycloak realm to create SAML client. | `string` | n/a | yes |
 | <a name="input_otc_idp_name"></a> [otc\_idp\_name](#input\_otc\_idp\_name) | Name of the identity provider resources in OTC. | `string` | n/a | yes |
 | <a name="input_otc_idp_rules"></a> [otc\_idp\_rules](#input\_otc\_idp\_rules) | n/a | `string` | n/a | yes |
