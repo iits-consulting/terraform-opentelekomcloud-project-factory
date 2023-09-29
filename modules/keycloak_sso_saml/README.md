@@ -86,7 +86,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_keycloak_domain_name"></a> [keycloak\_domain\_name](#input\_keycloak\_domain\_name) | The domain name. | `string` | n/a | yes |
+| <a name="input_keycloak_domain_name"></a> [keycloak\_domain\_name](#input\_keycloak\_domain\_name) | The domain name for the. | `string` | n/a | yes |
 | <a name="input_keycloak_realm"></a> [keycloak\_realm](#input\_keycloak\_realm) | Keycloak realm to create SAML client. | `string` | n/a | yes |
 | <a name="input_otc_idp_name"></a> [otc\_idp\_name](#input\_otc\_idp\_name) | Name of the identity provider resources in OTC. | `string` | n/a | yes |
 | <a name="input_otc_idp_rules"></a> [otc\_idp\_rules](#input\_otc\_idp\_rules) | n/a | `string` | n/a | yes |
