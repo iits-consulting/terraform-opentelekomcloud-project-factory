@@ -210,7 +210,7 @@ variable "autoscaler_node_min" {
 
 locals {
   // Lower bound of servers to always keep (default: <node_count>)
-  autoscaler_node_min = var.autoscaler_node_min != null ? var.node_count : var.autoscaler_node_min
+  autoscaler_node_min = var.autoscaler_node_min == null ? var.node_count : var.autoscaler_node_min
 }
 
 variable "autoscaler_version" {
