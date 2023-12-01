@@ -57,13 +57,13 @@ Notes:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_opentelekomcloud"></a> [opentelekomcloud](#requirement\_opentelekomcloud) | 1.34.1 |
+| <a name="requirement_opentelekomcloud"></a> [opentelekomcloud](#requirement\_opentelekomcloud) | >=1.34.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | 1.34.1 |
+| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.34.1 |
 
 ## Modules
 
@@ -73,12 +73,12 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [opentelekomcloud_vpnaas_endpoint_group_v2.local_peer](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_endpoint_group_v2) | resource |
-| [opentelekomcloud_vpnaas_endpoint_group_v2.remote_peer](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_endpoint_group_v2) | resource |
-| [opentelekomcloud_vpnaas_ike_policy_v2.ike_policy](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_ike_policy_v2) | resource |
-| [opentelekomcloud_vpnaas_ipsec_policy_v2.ipsec_policy](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_ipsec_policy_v2) | resource |
-| [opentelekomcloud_vpnaas_service_v2.vpnaas_service](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_service_v2) | resource |
-| [opentelekomcloud_vpnaas_site_connection_v2.tunnel_connection](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.34.1/docs/resources/vpnaas_site_connection_v2) | resource |
+| [opentelekomcloud_vpnaas_endpoint_group_v2.local_peer](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_endpoint_group_v2) | resource |
+| [opentelekomcloud_vpnaas_endpoint_group_v2.remote_peer](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_endpoint_group_v2) | resource |
+| [opentelekomcloud_vpnaas_ike_policy_v2.ike_policy](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_ike_policy_v2) | resource |
+| [opentelekomcloud_vpnaas_ipsec_policy_v2.ipsec_policy](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_ipsec_policy_v2) | resource |
+| [opentelekomcloud_vpnaas_service_v2.vpnaas_service](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_service_v2) | resource |
+| [opentelekomcloud_vpnaas_site_connection_v2.tunnel_connection](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/vpnaas_site_connection_v2) | resource |
 
 ## Inputs
 
