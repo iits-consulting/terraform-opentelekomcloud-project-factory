@@ -38,3 +38,13 @@ locals {
   keycloak_domain_name = "https://${trimprefix(trimprefix(var.keycloak_domain_name, "https://"), "http://")}"
   otc_auth_endpoint    = "https://${trimprefix(trimprefix(var.otc_auth_endpoint, "https://"), "http://")}"
 }
+
+data "opentelekomcloud_identity_project_v3" "current" {}
+
+resource "errorcheck_is_valid" "provider_project_constraint" {
+  name = "Check if the provider is not eu-nl."
+  test = {
+    assert        = data.opentelekomcloud_identity_project_v3.current.region != "eu-nl"
+    error_message = "ERROR! This module is only available for providers with region eu-de. You may still use the module with an eu-de provider to log into both of the regions."
+  }
+}
