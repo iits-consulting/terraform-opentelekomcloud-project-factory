@@ -63,6 +63,7 @@ terraform apply
 | Name | Version |
 |------|---------|
 | <a name="provider_errorcheck"></a> [errorcheck](#provider\_errorcheck) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 | <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.31.5 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
@@ -76,6 +77,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [errorcheck_is_valid.availability_zone](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
+| [null_resource.cloud_init_changed_trigger](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [opentelekomcloud_blockstorage_volume_v2.jumphost_boot_volume](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/blockstorage_volume_v2) | resource |
 | [opentelekomcloud_compute_instance_v2.jumphost_node](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/compute_instance_v2) | resource |
 | [opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/kms_key_v1) | resource |
@@ -110,6 +112,7 @@ No modules.
 | <a name="input_node_storage_size"></a> [node\_storage\_size](#input\_node\_storage\_size) | Jumphost node system disk storage size in GB. (default: 20) | `number` | `20` | no |
 | <a name="input_node_storage_type"></a> [node\_storage\_type](#input\_node\_storage\_type) | Jumphost node system disk storage type. Must be one of "SATA", "SAS", or "SSD". (default: SSD) | `string` | `"SSD"` | no |
 | <a name="input_preserve_host_keys"></a> [preserve\_host\_keys](#input\_preserve\_host\_keys) | Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true) | `bool` | `true` | no |
+| <a name="input_preserve_node_data"></a> [preserve\_node\_data](#input\_preserve\_node\_data) | If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications! (default: false) | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Jumphost tag set. | `map(string)` | `{}` | no |
 | <a name="input_trusted_ssh_origins"></a> [trusted\_ssh\_origins](#input\_trusted\_ssh\_origins) | IP addresses and/or ranges allowed to SSH into the jumphost. (default: ["0.0.0.0/0"] (Allow access from all IP addresses.)) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 
