@@ -40,11 +40,3 @@ locals {
 }
 
 data "opentelekomcloud_identity_project_v3" "current" {}
-
-resource "errorcheck_is_valid" "provider_project_constraint" {
-  name = "Check if the provider is not eu-nl."
-  test = {
-    assert        = data.opentelekomcloud_identity_project_v3.current.region != "eu-nl"
-    error_message = "ERROR! This module is only available for providers with region eu-de. You may still use the module with an eu-de provider to log into both of the regions."
-  }
-}
