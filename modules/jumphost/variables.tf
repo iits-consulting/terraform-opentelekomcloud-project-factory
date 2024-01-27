@@ -51,10 +51,6 @@ variable "node_storage_encryption_key_name" {
   default     = null
 }
 
-locals {
-  node_storage_encryption_enabled = data.opentelekomcloud_identity_project_v3.current.region != "eu-de" ? false : var.node_storage_encryption_enabled
-}
-
 variable "node_bandwidth_size" {
   description = "Jumphost node external IP bandwidth size in Mbps. (default: 10)"
   type        = number
@@ -76,6 +72,11 @@ variable "additional_security_groups" {
 variable "cloud_init" {
   description = "Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
   default     = ""
+}
+
+variable "preserve_node_data" {
+  description = "If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications! (default: false)"
+  default     = false
 }
 
 variable "preserve_host_keys" {

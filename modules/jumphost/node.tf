@@ -11,6 +11,12 @@ resource "opentelekomcloud_vpc_eip_v1" "jumphost_eip" {
   tags = var.tags
 }
 
+resource "null_resource" "cloud_init_changed_trigger" {
+  triggers = {
+    cloud_init = var.preserve_node_data ? "" : var.cloud_init
+  }
+}
+
 resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
   name              = "${var.node_name}-volume"
   description       = "${var.node_name} system volume device."
@@ -22,13 +28,14 @@ resource "opentelekomcloud_blockstorage_volume_v2" "jumphost_boot_volume" {
   metadata = merge({
     attached_mode = "rw"
     readonly      = "False"
-    }, local.node_storage_encryption_enabled ? {
+    }, var.node_storage_encryption_enabled ? {
     __system__encrypted = "1"
     __system__cmkid     = var.node_storage_encryption_key_name == null ? opentelekomcloud_kms_key_v1.jumphost_storage_encryption_key[0].id : data.opentelekomcloud_kms_key_v1.jumphost_storage_existing_encryption_key[0].id
   } : {})
   tags = var.tags
   lifecycle {
-    ignore_changes = [image_id]
+    ignore_changes       = [image_id]
+    replace_triggered_by = [null_resource.cloud_init_changed_trigger]
   }
 }
 
