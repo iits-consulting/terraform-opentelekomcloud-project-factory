@@ -44,6 +44,7 @@ module "vpc" {
 - [vpn:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/vpn) Creates a VPN tunnel.
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
 - [evs:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/evs) Create an encrypted Elastic Volume Service (EVS)
+- [state_bucket:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/state_bucket) Create an encrypted state bucket for Terraform
 
 ## Quickstart
 
@@ -77,29 +78,3 @@ The following modules are currently not working for Swiss OTC:
 2. [Set up a secure remote Terraform state](./tf_state_backend)
    . Copy the backend output of that module to your `settings.tf` file
 3. Use https://github.com/iits-consulting/otc-infrastructure-charts-template if you want to use ArgoCD (GitOps)
-
-<!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
-## Providers
-
-No providers.
-
-## Modules
-
-No modules.
-
-## Resources
-
-No resources.
-
-## Inputs
-
-No inputs.
-
-## Outputs
-
-No outputs.
-<!-- END_TF_DOCS -->
