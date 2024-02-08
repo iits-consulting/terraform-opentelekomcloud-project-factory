@@ -26,10 +26,10 @@ output "terraform_state_backend_config" {
   value = <<EOT
     backend "s3" {
       bucket                      = "${opentelekomcloud_obs_bucket.remote_state_bucket.bucket}"
-      kms_key_id                  = "arn:aws:kms.${var.stage}:${opentelekomcloud_kms_key_v1.remote_state_bucket_kms_key.domain_id}:key/${opentelekomcloud_kms_key_v1.remote_state_bucket_kms_key.id}"
+      kms_key_id                  = "arn:aws:kms.${var.region}:${opentelekomcloud_kms_key_v1.remote_state_bucket_kms_key.domain_id}:key/${opentelekomcloud_kms_key_v1.remote_state_bucket_kms_key.id}"
       key                         = "tfstate"
       region                      = "${opentelekomcloud_obs_bucket.remote_state_bucket.region}"
-      endpoint                    = "obs.${var.stage}.otc.t-systems.com"
+      endpoint                    = "obs.${var.region}.otc.t-systems.com"
       encrypt                     = true
       skip_region_validation      = true
       skip_credentials_validation = true
