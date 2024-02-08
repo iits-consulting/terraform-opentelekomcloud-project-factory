@@ -36,7 +36,7 @@ locals {
 }
 
 module "cce_gpu_node_pool" {
-  source = "../../modules/cce_gpu_node_pool"
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cce_gpu_node_pool"
 
   name_prefix                     = module.cce.cluster_name
   cce_cluster_id                  = module.cce.cluster_id
