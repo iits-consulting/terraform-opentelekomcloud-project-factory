@@ -78,3 +78,28 @@ The following modules are currently not working for Swiss OTC:
 2. [Set up a secure remote Terraform state](./tf_state_backend)
    . Copy the backend output of that module to your `settings.tf` file
 3. Use https://github.com/iits-consulting/otc-infrastructure-charts-template if you want to use ArgoCD (GitOps)
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
