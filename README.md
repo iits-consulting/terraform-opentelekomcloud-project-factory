@@ -45,6 +45,7 @@ module "vpc" {
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
 - [evs:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/evs) Create an encrypted Elastic Volume Service (EVS)
 - [state_bucket:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/state_bucket) Create an encrypted state bucket for Terraform
+- [cce_gpu_node_pool:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cce_gpu_node_pool) GPU Node Pool for CCE
 
 ## Quickstart
 
