@@ -1,4 +1,4 @@
-## Jumphost Module
+## CCE gpu node pool Module
 
 A module designed to create a cce gpu node pool. 
 
@@ -53,3 +53,7 @@ module "cce_gpu_node_pool" {
 }
 
 ```
+
+
+Notes
+- container_network_type of the cce needs to be _vpc-router_
