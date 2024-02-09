@@ -12,7 +12,7 @@ resource "opentelekomcloud_identity_role_v3" "bucket_access" {
   description   = "OBS bucket access role for ${var.bucket_name}."
   display_layer = "domain"
   statement {
-    effect   = "Allow"
+    effect = "Allow"
     resource = [
       "obs:*:*:bucket:${opentelekomcloud_obs_bucket.bucket.id}"
     ]
@@ -25,7 +25,7 @@ resource "opentelekomcloud_identity_role_v3" "bucket_access" {
     ]
   }
   statement {
-    effect   = "Allow"
+    effect = "Allow"
     resource = [
       "obs:*:*:object:${opentelekomcloud_obs_bucket.bucket.id}/*",
     ]
