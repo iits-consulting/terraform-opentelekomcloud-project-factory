@@ -11,11 +11,11 @@ variable "tags" {
 
 variable "nat_size" {
   type        = string
-  description = "The size of the NAT Gateway. Allowed values are \"1\", \"2\", \"3\" and \"4\". (default: \"1\")"
-  default     = "1"
+  description = "The size of the NAT Gateway. Allowed values are \"0\", \"1\", \"2\", \"3\" and \"4\". (default: \"1\")"
+  default     = "0"
   validation {
-    condition     = contains(["1", "2", "3", "4"], var.nat_size)
-    error_message = "Allowed values for nat_size are \"1\", \"2\", \"3\" and \"4\"."
+    condition     = contains(["0", "1", "2", "3", "4"], var.nat_size)
+    error_message = "Allowed values for nat_size are \"0\", \"1\", \"2\", \"3\" and \"4\"."
   }
 }
 
