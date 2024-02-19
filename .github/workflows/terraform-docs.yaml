@@ -5,6 +5,10 @@ on:
     types:
       - opened
       - synchronize
+  push:
+    branches:
+      - "master"
+
 jobs:
   terraform-docs:
     runs-on: ubuntu-latest
