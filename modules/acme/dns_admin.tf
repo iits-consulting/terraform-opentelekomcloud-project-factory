@@ -33,9 +33,9 @@ resource "random_password" "dns_admin_password" {
 }
 
 resource "opentelekomcloud_identity_user_v3" "dns_admin" {
-  name               = var.dns_admin_name
-  password           = random_password.dns_admin_password.result
-  enabled            = true
+  name     = var.dns_admin_name
+  password = random_password.dns_admin_password.result
+  enabled  = true
   lifecycle {
     ignore_changes = [pwd_reset]
   }
