@@ -62,8 +62,8 @@ variable "node_flavor" {
 
 variable "node_os" {
   type        = string
-  description = "Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9)"
-  default     = "Ubuntu 22.04"
+  description = "Operating system of worker nodes."
+  default     = "EulerOS 2.9"
 }
 
 variable "node_container_runtime" {
