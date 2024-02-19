@@ -12,7 +12,6 @@ module "tf_state_bucket" {
   providers = {
     opentelekomcloud = opentelekomcloud.top_level_project
   }
-  region = var.region
 }
 ```
 
