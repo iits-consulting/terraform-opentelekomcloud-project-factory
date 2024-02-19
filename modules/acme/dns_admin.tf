@@ -36,7 +36,9 @@ resource "opentelekomcloud_identity_user_v3" "dns_admin" {
   name               = var.dns_admin_name
   password           = random_password.dns_admin_password.result
   enabled            = true
-  default_project_id = data.opentelekomcloud_identity_project_v3.project.id
+  lifecycle {
+    ignore_changes = [pwd_reset]
+  }
 }
 
 resource "opentelekomcloud_identity_group_membership_v3" "dns_admin_membership" {

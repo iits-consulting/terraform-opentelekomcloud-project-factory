@@ -1,6 +1,9 @@
 resource "opentelekomcloud_identity_user_v3" "user" {
   name    = "${var.bucket_name}-user"
   enabled = true
+  lifecycle {
+    ignore_changes = [pwd_reset]
+  }
 }
 
 resource "opentelekomcloud_identity_group_membership_v3" "user_to_obsgroup" {
