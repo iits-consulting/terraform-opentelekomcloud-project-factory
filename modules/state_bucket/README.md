@@ -35,6 +35,7 @@ Notes:
 
 | Name | Version |
 |------|---------|
+| <a name="provider_errorcheck"></a> [errorcheck](#provider\_errorcheck) | n/a |
 | <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.34.4 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
@@ -46,16 +47,17 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [errorcheck_is_valid.provider_project_constraint](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
 | [opentelekomcloud_kms_key_v1.remote_state_bucket_kms_key](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/kms_key_v1) | resource |
 | [opentelekomcloud_obs_bucket.remote_state_bucket](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/obs_bucket) | resource |
 | [random_id.kms_key_unique_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [opentelekomcloud_identity_project_v3.current](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/data-sources/identity_project_v3) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
-| <a name="input_tf_state_bucket_name"></a> [tf\_state\_bucket\_name](#input\_tf\_state\_bucket\_name) | n/a | `string` | n/a | yes |
+| <a name="input_tf_state_bucket_name"></a> [tf\_state\_bucket\_name](#input\_tf\_state\_bucket\_name) | Bucket name. | `string` | n/a | yes |
 
 ## Outputs
 
