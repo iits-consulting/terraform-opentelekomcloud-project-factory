@@ -90,7 +90,7 @@ No modules.
 | <a name="input_autoscaler_node_min"></a> [autoscaler\_node\_min](#input\_autoscaler\_node\_min) | Lower bound of servers to always keep (default: <node\_count>) | `number` | `null` | no |
 | <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 1.2.28) | `string` | `"1.2.28"` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
-| <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9) | `string` | `"Ubuntu 22.04"` | no |
+| <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes. | `string` | `"EulerOS 2.9"` | no |
 | <a name="input_node_postinstall"></a> [node\_postinstall](#input\_node\_postinstall) | Post install script for the node pool. | `string` | `""` | no |
 | <a name="input_node_scaling_enabled"></a> [node\_scaling\_enabled](#input\_node\_scaling\_enabled) | Enable the scaling for the node pool. Please note that CCE cluster must have autoscaling addon installed. (default: 10) | `bool` | `true` | no |
 | <a name="input_node_storage_encryption_enabled"></a> [node\_storage\_encryption\_enabled](#input\_node\_storage\_encryption\_enabled) | Enable OTC KMS volume encryption for the node pool volumes. (default: false) | `bool` | `false` | no |

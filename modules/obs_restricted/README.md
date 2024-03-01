@@ -30,14 +30,14 @@ module "obs_restricted_eu_de" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_opentelekomcloud"></a> [opentelekomcloud](#requirement\_opentelekomcloud) | >=1.31.5 |
+| <a name="requirement_opentelekomcloud"></a> [opentelekomcloud](#requirement\_opentelekomcloud) | >=1.35.5 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_errorcheck"></a> [errorcheck](#provider\_errorcheck) | n/a |
-| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.31.5 |
+| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.35.5 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
