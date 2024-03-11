@@ -1,6 +1,7 @@
 resource "opentelekomcloud_identity_user_v3" "user" {
-  name    = "${var.bucket_name}-user"
-  enabled = true
+  name        = "${var.bucket_name}-user"
+  description = "OBS bucket access user for ${var.bucket_name}."
+  enabled     = true
   lifecycle {
     ignore_changes = [pwd_reset]
   }
