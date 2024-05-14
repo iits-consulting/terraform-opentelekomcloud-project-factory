@@ -69,7 +69,7 @@ resource "opentelekomcloud_rds_instance_v3" "db_instance" {
   tags = var.tags
 
   lifecycle {
-    ignore_changes = [db, nodes, private_ips]
+    ignore_changes = [db, private_ips, availability_zone]
   }
   depends_on = [
     errorcheck_is_valid.db_flavor_constraint,
