@@ -42,7 +42,8 @@ module "cts" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_opentelekomcloud"></a> [opentelekomcloud](#provider\_opentelekomcloud) | >=1.32.0 |
+| <a name="provider_opentelekomcloud.project"></a> [opentelekomcloud.project](#provider\_opentelekomcloud.project) | >=1.32.0 |
+| <a name="provider_opentelekomcloud.top_level_project"></a> [opentelekomcloud.top\_level\_project](#provider\_opentelekomcloud.top\_level\_project) | >=1.32.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
@@ -53,7 +54,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [opentelekomcloud_cts_tracker_v1.cloud_tracing_service_tracker_v1](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cts_tracker_v1) | resource |
+| [opentelekomcloud_cts_tracker_v3.cloud_tracing_service_tracker](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cts_tracker_v3) | resource |
 | [opentelekomcloud_kms_key_v1.cloud_tracing_service_key](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/kms_key_v1) | resource |
 | [opentelekomcloud_obs_bucket.cloud_tracing_service](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/obs_bucket) | resource |
 | [random_id.id](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
