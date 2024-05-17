@@ -117,9 +117,6 @@ autoscale-test-deployment-6f9ff6448-z72sp   0/2     Pending           0         
 autoscale-test-deployment-6f9ff6448-zdgkp   0/2     PodInitializing   0          14s
 ```
 
-In the Web Console, we see that the Scale Up event takes place:
-![](img/scale_up_event.jpg)
-
 And then we also see the started nodes, 2 in the default node pool and 4 in the autoscale node pool:
 
 ```shell script
@@ -138,9 +135,6 @@ Scaling down again...
 ```shell script
 > kubectl scale deployment/autoscale-test-deployment --replicas=1
 ```
-
-yields removed nodes in the Web Console.
-![](img/scaledown_event.jpg)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

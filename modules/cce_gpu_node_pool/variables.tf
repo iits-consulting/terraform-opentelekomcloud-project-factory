@@ -151,7 +151,7 @@ variable "gpu_beta_enabled" {
 
 variable "gpu_beta_version" {
   type        = string
-  description = "Version of the GPU Beta Addon Template (default: 1.2.28)"
+  description = "Version of the GPU Beta Addon Template (default: 2.0.46)"
   default     = "2.0.46"
 }
 
