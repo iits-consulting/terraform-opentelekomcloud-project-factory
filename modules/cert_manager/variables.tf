@@ -23,7 +23,7 @@ variable "release_namespace" {
 
 variable "chart_repository" {
   type        = string
-  default     = "https://chart.iits.tech"
+  default     = "https://charts.iits.tech"
   description = "Chart repository of the IITS cert-manager chart."
 }
 
