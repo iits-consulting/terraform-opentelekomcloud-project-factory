@@ -158,5 +158,13 @@ variable "gpu_beta_version" {
 variable "gpu_driver_url" {
   type        = string
   description = "Nvidia Driver download URL. Please refer to https://www.nvidia.com/Download/Find.aspx and ensure your driver is matching the GPU in your node flavor."
+  default     = ""
 }
 
+resource "errorcheck_is_valid" "gpu_driver_url" {
+  name = "Check if gpu_driver_url is set if gpu_beta_enabled is true."
+  test = {
+    assert        = !var.gpu_beta_enabled || var.gpu_driver_url != ""
+    error_message = "Parameter gpu_driver_url must be provided if gpu_beta_enabled is true!"
+  }
+}
