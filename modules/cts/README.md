@@ -8,12 +8,26 @@ For general info see the OTC website at https://open-telekom-cloud.com/en/produc
 ## Usage
 
 ```
+provider "opentelekomcloud" {
+  auth_url       = "https://iam.${var.region}.otc.t-systems.com/v3"
+}
+
+provider "opentelekomcloud" {
+  auth_url       = "https://iam.${var.region}.otc.t-systems.com/v3"
+  tenant_name    = var.region
+  alias          = "top_level_project"
+}
+
 module "cts" {
   source                = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cts"
-  version               = "5.3.0"
+  version               = "6.0.0"
   bucket_name           = "my-bucket-for-cloud-tracing-service"
   enable_trace_analysis = true
   expiration_days       = 180
+  providers = {
+    opentelekomcloud.project           = opentelekomcloud
+    opentelekomcloud.top_level_project = opentelekomcloud.top_level_project
+  }
 }
 ```
 

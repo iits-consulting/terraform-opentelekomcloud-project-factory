@@ -3,6 +3,7 @@ resource "random_id" "id" {
 }
 
 resource "opentelekomcloud_kms_key_v1" "cloud_tracing_service_key" {
+  provider        = opentelekomcloud.top_level_project
   key_alias       = "${var.bucket_name}-key-${random_id.id.hex}"
   key_description = "${var.bucket_name} encryption key"
   pending_days    = 7
@@ -10,6 +11,7 @@ resource "opentelekomcloud_kms_key_v1" "cloud_tracing_service_key" {
 }
 
 resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
+  provider      = opentelekomcloud.top_level_project
   bucket        = var.bucket_name
   acl           = "private"
   force_destroy = true
@@ -28,8 +30,10 @@ resource "opentelekomcloud_obs_bucket" "cloud_tracing_service" {
   tags = var.tags
 }
 
-resource "opentelekomcloud_cts_tracker_v1" "cloud_tracing_service_tracker_v1" {
+resource "opentelekomcloud_cts_tracker_v3" "cloud_tracing_service_tracker" {
+  provider         = opentelekomcloud.project
   bucket_name      = opentelekomcloud_obs_bucket.cloud_tracing_service.bucket
   file_prefix_name = var.file_prefix
   is_lts_enabled   = var.enable_trace_analysis
+  status           = "enabled"
 }

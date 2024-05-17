@@ -23,7 +23,7 @@ variable "cluster_subnet_id" {
 variable "cluster_version" {
   type        = string
   description = "CCE cluster version."
-  default     = "v1.25"
+  default     = "v1.27"
 }
 
 variable "cluster_size" {
@@ -216,13 +216,13 @@ locals {
 variable "autoscaler_version" {
   type        = string
   description = "Version of the Autoscaler Addon Template (default: 1.25.7)"
-  default     = "1.25.21"
+  default     = "1.27.53"
 }
 
 variable "metrics_server_version" {
   type        = string
   description = "Version of the Metrics Server Addon Template (default: 1.3.2)"
-  default     = "1.3.6"
+  default     = "1.3.37"
 }
 
 variable "cluster_authentication_mode" {
