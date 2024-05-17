@@ -89,7 +89,7 @@ No modules.
 | <a name="input_autoscaler_node_max"></a> [autoscaler\_node\_max](#input\_autoscaler\_node\_max) | Maximum limit of servers to create. (default: 10) | `number` | `10` | no |
 | <a name="input_autoscaler_node_min"></a> [autoscaler\_node\_min](#input\_autoscaler\_node\_min) | Lower bound of servers to always keep (default: <node\_count>) | `number` | `null` | no |
 | <a name="input_gpu_beta_enabled"></a> [gpu\_beta\_enabled](#input\_gpu\_beta\_enabled) | Enable GPU Beta Addon | `bool` | `true` | no |
-| <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 1.2.28) | `string` | `"2.0.46"` | no |
+| <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 2.0.46) | `string` | `"2.0.46"` | no |
 | <a name="input_gpu_driver_url"></a> [gpu\_driver\_url](#input\_gpu\_driver\_url) | Nvidia Driver download URL. Please refer to https://www.nvidia.com/Download/Find.aspx and ensure your driver is matching the GPU in your node flavor. | `string` | `""` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes. | `string` | `"EulerOS 2.9"` | no |
