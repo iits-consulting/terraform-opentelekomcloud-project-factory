@@ -143,6 +143,12 @@ locals {
   autoscaler_node_min = var.autoscaler_node_min == null ? var.node_count : var.autoscaler_node_min
 }
 
+variable "gpu_beta_enabled" {
+  type        = bool
+  description = "Enable GPU Beta Addon"
+  default     = true
+}
+
 variable "gpu_beta_version" {
   type        = string
   description = "Version of the GPU Beta Addon Template (default: 1.2.28)"
