@@ -64,6 +64,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [errorcheck_is_valid.gpu_driver_url](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
 | [errorcheck_is_valid.node_availability_zones](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
 | [opentelekomcloud_cce_addon_v3.gpu](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cce_addon_v3) | resource |
 | [opentelekomcloud_cce_node_pool_v3.cluster_node_pool](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/cce_node_pool_v3) | resource |
@@ -81,14 +82,15 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cce_cluster_id"></a> [cce\_cluster\_id](#input\_cce\_cluster\_id) | ID of the existing CCE cluster. | `string` | n/a | yes |
-| <a name="input_gpu_driver_url"></a> [gpu\_driver\_url](#input\_gpu\_driver\_url) | Nvidia Driver download URL. Please refer to https://www.nvidia.com/Download/Find.aspx and ensure your driver is matching the GPU in your node flavor. | `string` | n/a | yes |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Name prefix for provisioned resources. | `string` | n/a | yes |
 | <a name="input_node_availability_zones"></a> [node\_availability\_zones](#input\_node\_availability\_zones) | Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone. | `set(string)` | n/a | yes |
 | <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of nodes to create | `number` | n/a | yes |
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Node specifications in otc flavor format | `string` | n/a | yes |
 | <a name="input_autoscaler_node_max"></a> [autoscaler\_node\_max](#input\_autoscaler\_node\_max) | Maximum limit of servers to create. (default: 10) | `number` | `10` | no |
 | <a name="input_autoscaler_node_min"></a> [autoscaler\_node\_min](#input\_autoscaler\_node\_min) | Lower bound of servers to always keep (default: <node\_count>) | `number` | `null` | no |
-| <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 1.2.28) | `string` | `"1.2.28"` | no |
+| <a name="input_gpu_beta_enabled"></a> [gpu\_beta\_enabled](#input\_gpu\_beta\_enabled) | Enable GPU Beta Addon | `bool` | `true` | no |
+| <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 2.0.46) | `string` | `"2.0.46"` | no |
+| <a name="input_gpu_driver_url"></a> [gpu\_driver\_url](#input\_gpu\_driver\_url) | Nvidia Driver download URL. Please refer to https://www.nvidia.com/Download/Find.aspx and ensure your driver is matching the GPU in your node flavor. | `string` | `""` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes. | `string` | `"EulerOS 2.9"` | no |
 | <a name="input_node_postinstall"></a> [node\_postinstall](#input\_node\_postinstall) | Post install script for the node pool. | `string` | `""` | no |
