@@ -1,3 +1,18 @@
+## Cert Manager
+
+A module designed to install cert-manager Helm chart with DNS challenge capabilities. 
+
+Usage example:
+```hcl
+module "cert_manager" {
+  source        = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cert_manager"
+  version       = "6.0.2"
+  chart_version = local.chart_versions.cert-manager
+  email         = "iits@iits-consulting.de"
+  username      = "${var.stage}-dns-admin"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -34,7 +49,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_email"></a> [email](#input\_email) | E-Mail to use for the ACME Registration and DNS management. | `string` | n/a | yes |
 | <a name="input_chart_name"></a> [chart\_name](#input\_chart\_name) | Name of the IITS cert-manager chart. | `string` | `"cert-manager"` | no |
-| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Chart repository of the IITS cert-manager chart. | `string` | `"chart.iits.tech"` | no |
+| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Chart repository of the IITS cert-manager chart. | `string` | `"https://charts.iits.tech"` | no |
 | <a name="input_chart_set_parameter"></a> [chart\_set\_parameter](#input\_chart\_set\_parameter) | Override the values of the IITS cert-manager chart using set. | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_chart_set_sensitive_parameter"></a> [chart\_set\_sensitive\_parameter](#input\_chart\_set\_sensitive\_parameter) | Override the values of the IITS cert-manager chart using set\_sensitive. | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Override the values of the IITS cert-manager chart using value files. | `list(string)` | `[]` | no |

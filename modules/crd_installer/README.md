@@ -1,3 +1,37 @@
+## Custom Resource Definition Installer
+
+A module designed to automatically extract the crds from Helm charts and install them on the target kubernetes cluster. The module can be used with existing CRDs without importing.
+
+Usage example:
+```hcl
+module "crds" {
+  source  = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/crd_installer"
+  version = "6.0.2"
+  charts = {
+    exampleChart1 = {
+      repository = "https://charts.iits.tech"
+      version    = "0.0.1"
+      set = [{
+        name  = "exampleChart1.installCRDs"
+        value = true
+      }]
+    }
+    exampleChart2 = {
+      repository = "https://charts.iits.tech"
+      version    = "0.0.2"
+      set = [{
+        name  = "exampleChart2.crds.install"
+        value = true
+      }]
+    }
+  }
+}
+```
+
+> **WARNING:** This module will have a large footprint on the terraform state depending on the size and number of charts.  
+> Module execution and subsequent state generation can take a longer than usual time due to the large size of the state the module generates.  
+> It is recommended to use it as standalone in its own script to separate its state from other terraform scripts.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
