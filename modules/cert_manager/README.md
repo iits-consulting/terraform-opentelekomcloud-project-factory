@@ -1,3 +1,18 @@
+## Cert Manager
+
+A module designed to install cert-manager Helm chart with DNS challenge capabilities. 
+
+Usage example:
+```hcl
+module "cert_manager" {
+  source        = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/cert_manager"
+  version       = "6.0.2"
+  chart_version = local.chart_versions.cert-manager
+  email         = "iits@iits-consulting.de"
+  username      = "${var.stage}-dns-admin"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

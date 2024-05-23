@@ -1,3 +1,20 @@
+## Scalable File Service (SFS)
+
+A module designed to create and manage SFS volumes with configurable encryption and backup systems.
+
+Usage example:
+```
+module "sfs" {
+  source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/sfs"
+  version    = "6.0.2"
+
+  availability_zone = "eu-de-01"
+  vpc_id            = module.vpc.vpc.id
+  subnet_id         = module.vpc.subnets["mysubnet"].id
+  volume_name       = "myvolume"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

@@ -1,3 +1,31 @@
+## Dedicated Loadbalancer
+
+A module designed to create and manage a dedicated ELB instance with private and public IP.
+
+Usage example:
+```
+module "vpc" {
+  source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/vpc"
+  version    = "6.0.2"
+  name       = "${var.context}-${var.stage}-vpc"
+  cidr_block = var.vpc_cidr
+  subnets = {
+    "dmz-subnet" = cidrsubnet(var.vpc_cidr, 1, 0)
+  }
+  tags = local.tags
+}
+
+module "loadbalancer" {
+  source             = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/dedicated_loadbalancer"
+  version            = "6.0.2"
+  availability_zones = var.availability_zones
+  name_prefix        = "${var.context}-${var.stage}"
+  subnet_id          = module.vpc.subnets["dmz-subnet"].subnet_id
+  network_ids        = [module.vpc.subnets["dmz-subnet"].network_id]
+  tags               = local.tags
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
