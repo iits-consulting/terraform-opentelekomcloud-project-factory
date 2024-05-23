@@ -47,14 +47,17 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | Subnet network id where the SFS volume will be created in. | `string` | n/a | yes |
-| <a name="input_volume_name"></a> [volume\_name](#input\_volume\_name) | n/a | `string` | n/a | yes |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where the SFS volume will be created in. | `any` | n/a | yes |
-| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | n/a | `string` | `"eu-de-01"` | no |
-| <a name="input_kms_key_create"></a> [kms\_key\_create](#input\_kms\_key\_create) | n/a | `bool` | `true` | no |
-| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | Existing KMS Key ID if one is already created. | `string` | `null` | no |
+| <a name="input_volume_name"></a> [volume\_name](#input\_volume\_name) | Volume name for the SFS Turbo resource. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where the SFS volume will be created in. | `string` | n/a | yes |
+| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone for the SFS Turbo resource. | `string` | `"eu-de-01"` | no |
+| <a name="input_backup_enabled"></a> [backup\_enabled](#input\_backup\_enabled) | Enable SFS volume backups via CBR Vault. | `bool` | `true` | no |
+| <a name="input_backup_retention_days"></a> [backup\_retention\_days](#input\_backup\_retention\_days) | Retention duration of SFS volume backups in days. | `number` | `13` | no |
+| <a name="input_backup_size"></a> [backup\_size](#input\_backup\_size) | Size of the SFS volume backup vault in GB. | `number` | `1000` | no |
+| <a name="input_backup_trigger_pattern"></a> [backup\_trigger\_pattern](#input\_backup\_trigger\_pattern) | Backup trigger pattern to define backup schedule (iCalender RFC 2445). See https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/1.35.7/docs/resources/cbr_policy_v3#trigger_pattern for details. | `list(string)` | <pre>[<br>  "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=00;BYMINUTE=00"<br>]</pre> | no |
+| <a name="input_kms_key_create"></a> [kms\_key\_create](#input\_kms\_key\_create) | Existing KMS Key ID if one is already created. | `bool` | `true` | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | Existing KMS Key ID for server side encryption if one is already created. | `string` | `null` | no |
 | <a name="input_share_type"></a> [share\_type](#input\_share\_type) | Filesystem type of the SFS volume. (Default: STANDARD) | `string` | `"STANDARD"` | no |
 | <a name="input_size"></a> [size](#input\_size) | Size of the SFS volume in GB. (Default: 500) | `number` | `500` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for project resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
