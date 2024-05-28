@@ -229,10 +229,6 @@ variable "cluster_authentication_mode" {
   type        = string
   description = "Authentication mode of the Cluster. Either rbac or authenticating_proxy (default: rbac)"
   default     = "rbac"
-  validation {
-    condition     = contains(["rbac", "authenticating_proxy"], var.cluster_authentication_mode)
-    error_message = "Allowed values for authentication_mode are either \"rbac\" or \"authenticating_proxy\"."
-  }
 }
 
 variable "cluster_authenticating_proxy_ca" {
