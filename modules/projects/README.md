@@ -4,7 +4,7 @@ A module designed to create and manage projects. The module is designed to autom
 
 Usage example:
 ```
-module "vpc" {
+module "projects" {
   source     = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/projects"
   version    = "6.0.2"
   projects   = {

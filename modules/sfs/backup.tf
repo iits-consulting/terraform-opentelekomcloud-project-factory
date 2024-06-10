@@ -25,4 +25,3 @@ resource "opentelekomcloud_cbr_vault_v3" "backup_vault" {
     type = "OS::Sfs::Turbo"
   }
 }
-
