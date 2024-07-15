@@ -44,6 +44,7 @@ resource "opentelekomcloud_compute_instance_v2" "jumphost_node" {
   image_id      = var.node_image_id
   auto_recovery = true
   flavor_id     = var.node_flavor
+  power_state   = var.node_power_state
 
   network {
     uuid           = var.subnet_id

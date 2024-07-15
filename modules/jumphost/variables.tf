@@ -21,8 +21,13 @@ variable "node_flavor" {
 }
 
 variable "node_image_id" {
-  description = "Jumphost node image name. Image must exist within the same project as the jumphost node. (default: 9f92079d-9d1b-4832-90c1-a3b4a1c00b9b (Standard_Ubuntu_20.04_latest))"
+  description = "Jumphost node image name. Image must exist within the same project as the jumphost node. (default: 9f92079d-9d1b-4832-90c1-a3b4a1c00b9b (Standard_Ubuntu_22.04_latest))"
   default     = "9f92079d-9d1b-4832-90c1-a3b4a1c00b9b"
+}
+
+variable "node_power_state" {
+  description = "Jumphost node power state. Only active (powered on) and shutoff (shutdown) are supported. (default: active)"
+  default     = "active"
 }
 
 variable "node_storage_type" {
