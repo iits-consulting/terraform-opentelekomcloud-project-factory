@@ -65,6 +65,12 @@ resource "errorcheck_is_valid" "container_network_type" {
   }
 }
 
+variable "cluster_enable_volume_encryption" {
+  description = "(Optional) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource."
+  default     = false
+  type        = bool
+}
+
 variable "cluster_container_cidr" {
   type        = string
   description = "Kubernetes pod network CIDR range (default: 172.16.0.0/16)"
