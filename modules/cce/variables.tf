@@ -23,7 +23,7 @@ variable "cluster_subnet_id" {
 variable "cluster_version" {
   type        = string
   description = "CCE cluster version."
-  default     = "v1.27"
+  default     = "v1.28"
 }
 
 variable "cluster_size" {
