@@ -50,19 +50,20 @@ locals {
 }
 
 resource "opentelekomcloud_cce_cluster_v3" "cluster" {
-  name                    = var.name
-  cluster_type            = var.cluster_type
-  flavor_id               = local.flavor_id
-  vpc_id                  = var.cluster_vpc_id
-  subnet_id               = var.cluster_subnet_id
-  container_network_type  = local.cluster_container_network_type
-  container_network_cidr  = var.cluster_container_cidr
-  kubernetes_svc_ip_range = var.cluster_service_cidr
-  description             = "Kubernetes Cluster ${var.name}."
-  eip                     = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
-  cluster_version         = var.cluster_version
-  authentication_mode     = var.cluster_authentication_mode
-  annotations             = var.cluster_install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
+  name                     = var.name
+  cluster_type             = var.cluster_type
+  flavor_id                = local.flavor_id
+  vpc_id                   = var.cluster_vpc_id
+  subnet_id                = var.cluster_subnet_id
+  container_network_type   = local.cluster_container_network_type
+  container_network_cidr   = var.cluster_container_cidr
+  kubernetes_svc_ip_range  = var.cluster_service_cidr
+  description              = "Kubernetes Cluster ${var.name}."
+  eip                      = var.cluster_public_access ? opentelekomcloud_vpc_eip_v1.cce_eip[0].publicip[0].ip_address : null
+  cluster_version          = var.cluster_version
+  authentication_mode      = var.cluster_authentication_mode
+  annotations              = var.cluster_install_icagent ? { "cluster.install.addons.external/install" = jsonencode([{ addonTemplateName = "icagent" }]) } : null
+  enable_volume_encryption = var.cluster_enable_volume_encryption
   dynamic "authenticating_proxy" {
     for_each = var.cluster_authentication_mode != "authenticating_proxy" ? toset([]) : toset(["authenticating_proxy"])
     content {
