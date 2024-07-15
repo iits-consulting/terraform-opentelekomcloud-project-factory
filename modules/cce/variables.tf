@@ -66,8 +66,8 @@ resource "errorcheck_is_valid" "container_network_type" {
 }
 
 variable "cluster_enable_volume_encryption" {
-  description = "(Optional) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource."
-  default     = false
+  description = "(Optional) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource. Defaults to 'true'"
+  default     = true
   type        = bool
 }
 
