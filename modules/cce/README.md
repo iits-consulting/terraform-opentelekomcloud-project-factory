@@ -205,7 +205,7 @@ No modules.
 | <a name="input_cluster_service_cidr"></a> [cluster\_service\_cidr](#input\_cluster\_service\_cidr) | Kubernetes service network CIDR range (default: 10.247.0.0/16) | `string` | `"10.247.0.0/16"` | no |
 | <a name="input_cluster_size"></a> [cluster\_size](#input\_cluster\_size) | Size of the cluster: small, medium, large (default: small) | `string` | `"small"` | no |
 | <a name="input_cluster_type"></a> [cluster\_type](#input\_cluster\_type) | Cluster type: VirtualMachine or BareMetal (default: VirtualMachine) | `string` | `"VirtualMachine"` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | CCE cluster version. | `string` | `"v1.27"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | CCE cluster version. | `string` | `"v1.28"` | no |
 | <a name="input_metrics_server_version"></a> [metrics\_server\_version](#input\_metrics\_server\_version) | Version of the Metrics Server Addon Template (default: 1.3.37) | `string` | `"1.3.37"` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9) | `string` | `"EulerOS 2.9"` | no |
