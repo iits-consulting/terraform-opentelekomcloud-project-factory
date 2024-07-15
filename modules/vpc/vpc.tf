@@ -1,10 +1,9 @@
 data "opentelekomcloud_identity_project_v3" "current" {}
 
 resource "opentelekomcloud_vpc_v1" "vpc" {
-  name   = var.name
-  cidr   = var.cidr_block
-  shared = data.opentelekomcloud_identity_project_v3.current.region == "eu-de" ? var.enable_shared_snat : false
-  tags   = var.tags
+  name = var.name
+  cidr = var.cidr_block
+  tags = var.tags
 }
 
 resource "opentelekomcloud_vpc_subnet_v1" "subnets" {
