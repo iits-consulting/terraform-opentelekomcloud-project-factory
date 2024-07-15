@@ -45,7 +45,7 @@ variable "dns_config" {
 
 variable "enable_shared_snat" {
   type        = bool
-  description = "(Deprecated) Enable the shared SNAT capability on VPCs in eu-de region. (default: null)"
+  description = "(Deprecated) Enable the shared SNAT capability on VPCs in eu-de region. This option will be removed in the future! (default: null)"
   default     = null
   nullable    = true
 
