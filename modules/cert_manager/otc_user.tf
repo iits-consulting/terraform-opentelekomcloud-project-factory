@@ -1,9 +1,5 @@
 data "opentelekomcloud_identity_project_v3" "current" {}
 
-data "opentelekomcloud_identity_project_v3" "toplevel" {
-  name = data.opentelekomcloud_identity_project_v3.current.region
-}
-
 resource "opentelekomcloud_identity_user_v3" "user" {
   name    = var.username
   enabled = true
@@ -20,8 +16,11 @@ resource "opentelekomcloud_identity_group_v3" "dns_admin_group" {
 
 resource "opentelekomcloud_identity_role_assignment_v3" "dns_admin_role_to_dns_group" {
   group_id   = opentelekomcloud_identity_group_v3.dns_admin_group.id
-  project_id = data.opentelekomcloud_identity_project_v3.toplevel.id
+  project_id = data.opentelekomcloud_identity_project_v3.current.name == data.opentelekomcloud_identity_project_v3.current.region ? data.opentelekomcloud_identity_project_v3.current.id : data.opentelekomcloud_identity_project_v3.current.parent_id
   role_id    = data.opentelekomcloud_identity_role_v3.dns_admin_role.id
+  lifecycle {
+    ignore_changes = [project_id]
+  }
 }
 
 resource "opentelekomcloud_identity_group_membership_v3" "user_to_dns_admin_group" {

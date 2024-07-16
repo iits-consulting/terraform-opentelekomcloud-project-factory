@@ -30,7 +30,7 @@ resource "helm_release" "cert-manager" {
       clusterIssuers = {
         email = var.email
         otcDNS = {
-          region    = data.opentelekomcloud_identity_project_v3.toplevel.name
+          region    = data.opentelekomcloud_identity_project_v3.current.region
           accessKey = opentelekomcloud_identity_credential_v3.user_aksk.access
           secretKey = opentelekomcloud_identity_credential_v3.user_aksk.secret
         }
