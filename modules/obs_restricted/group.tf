@@ -48,6 +48,9 @@ resource "opentelekomcloud_identity_role_assignment_v3" "obs_role_to_obs_group" 
   group_id   = opentelekomcloud_identity_group_v3.obs_group.id
   project_id = data.opentelekomcloud_identity_project_v3.obs_project.id
   role_id    = opentelekomcloud_identity_role_v3.bucket_access.id
+  lifecycle {
+    ignore_changes = [project_id]
+  }
 }
 
 data "opentelekomcloud_identity_project_v3" "current" {}
@@ -89,4 +92,7 @@ resource "opentelekomcloud_identity_role_assignment_v3" "kms_adm_to_obs_group" {
   group_id   = opentelekomcloud_identity_group_v3.obs_group.id
   project_id = data.opentelekomcloud_identity_project_v3.current.id
   role_id    = opentelekomcloud_identity_role_v3.kms_access.id
+  lifecycle {
+    ignore_changes = [project_id]
+  }
 }
