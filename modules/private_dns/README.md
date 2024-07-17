@@ -86,5 +86,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_private_zone"></a> [private\_zone](#output\_private\_zone) | n/a |
 <!-- END_TF_DOCS -->
