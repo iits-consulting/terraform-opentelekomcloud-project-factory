@@ -21,8 +21,8 @@ variable "node_flavor" {
 }
 
 variable "node_image_id" {
-  description = "Jumphost node image name. Image must exist within the same project as the jumphost node. (default: 9f92079d-9d1b-4832-90c1-a3b4a1c00b9b (Standard_Ubuntu_22.04_latest))"
-  default     = "9f92079d-9d1b-4832-90c1-a3b4a1c00b9b"
+  description = "Jumphost node image name. Image must exist within the same project as the jumphost node. (default: bd571d76-c73c-405c-8532-8f7c3b38e5a5 (Standard_Ubuntu_22.04_latest))"
+  default     = "bd571d76-c73c-405c-8532-8f7c3b38e5a5"
 }
 
 variable "node_power_state" {
