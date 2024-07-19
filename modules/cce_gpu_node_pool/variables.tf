@@ -21,6 +21,12 @@ variable "node_availability_zones" {
   description = "Availability zones for the node pools. Providing multiple availability zones creates one node pool in each zone."
 }
 
+variable "node_k8s_tags" {
+  default     = {}
+  description = "(Optional, Map) Tags of a Kubernetes node, key/value pair format."
+  type        = map(string)
+}
+
 locals {
   valid_availability_zones = {
     eu-de = toset([

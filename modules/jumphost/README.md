@@ -1,6 +1,6 @@
 ## Jumphost Module
 
-A module designed to create SSH jumphosts via OTC ECS for private networks. 
+A module designed to create SSH jumphosts via OTC ECS for private networks.
 
 Usage example:
 ```hcl
@@ -12,12 +12,10 @@ module "vpc" {
     "subnet-demo" = "default_cidr"
   }
 }
-
 data "opentelekomcloud_images_image_v2" "ubuntu" {
   name       = "Standard_Ubuntu_20.04_latest"
   visibility = "public"
 }
-
 module "jumphost" {
   source        = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/jumphost"
   vpc_id        = module.vpc.vpc.id
@@ -33,12 +31,11 @@ module "jumphost" {
 > - Agency Type = `Account`
 > - Delegated Account = `op_svc_evs`
 > - Permissions = `KMS Administrator` within the project
-
-Notes:
+    Notes:
 - Please see [example_cloud_init](../../example_cloud_init) for example cloud_init configuration
 - More examples of cloud-init can be found in [Cloud config examples](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
 - For complete documentation of cloud init, please see [cloud-init Documentation](https://cloudinit.readthedocs.io/en/latest/index.html)
-- The jumphost module is designed to ignore changes in the node_image_id parameter. 
+- The jumphost module is designed to ignore changes in the node_image_id parameter.
 - The jumphost node's boot drive is also designed to be preserved even if the instance is destroyed for data resiliency.
 - If an image update or clean boot drive is intended,
   please use taint or destroy:
@@ -106,7 +103,8 @@ No modules.
 | <a name="input_cloud_init"></a> [cloud\_init](#input\_cloud\_init) | Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read. | `string` | `""` | no |
 | <a name="input_node_bandwidth_size"></a> [node\_bandwidth\_size](#input\_node\_bandwidth\_size) | Jumphost node external IP bandwidth size in Mbps. (default: 10) | `number` | `10` | no |
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Jumphost node specifications in otc flavor format. (default: s3.medium.2 (3rd generation 1 Core 2GB RAM)) | `string` | `"s3.medium.2"` | no |
-| <a name="input_node_image_id"></a> [node\_image\_id](#input\_node\_image\_id) | Jumphost node image name. Image must exist within the same project as the jumphost node. (default: 9f92079d-9d1b-4832-90c1-a3b4a1c00b9b (Standard\_Ubuntu\_20.04\_latest)) | `string` | `"9f92079d-9d1b-4832-90c1-a3b4a1c00b9b"` | no |
+| <a name="input_node_image_id"></a> [node\_image\_id](#input\_node\_image\_id) | Jumphost node image name. Image must exist within the same project as the jumphost node. (default: bd571d76-c73c-405c-8532-8f7c3b38e5a5 (Standard\_Ubuntu\_22.04\_latest)) | `string` | `"bd571d76-c73c-405c-8532-8f7c3b38e5a5"` | no |
+| <a name="input_node_power_state"></a> [node\_power\_state](#input\_node\_power\_state) | Jumphost node power state. Only active (powered on) and shutoff (shutdown) are supported. (default: active) | `string` | `"active"` | no |
 | <a name="input_node_storage_encryption_enabled"></a> [node\_storage\_encryption\_enabled](#input\_node\_storage\_encryption\_enabled) | Jumphost node system disk storage KMS encryption toggle. | `bool` | `false` | no |
 | <a name="input_node_storage_encryption_key_name"></a> [node\_storage\_encryption\_key\_name](#input\_node\_storage\_encryption\_key\_name) | If jumphost system disk KMS encryption is enabled, use this KMS key name instead of creating a new one. | `string` | `null` | no |
 | <a name="input_node_storage_size"></a> [node\_storage\_size](#input\_node\_storage\_size) | Jumphost node system disk storage size in GB. (default: 20) | `number` | `20` | no |

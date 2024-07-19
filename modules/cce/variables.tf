@@ -23,7 +23,7 @@ variable "cluster_subnet_id" {
 variable "cluster_version" {
   type        = string
   description = "CCE cluster version."
-  default     = "v1.27"
+  default     = "v1.28"
 }
 
 variable "cluster_size" {
@@ -63,6 +63,12 @@ resource "errorcheck_is_valid" "container_network_type" {
     )
     error_message = "Allowed values for container_network_type are \"vpc-router\" and \"overlay_l2\" for VirtualMachine Clusters; and \"underlay_ipvlan\" for BareMetal Clusters."
   }
+}
+
+variable "cluster_enable_volume_encryption" {
+  description = "(Optional) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource. Defaults to 'true'"
+  default     = true
+  type        = bool
 }
 
 variable "cluster_container_cidr" {
@@ -196,6 +202,22 @@ variable "node_postinstall" {
   default     = ""
 }
 
+variable "node_taints" {
+  type = list(object({
+    effect = string
+    key    = string
+    value  = string
+  }))
+  description = "Node taints for the node pool"
+  default     = []
+}
+
+variable "node_k8s_tags" {
+  default     = {}
+  description = "(Optional, Map) Tags of a Kubernetes node, key/value pair format."
+  type        = map(string)
+}
+
 variable "autoscaler_node_max" {
   type        = number
   description = "Maximum limit of servers to create (default: 10)"
@@ -215,14 +237,14 @@ locals {
 
 variable "autoscaler_version" {
   type        = string
-  description = "Version of the Autoscaler Addon Template (default: 1.27.53)"
-  default     = "1.27.53"
+  description = "Version of the Autoscaler Addon Template (default: 1.28.22)"
+  default     = "1.28.22"
 }
 
 variable "metrics_server_version" {
   type        = string
-  description = "Version of the Metrics Server Addon Template (default: 1.3.37)"
-  default     = "1.3.37"
+  description = "Version of the Metrics Server Addon Template (default: 1.3.39)"
+  default     = "1.3.39"
 }
 
 variable "cluster_authentication_mode" {
