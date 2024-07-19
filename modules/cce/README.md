@@ -208,12 +208,14 @@ No modules.
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | CCE cluster version. | `string` | `"v1.28"` | no |
 | <a name="input_metrics_server_version"></a> [metrics\_server\_version](#input\_metrics\_server\_version) | Version of the Metrics Server Addon Template (default: 1.3.39) | `string` | `"1.3.39"` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
+| <a name="input_node_k8s_tags"></a> [node\_k8s\_tags](#input\_node\_k8s\_tags) | (Optional, Map) Tags of a Kubernetes node, key/value pair format. | `map(string)` | `{}` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9) | `string` | `"EulerOS 2.9"` | no |
 | <a name="input_node_postinstall"></a> [node\_postinstall](#input\_node\_postinstall) | Post install script for the cluster ECS node pool. | `string` | `""` | no |
 | <a name="input_node_storage_encryption_enabled"></a> [node\_storage\_encryption\_enabled](#input\_node\_storage\_encryption\_enabled) | Enable OTC KMS volume encryption for the node pool volumes. (default: false) | `bool` | `false` | no |
 | <a name="input_node_storage_encryption_kms_key_name"></a> [node\_storage\_encryption\_kms\_key\_name](#input\_node\_storage\_encryption\_kms\_key\_name) | If KMS volume encryption is enabled, specify a name of an existing kms key. Setting this disables the creation of a new kms key. (default: null) | `string` | `null` | no |
 | <a name="input_node_storage_size"></a> [node\_storage\_size](#input\_node\_storage\_size) | Size of the node system disk in GB (default: 100) | `number` | `100` | no |
 | <a name="input_node_storage_type"></a> [node\_storage\_type](#input\_node\_storage\_type) | Type of node storage SATA, SAS or SSD (default: SATA) | `string` | `"SATA"` | no |
+| <a name="input_node_taints"></a> [node\_taints](#input\_node\_taints) | Node taints for the node pool | <pre>list(object({<br>    effect = string<br>    key    = string<br>    value  = string<br>  }))</pre> | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for CCE resources | `map(any)` | `{}` | no |
 
 ## Outputs

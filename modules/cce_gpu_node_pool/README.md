@@ -92,6 +92,7 @@ No modules.
 | <a name="input_gpu_beta_version"></a> [gpu\_beta\_version](#input\_gpu\_beta\_version) | Version of the GPU Beta Addon Template (default: 2.0.46) | `string` | `"2.0.46"` | no |
 | <a name="input_gpu_driver_url"></a> [gpu\_driver\_url](#input\_gpu\_driver\_url) | Nvidia Driver download URL. Please refer to https://www.nvidia.com/Download/Find.aspx and ensure your driver is matching the GPU in your node flavor. | `string` | `""` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
+| <a name="input_node_k8s_tags"></a> [node\_k8s\_tags](#input\_node\_k8s\_tags) | (Optional, Map) Tags of a Kubernetes node, key/value pair format. | `map(string)` | `{}` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes. | `string` | `"EulerOS 2.9"` | no |
 | <a name="input_node_postinstall"></a> [node\_postinstall](#input\_node\_postinstall) | Post install script for the node pool. | `string` | `""` | no |
 | <a name="input_node_scaling_enabled"></a> [node\_scaling\_enabled](#input\_node\_scaling\_enabled) | Enable the scaling for the node pool. Please note that CCE cluster must have autoscaling addon installed. (default: 10) | `bool` | `true` | no |
