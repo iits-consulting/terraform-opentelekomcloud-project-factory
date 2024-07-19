@@ -97,4 +97,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_dns_zone_id"></a> [dns\_zone\_id](#output\_dns\_zone\_id) | n/a |
+| <a name="output_public_zone"></a> [public\_zone](#output\_public\_zone) | n/a |
 <!-- END_TF_DOCS -->
