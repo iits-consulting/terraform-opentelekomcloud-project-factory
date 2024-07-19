@@ -202,6 +202,22 @@ variable "node_postinstall" {
   default     = ""
 }
 
+variable "node_taints" {
+  type = list(object({
+    effect = string
+    key    = string
+    value  = string
+  }))
+  description = "Node taints for the node pool"
+  default     = []
+}
+
+variable "node_k8s_tags" {
+  default     = {}
+  description = "(Optional, Map) Tags of a Kubernetes node, key/value pair format."
+  type        = map(string)
+}
+
 variable "autoscaler_node_max" {
   type        = number
   description = "Maximum limit of servers to create (default: 10)"

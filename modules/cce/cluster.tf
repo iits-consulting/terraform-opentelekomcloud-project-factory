@@ -99,6 +99,17 @@ resource "opentelekomcloud_cce_node_pool_v3" "cluster_node_pool" {
   docker_base_size         = 20
   postinstall              = var.node_postinstall
 
+  k8s_tags = var.node_k8s_tags
+
+  dynamic "taints" {
+    for_each = var.node_taints
+    content {
+      effect = taints.value.effect
+      key    = taints.value.key
+      value  = taints.value.value
+    }
+  }
+
   root_volume {
     size       = 50
     volumetype = "SSD"
