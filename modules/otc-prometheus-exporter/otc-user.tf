@@ -2,23 +2,23 @@ data "opentelekomcloud_identity_project_v3" "project" {}
 
 resource "opentelekomcloud_identity_user_v3" "user" {
   name        = "${var.name_prefix}-prom"
-  description = "CES read only access programmatic user for ${var.release_name}."
+  description = "CES admin access programmatic user for ${var.release_name}."
   enabled     = true
 }
 
 data "opentelekomcloud_identity_role_v3" "ces_role" {
-  name = "system_all_60" #CES ReadOnly Role
+  name = "system_all_61" #CES Admin Role
 }
 
 
-resource "opentelekomcloud_identity_group_v3" "group" {
+resource "opentelekomcloud_identity_group_v3" "ces_group" {
   name        = "${var.name_prefix}-prom"
-  description = "CES read only access group for ${var.release_name}."
+  description = "CES admin access group for ${var.release_name}."
 }
 
 
-resource "opentelekomcloud_identity_role_assignment_v3" "role_assignment_read" {
-  group_id   = opentelekomcloud_identity_group_v3.group.id
+resource "opentelekomcloud_identity_role_assignment_v3" "ces_role_to_ces_group" {
+  group_id   = opentelekomcloud_identity_group_v3.ces_group.id
   role_id    = data.opentelekomcloud_identity_role_v3.ces_role.id
   project_id = data.opentelekomcloud_identity_project_v3.project.id
   lifecycle {
@@ -28,10 +28,10 @@ resource "opentelekomcloud_identity_role_assignment_v3" "role_assignment_read" {
 
 
 
-resource "opentelekomcloud_identity_user_group_membership_v3" "membership" {
+resource "opentelekomcloud_identity_user_group_membership_v3" "user_to_ces_group" {
   user = opentelekomcloud_identity_user_v3.user.id
   groups = [
-    opentelekomcloud_identity_group_v3.group.id,
+    opentelekomcloud_identity_group_v3.ces_group.id,
   ]
 }
 
