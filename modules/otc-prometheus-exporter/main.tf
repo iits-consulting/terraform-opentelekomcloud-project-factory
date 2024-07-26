@@ -1,7 +1,8 @@
+
 resource "helm_release" "otc-prometheus-exporter" {
   name       = var.release_name
-  repository = "https://iits-consulting.github.io/otc-prometheus-exporter/"
-  chart      = "otc-prometheus-exporter"
+  repository = var.chart_repository
+  chart      = var.chart_name
   version    = var.release_version
 
   namespace             = var.release_namespace
@@ -12,6 +13,21 @@ resource "helm_release" "otc-prometheus-exporter" {
   render_subchart_notes = true
   dependency_update     = true
   wait_for_jobs         = true
+
+  dynamic "set" {
+    for_each = toset(var.chart_set_parameter)
+    content {
+      name  = set.value.name
+      value = set.value.value
+    }
+  }
+  dynamic "set_sensitive" {
+    for_each = toset(var.chart_set_sensitive_parameter)
+    content {
+      name  = set_sensitive.value.name
+      value = set_sensitive.value.value
+    }
+  }
 
   values = [yamlencode({
     deployment = {
