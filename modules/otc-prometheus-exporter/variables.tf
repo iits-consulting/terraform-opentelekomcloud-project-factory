@@ -3,11 +3,13 @@ variable "name_prefix" {
   description = "Prefix of the OTC ressources created."
 }
 
+
 variable "release_name" {
   default     = "otc-prometheus-exporter"
   type        = string
   description = "Name ot the release namespace."
 }
+
 
 variable "release_namespace" {
   type        = string
@@ -15,16 +17,17 @@ variable "release_namespace" {
   description = "Kubernetes namespace to install the chart to."
 }
 
+
 variable "domain_name" {
   type        = string
   description = "Domain name of the OTC"
 }
 
+
 variable "release_version" {
   type        = string
   description = "Release version of the chart (see releases on https://github.com/iits-consulting/otc-prometheus-exporter/tree/gh-pages)"
 }
-
 
 
 variable "chart_repository" {
@@ -40,6 +43,7 @@ variable "chart_name" {
   description = "Name of the IITS otc-prometheus-exporter chart."
 }
 
+
 variable "chart_set_parameter" {
   type = list(object({
     name  = string
@@ -48,6 +52,7 @@ variable "chart_set_parameter" {
   default     = []
   description = "Override the values of the IITS otc-prometheus-exporter chart using set."
 }
+
 
 variable "chart_set_sensitive_parameter" {
   type = list(object({
