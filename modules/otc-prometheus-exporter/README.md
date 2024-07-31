@@ -11,6 +11,7 @@ module "otc_prometheus_exporter" {
   release_version = local.chart_versions.otc_prometheus_exporter
 }
 ```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
