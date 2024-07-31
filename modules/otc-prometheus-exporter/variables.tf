@@ -31,15 +31,15 @@ variable "release_version" {
 
 
 variable "chart_repository" {
-  type = string
-  default = "https://iits-consulting.github.io/otc-prometheus-exporter/"
+  type        = string
+  default     = "https://iits-consulting.github.io/otc-prometheus-exporter/"
   description = "Chart repository of the IITS otc-prometheus-exporter chart."
 }
 
 
 variable "chart_name" {
-  type = string
-  default = "otc-prometheus-exporter"
+  type        = string
+  default     = "otc-prometheus-exporter"
   description = "Name of the IITS otc-prometheus-exporter chart."
 }
 
