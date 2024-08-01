@@ -168,12 +168,8 @@ variable "db_size" {
 
 variable "db_storage_type" {
   type        = string
-  description = "Type of storage desired for the database. Allowed values are COMMON (SATA) or ULTRAHIGH (SSD) (default: ULTRAHIGH)"
+  description = "Type of storage desired for the database. (default: ULTRAHIGH)"
   default     = "ULTRAHIGH"
-  validation {
-    condition     = contains(["COMMON", "ULTRAHIGH"], var.db_storage_type)
-    error_message = "Parameter db_storage_type must be one of COMMON or ULTRAHIGH."
-  }
 }
 
 variable "db_backup_days" {
