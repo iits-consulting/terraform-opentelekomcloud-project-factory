@@ -62,7 +62,7 @@ locals {
   default_charts = {
     cert-manager = {
       repository = "https://charts.iits.tech"
-      version    = "1.14.5"
+      version    = "1.15.3"
       enabled    = true
       values     = [""]
       set = [{
@@ -73,7 +73,7 @@ locals {
     }
     traefik = {
       repository = "https://charts.iits.tech"
-      version    = "28.2.0"
+      version    = "31.0.0"
       enabled    = true
       values     = [""]
       set = [{
@@ -95,7 +95,7 @@ locals {
     }
     prometheus-stack = {
       repository = "https://charts.iits.tech"
-      version    = "58.3.0"
+      version    = "62.6.0"
       enabled    = true
       values     = [""]
       set = [{
