@@ -62,7 +62,7 @@ locals {
   default_charts = {
     cert-manager = {
       repository = "https://charts.iits.tech"
-      version    = "1.15.3"
+      version    = "1.16.1"
       enabled    = true
       values     = [""]
       set = [{
@@ -73,7 +73,7 @@ locals {
     }
     traefik = {
       repository = "https://charts.iits.tech"
-      version    = "31.0.0"
+      version    = "32.1.1"
       enabled    = true
       values     = [""]
       set = [{
@@ -84,7 +84,7 @@ locals {
     }
     kyverno = {
       repository = "https://charts.iits.tech"
-      version    = "2.1.0"
+      version    = "2.1.1"
       enabled    = true
       values     = [""]
       set = [{
