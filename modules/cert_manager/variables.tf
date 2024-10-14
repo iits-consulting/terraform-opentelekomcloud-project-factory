@@ -35,7 +35,7 @@ variable "chart_name" {
 
 variable "chart_version" {
   type        = string
-  default     = "1.15.3"
+  default     = "1.16.1"
   description = "Chart version of the IITS cert-manager chart."
 }
 
