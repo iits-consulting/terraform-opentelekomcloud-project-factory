@@ -9,6 +9,7 @@ data "helm_template" "charts" {
   include_crds               = true
   disable_openapi_validation = true
   render_subchart_notes      = false
+  kube_version               = var.kube_version
   values                     = each.value.values
 
   dynamic "set" {

@@ -33,6 +33,13 @@ variable "force_new" {
   description = "Forces delete & create of resources if the CRD manifest changes."
 }
 
+variable "kube_version" {
+  type        = string
+  default     = "1.29.2" // Latest CCE
+  description = "Select the kubernetes cluster version for charts that require version validation."
+}
+
+
 variable "charts" {
   type = map(object({
     repository = string
@@ -73,7 +80,7 @@ locals {
     }
     traefik = {
       repository = "https://charts.iits.tech"
-      version    = "32.1.1"
+      version    = "33.2.1"
       enabled    = true
       values     = [""]
       set = [{
