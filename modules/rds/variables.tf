@@ -149,7 +149,7 @@ data "opentelekomcloud_rds_flavors_v3" "db_flavor" {
 
 locals {
   db_flavor = var.db_flavor == "" ? try([for f in data.opentelekomcloud_rds_flavors_v3.db_flavor[0].flavors :
-    f.name if f.vcpus == var.db_cpus && f.memory == var.db_memory && alltrue([for az, status in f.az_status : !contains(var.db_availability_zones, az) || status == "normal" ])][0], var.db_flavor) : var.db_flavor
+  f.name if f.vcpus == var.db_cpus && f.memory == var.db_memory && alltrue([for az, status in f.az_status : !contains(var.db_availability_zones, az) || status == "normal"])][0], var.db_flavor) : var.db_flavor
 }
 
 resource "errorcheck_is_valid" "db_flavor_constraint" {
