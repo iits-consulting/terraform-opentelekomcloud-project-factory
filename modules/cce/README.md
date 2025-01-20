@@ -190,7 +190,7 @@ No modules.
 | <a name="input_node_flavor"></a> [node\_flavor](#input\_node\_flavor) | Node specifications in otc flavor format | `string` | n/a | yes |
 | <a name="input_autoscaler_node_max"></a> [autoscaler\_node\_max](#input\_autoscaler\_node\_max) | Maximum limit of servers to create (default: 10) | `number` | `10` | no |
 | <a name="input_autoscaler_node_min"></a> [autoscaler\_node\_min](#input\_autoscaler\_node\_min) | Lower bound of servers to always keep (default: <node\_count>) | `number` | `null` | no |
-| <a name="input_autoscaler_version"></a> [autoscaler\_version](#input\_autoscaler\_version) | Version of the Autoscaler Addon Template (default: 1.28.22) | `string` | `"1.28.22"` | no |
+| <a name="input_autoscaler_version"></a> [autoscaler\_version](#input\_autoscaler\_version) | Version of the Autoscaler Addon Template (default: 1.29.17) | `string` | `"1.29.17"` | no |
 | <a name="input_cluster_authenticating_proxy_ca"></a> [cluster\_authenticating\_proxy\_ca](#input\_cluster\_authenticating\_proxy\_ca) | X509 CA certificate configured in authenticating\_proxy mode. The maximum size of the certificate is 1 MB. | `string` | `null` | no |
 | <a name="input_cluster_authenticating_proxy_cert"></a> [cluster\_authenticating\_proxy\_cert](#input\_cluster\_authenticating\_proxy\_cert) | Client certificate issued by the X509 CA certificate configured in authenticating\_proxy mode. | `string` | `null` | no |
 | <a name="input_cluster_authenticating_proxy_private_key"></a> [cluster\_authenticating\_proxy\_private\_key](#input\_cluster\_authenticating\_proxy\_private\_key) | Private key of the client certificate issued by the X509 CA certificate configured in authenticating\_proxy mode. | `string` | `null` | no |
@@ -206,7 +206,7 @@ No modules.
 | <a name="input_cluster_size"></a> [cluster\_size](#input\_cluster\_size) | Size of the cluster: small, medium, large (default: small) | `string` | `"small"` | no |
 | <a name="input_cluster_type"></a> [cluster\_type](#input\_cluster\_type) | Cluster type: VirtualMachine or BareMetal (default: VirtualMachine) | `string` | `"VirtualMachine"` | no |
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | CCE cluster version. | `string` | `"v1.28"` | no |
-| <a name="input_metrics_server_version"></a> [metrics\_server\_version](#input\_metrics\_server\_version) | Version of the Metrics Server Addon Template (default: 1.3.39) | `string` | `"1.3.39"` | no |
+| <a name="input_metrics_server_version"></a> [metrics\_server\_version](#input\_metrics\_server\_version) | Version of the Metrics Server Addon Template (default: 1.3.60) | `string` | `"1.3.60"` | no |
 | <a name="input_node_container_runtime"></a> [node\_container\_runtime](#input\_node\_container\_runtime) | The container runtime to use. Must be set to either containerd or docker. (default: containerd) | `string` | `"containerd"` | no |
 | <a name="input_node_k8s_tags"></a> [node\_k8s\_tags](#input\_node\_k8s\_tags) | (Optional, Map) Tags of a Kubernetes node, key/value pair format. | `map(string)` | `{}` | no |
 | <a name="input_node_os"></a> [node\_os](#input\_node\_os) | Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9) | `string` | `"EulerOS 2.9"` | no |
