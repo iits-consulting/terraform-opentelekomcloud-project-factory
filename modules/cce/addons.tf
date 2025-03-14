@@ -1,5 +1,6 @@
 data "opentelekomcloud_cce_addon_templates_v3" "autoscaler" {
   cluster_version = var.cluster_version
+  cluster_type    = var.cluster_type
   addon_name      = "autoscaler"
 }
 
@@ -25,7 +26,6 @@ locals {
   autoscaler_version        = var.autoscaler_version == "latest" ? "${local.autoscaler_major}.${local.autoscaler_minor}.${local.autoscaler_patch}" : var.autoscaler_version
   autoscaler_template       = [for addon in data.opentelekomcloud_cce_addon_templates_v3.autoscaler.addons : addon if addon.addon_version == local.autoscaler_version][0]
 }
-
 
 locals {
   region_endpoint = replace(local.region, "eu-ch2", "eu-ch2.sc")
@@ -68,6 +68,7 @@ resource "opentelekomcloud_cce_addon_v3" "autoscaler" {
 
 data "opentelekomcloud_cce_addon_templates_v3" "metrics" {
   cluster_version = var.cluster_version
+  cluster_type    = var.cluster_type
   addon_name      = "metrics-server"
 }
 
@@ -93,7 +94,6 @@ locals {
   metrics_version        = var.metrics_server_version == "latest" ? "${local.metrics_major}.${local.metrics_minor}.${local.metrics_patch}" : var.metrics_server_version
   metrics_template       = [for addon in data.opentelekomcloud_cce_addon_templates_v3.metrics.addons : addon if addon.addon_version == local.metrics_version][0]
 }
-
 
 resource "opentelekomcloud_cce_addon_v3" "metrics" {
   template_name    = data.opentelekomcloud_cce_addon_templates_v3.metrics.addon_name
