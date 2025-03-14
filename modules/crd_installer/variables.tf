@@ -80,7 +80,7 @@ locals {
     }
     traefik = {
       repository = "https://charts.iits.tech"
-      version    = "33.2.1"
+      version    = "34.2.0"
       enabled    = true
       values     = [""]
       set = [{
@@ -91,7 +91,7 @@ locals {
     }
     kyverno = {
       repository = "https://charts.iits.tech"
-      version    = "2.1.1"
+      version    = "2.2.2"
       enabled    = true
       values     = [""]
       set = [{

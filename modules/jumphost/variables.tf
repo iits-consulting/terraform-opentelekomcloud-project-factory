@@ -21,17 +21,16 @@ variable "node_flavor" {
 }
 
 variable "node_image_id" {
-  description = "Jumphost node image name. Image must exist within the same project as the jumphost node. (default: bd571d76-c73c-405c-8532-8f7c3b38e5a5 (Standard_Ubuntu_22.04_latest))"
-  default     = "bd571d76-c73c-405c-8532-8f7c3b38e5a5"
+  description = "Jumphost node image name. Image must exist within the same project as the jumphost node"
 }
 
 variable "node_power_state" {
-  description = "Jumphost node power state. Only active (powered on) and shutoff (shutdown) are supported. (default: active)"
+  description = "Jumphost node power state. Only active (powered on) and shutoff (shutdown) are supported."
   default     = "active"
 }
 
 variable "node_storage_type" {
-  description = "Jumphost node system disk storage type. Must be one of \"SATA\", \"SAS\", or \"SSD\". (default: SSD)"
+  description = "Jumphost node system disk storage type. Must be one of \"SATA\", \"SAS\", or \"SSD\"."
   default     = "SSD"
   validation {
     condition     = contains(["SATA", "SAS", "SSD"], var.node_storage_type)
@@ -40,7 +39,7 @@ variable "node_storage_type" {
 }
 
 variable "node_storage_size" {
-  description = "Jumphost node system disk storage size in GB. (default: 20)"
+  description = "Jumphost node system disk storage size in GB."
   type        = number
   default     = 20
 }
@@ -57,7 +56,7 @@ variable "node_storage_encryption_key_name" {
 }
 
 variable "node_bandwidth_size" {
-  description = "Jumphost node external IP bandwidth size in Mbps. (default: 10)"
+  description = "Jumphost node external IP bandwidth size in Mbps."
   type        = number
   default     = 10
 }
@@ -80,12 +79,12 @@ variable "cloud_init" {
 }
 
 variable "preserve_node_data" {
-  description = "If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications! (default: false)"
+  description = "If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications!"
   default     = false
 }
 
 variable "preserve_host_keys" {
-  description = "Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true)"
+  description = "Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent."
   default     = true
 }
 

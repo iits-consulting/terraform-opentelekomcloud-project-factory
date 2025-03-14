@@ -23,12 +23,12 @@ variable "cluster_subnet_id" {
 variable "cluster_version" {
   type        = string
   description = "CCE cluster version."
-  default     = "v1.28"
+  default     = "v1.30"
 }
 
 variable "cluster_size" {
   type        = string
-  description = "Size of the cluster: small, medium, large (default: small)"
+  description = "Size of the cluster: small, medium, large"
   default     = "small"
   validation {
     condition     = contains(["small", "medium", "large"], lower(var.cluster_size))
@@ -38,7 +38,7 @@ variable "cluster_size" {
 
 variable "cluster_type" {
   type        = string
-  description = "Cluster type: VirtualMachine or BareMetal (default: VirtualMachine)"
+  description = "Cluster type: VirtualMachine or BareMetal"
   default     = "VirtualMachine"
 
   validation {
@@ -66,44 +66,44 @@ resource "errorcheck_is_valid" "container_network_type" {
 }
 
 variable "cluster_enable_volume_encryption" {
-  description = "(Optional) System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource. Defaults to 'true'"
+  description = "System and data disks encryption of master nodes. Changing this parameter will create a new cluster resource."
   default     = true
   type        = bool
 }
 
 variable "cluster_container_cidr" {
   type        = string
-  description = "Kubernetes pod network CIDR range (default: 172.16.0.0/16)"
+  description = "Kubernetes pod network CIDR range"
   default     = "172.16.0.0/16"
 }
 
 variable "cluster_service_cidr" {
   type        = string
-  description = "Kubernetes service network CIDR range (default: 10.247.0.0/16)"
+  description = "Kubernetes service network CIDR range"
   default     = "10.247.0.0/16"
 }
 
 variable "cluster_public_access" {
   type        = bool
-  description = "Bind a public IP to the CLuster to make it public available (default: true)"
+  description = "Bind a public IP to the CLuster to make it public available"
   default     = true
 }
 
 variable "cluster_high_availability" {
   type        = bool
-  description = "Create the cluster in highly available mode (default: false)"
+  description = "Create the cluster in highly available mode"
   default     = false
 }
 
 variable "cluster_enable_scaling" {
   type        = bool
-  description = "Enable autoscaling of the cluster (default: false)"
+  description = "Enable autoscaling of the cluster"
   default     = false
 }
 
 variable "cluster_install_icagent" {
   type        = bool
-  description = "Install icagent for logging and metrics via AOM (default: false)"
+  description = "Install icagent for logging and metrics via AOM"
   default     = false
 }
 
@@ -158,13 +158,13 @@ variable "node_flavor" {
 
 variable "node_os" {
   type        = string
-  description = "Operating system of worker nodes: EulerOS 2.5 or CentOS 7.7 (default: EulerOS 2.9)"
-  default     = "EulerOS 2.9"
+  description = "Operating system of worker nodes: EulerOS 2.9 or HCE 2.0"
+  default     = "HCE 2.0"
 }
 
 variable "node_container_runtime" {
   type        = string
-  description = "The container runtime to use. Must be set to either containerd or docker. (default: containerd)"
+  description = "The container runtime to use. Must be set to either containerd or docker."
   default     = "containerd"
   validation {
     condition     = contains(["containerd", "docker"], var.node_container_runtime)
@@ -174,25 +174,25 @@ variable "node_container_runtime" {
 
 variable "node_storage_type" {
   type        = string
-  description = "Type of node storage SATA, SAS or SSD (default: SATA)"
+  description = "Type of node storage SATA, SAS or SSD"
   default     = "SATA"
 }
 
 variable "node_storage_size" {
   type        = number
-  description = "Size of the node system disk in GB (default: 100)"
+  description = "Size of the node system disk in GB"
   default     = 100
 }
 
 variable "node_storage_encryption_enabled" {
   type        = bool
-  description = "Enable OTC KMS volume encryption for the node pool volumes. (default: false)"
-  default     = false
+  description = "Enable OTC KMS volume encryption for the node pool volumes."
+  default     = true
 }
 
 variable "node_storage_encryption_kms_key_name" {
   type        = string
-  description = "If KMS volume encryption is enabled, specify a name of an existing kms key. Setting this disables the creation of a new kms key. (default: null)"
+  description = "If KMS volume encryption is enabled, specify a name of an existing kms key. Setting this disables the creation of a new kms key."
   default     = null
 }
 
@@ -220,7 +220,7 @@ variable "node_k8s_tags" {
 
 variable "autoscaler_node_max" {
   type        = number
-  description = "Maximum limit of servers to create (default: 10)"
+  description = "Maximum limit of servers to create"
   default     = 10
 }
 
@@ -249,7 +249,7 @@ variable "metrics_server_version" {
 
 variable "cluster_authentication_mode" {
   type        = string
-  description = "Authentication mode of the Cluster. Either rbac or authenticating_proxy (default: rbac)"
+  description = "Authentication mode of the Cluster. Either rbac or authenticating_proxy"
   default     = "rbac"
 }
 
