@@ -237,14 +237,14 @@ locals {
 
 variable "autoscaler_version" {
   type        = string
-  description = "Version of the Autoscaler Addon Template (default: 1.28.22)"
-  default     = "1.28.22"
+  description = "Version of the Autoscaler Addon Template"
+  default     = "latest"
 }
 
 variable "metrics_server_version" {
   type        = string
-  description = "Version of the Metrics Server Addon Template (default: 1.3.39)"
-  default     = "1.3.39"
+  description = "Version of the Metrics Server Addon Template"
+  default     = "latest"
 }
 
 variable "cluster_authentication_mode" {
