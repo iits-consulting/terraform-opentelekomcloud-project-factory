@@ -1,4 +1,27 @@
-[//]: # (todo: create readme)
+## OTC Enterprise VPN Gateway Terraform module
+
+A module pair (`enterprise_vpn_gateway`, `enterprise_vpn_connection`) designed to support full capabilities of OTC Enterpise VPN while simplifying the configuration for ease of use.
+
+This module is primarily designed to be used with the module `enterprise_vpn_connection` but can support other use cases as well.
+
+To use this module coupled with `enterprise_vpn_connection` module, please refer to [enterprise_vpn_connection](../enterprise_vpn_connection) module documentation.
+For other use cases, all attributes of the created gateway resource is made available as `output.vpn_gateway` for flexibility.
+
+Usage example
+```hcl
+module "enterprise_vpn_gateway" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/enterprise_vpn_gateway"
+
+  name           = var.name
+  vpc_id         = module.vpc.vpc.id
+  connect_subnet = module.vpc.subnets["dmz-subnet"].network_id
+  local_subnets  = [module.vpc.subnets["dmz-subnet"].cidr]
+  ha_mode        = "active-active"
+  tags           = var.tags
+}
+```
+
+For more detailed information regarding individual gateway parameters please refer to: [OTC API Docs - Creating a VPN Gateway](https://docs.otc.t-systems.com/virtual-private-network/api-ref/api_reference_enterprise_edition_vpn/apis_of_enterprise_edition_vpn/vpn_gateway/creating_a_vpn_gateway.html)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

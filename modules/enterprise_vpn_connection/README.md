@@ -1,4 +1,97 @@
-[//]: # (todo: create readme)
+## OTC Enterprise VPN Connection Terraform module
+
+A module pair (`enterprise_vpn_gateway`, `enterprise_vpn_connection`) designed to support full capabilities of OTC Enterpise VPN while simplifying the configuration for ease of use.
+
+This module is designed to be used with the module `enterprise_vpn_gateway`.
+
+
+Usage example
+```hcl
+module "enterprise_vpn_gateway" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/enterprise_vpn_gateway"
+
+  name           = var.name
+  vpc_id         = module.vpc.vpc.id
+  connect_subnet = module.vpc.subnets["dmz-subnet"].network_id
+  local_subnets  = [module.vpc.subnets["dmz-subnet"].cidr]
+  ha_mode        = "active-active"
+  tags           = var.tags
+}
+locals {
+  vpn_config = {
+    ike_policy = {
+      dh_group                 = "group21"
+      authentication_algorithm = "sha2-512"
+      encryption_algorithm     = "aes-256"
+      lifetime_seconds         = 86400
+    }
+    ipsec_policy = {
+      transform_protocol       = "esp"
+      authentication_algorithm = "sha2-256"
+      encryption_algorithm     = "aes-256"
+      pfs                      = "group21"
+      lifetime_seconds         = 3600
+    }
+  }
+}
+module "enterprise_vpn_connection" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/enterprise_vpn_connection"
+
+  name                     = var.name
+  otc_gateway_id           = module.enterprise_vpn_gateway.vpn_gateway.id
+  otc_gateway_ip_selector  = "primary"
+  remote_gateway_addresses = [var.remote_gateway_address]
+  remote_subnets           = var.remote_subnets
+  ike_policy               = local.vpn_config.ike_policy
+  ipsec_policy             = local.vpn_config.ipsec_policy
+
+  tags = local.tags
+}
+```
+The module can also be configured to automatically create multiple connections in active-active or active-standby setups.
+```hcl
+// active-active: creates a 4 way connection between each IP address on local and remote side
+module "enterprise_vpn_connection" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/enterprise_vpn_connection"
+
+  name                     = var.name
+  otc_gateway_id           = module.enterprise_vpn_gateway.vpn_gateway.id
+  otc_gateway_ip_selector  = "both"
+  remote_gateway_addresses = [var.remote_gateway_address_1, var.remote_gateway_address_2]
+  remote_subnets           = var.remote_subnets
+  ike_policy               = local.vpn_config.ike_policy
+  ipsec_policy             = local.vpn_config.ipsec_policy
+
+  tags = local.tags
+}
+
+// active-active: creates a 2 way connection with primary to primary and secondary to secondary
+// active-standby: creates a 2 way connection with master to master and slave to slave
+module "enterprise_vpn_connection" {
+  source = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/enterprise_vpn_connection"
+  for_each = zipmap(["primary", "secondary"], [var.remote_gateway_address_1, var.remote_gateway_address_2])
+  
+  name                     = var.name
+  otc_gateway_id           = module.enterprise_vpn_gateway.vpn_gateway.id
+  otc_gateway_ip_selector  = each.key
+  remote_gateway_addresses = [each.value]
+  remote_subnets           = var.remote_subnets
+  ike_policy               = local.vpn_config.ike_policy
+  ipsec_policy             = local.vpn_config.ipsec_policy
+
+  tags = local.tags
+}
+```
+
+The parameter `otc_gateway_ip_selector` is an abstraction for both ease of use and a technical requirement to avoid object key dependencies in terraform.
+It is designed to automatically determine the primary and secondary IP addresses used by the OTC Gateway, which is required by the API to be UUID or IP address depending on the network type.
+
+
+`otc_gateway_ip_selector` will accept `primary`, `secondary` or `both` as valid options. `primary` and `secondary` correspond to the `eip1` and `eip2` in public networks and `access_private_ip_1` and `access_private_ip_2` in public networks respectively.
+
+
+For more detailed information regarding individual connection parameters please refer to: [OTC API Docs - Creating a VPN Connection](https://docs.otc.t-systems.com/virtual-private-network/api-ref/api_reference_enterprise_edition_vpn/apis_of_enterprise_edition_vpn/vpn_connection/creating_a_vpn_connection.html#vpn-api-0027)
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

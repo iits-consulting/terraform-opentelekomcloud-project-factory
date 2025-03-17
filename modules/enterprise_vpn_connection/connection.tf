@@ -31,7 +31,7 @@ resource "opentelekomcloud_enterprise_vpn_connection_v5" "connection" {
   peer_subnets        = var.remote_subnets
   vpn_type            = var.vpn_connection_type
   psk                 = length(var.psk) > 0 ? var.psk : random_password.vpn_psk[0].result
-  enable_nqa          = false
+  enable_nqa          = var.enable_nqa
   ha_role             = data.opentelekomcloud_enterprise_vpn_gateway_v5.otc_gateway.ha_mode == "active-active" ? null : each.value.otc_gateway_ip_role == "primary" ? "master" : "slave"
 
   dynamic "ikepolicy" {

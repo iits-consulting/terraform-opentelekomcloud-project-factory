@@ -66,6 +66,12 @@ variable "psk" {
   default     = ""
 }
 
+variable "enable_nqa" {
+  type        = string
+  description = "Enable NQA (Network Quality Analysis) for the connection. Depending on the configuration, it can break the connection if enabled."
+  default     = false
+}
+
 variable "ike_policy" {
   type = object({
     authentication_algorithm   = optional(string)
