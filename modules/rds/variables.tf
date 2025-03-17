@@ -227,11 +227,31 @@ variable "sg_secgroup_id" {
 
 variable "db_storage_alarm_threshold" {
   type        = number
-  description = "CES alarm threshold (in percent) for database storage capacity. Can be disabled by setting to 0. (default: 75)"
-  default     = 75
+  description = "CES alarm threshold (in percent) for database storage utilization. Can be disabled by setting to 0."
+  default     = 80
   validation {
     condition     = var.db_storage_alarm_threshold < 100 && var.db_storage_alarm_threshold >= 0
     error_message = "Parameter db_storage_alarm_threshold is in percent and must be between 0 and 100!"
+  }
+}
+
+variable "db_cpu_alarm_threshold" {
+  type        = number
+  description = "CES alarm threshold (in percent) for database cpu utilization. Can be disabled by setting to 0."
+  default     = 80
+  validation {
+    condition     = var.db_cpu_alarm_threshold < 100 && var.db_cpu_alarm_threshold >= 0
+    error_message = "Parameter db_cpu_alarm_threshold is in percent and must be between 0 and 100!"
+  }
+}
+
+variable "db_memory_alarm_threshold" {
+  type        = number
+  description = "CES alarm threshold (in percent) for database memory utilization. Can be disabled by setting to 0."
+  default     = 90
+  validation {
+    condition     = var.db_memory_alarm_threshold < 100 && var.db_memory_alarm_threshold >= 0
+    error_message = "Parameter db_memory_alarm_threshold is in percent and must be between 0 and 100!"
   }
 }
 
