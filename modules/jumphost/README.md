@@ -112,7 +112,7 @@ No modules.
 | <a name="input_preserve_host_keys"></a> [preserve\_host\_keys](#input\_preserve\_host\_keys) | Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent. (default: true) | `bool` | `true` | no |
 | <a name="input_preserve_node_data"></a> [preserve\_node\_data](#input\_preserve\_node\_data) | If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications! (default: false) | `bool` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Jumphost tag set. | `map(string)` | `{}` | no |
-| <a name="input_trusted_ssh_origins"></a> [trusted\_ssh\_origins](#input\_trusted\_ssh\_origins) | IP addresses and/or ranges allowed to SSH into the jumphost. (default: ["0.0.0.0/0"] (Allow access from all IP addresses.)) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| <a name="input_trusted_ssh_origins"></a> [trusted\_ssh\_origins](#input\_trusted\_ssh\_origins) | IP addresses and/or ranges allowed to SSH into the jumphost. (default: ["0.0.0.0/0"] (Allow access from all IP addresses.)) | `list(string)` | <pre>[<br/>  "0.0.0.0/0"<br/>]</pre> | no |
 
 ## Outputs
 

@@ -49,10 +49,10 @@ No modules.
 | <a name="input_email"></a> [email](#input\_email) | E-Mail to use for the ACME Registration and DNS management. | `string` | n/a | yes |
 | <a name="input_chart_name"></a> [chart\_name](#input\_chart\_name) | Name of the IITS cert-manager chart. | `string` | `"cert-manager"` | no |
 | <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Chart repository of the IITS cert-manager chart. | `string` | `"https://charts.iits.tech"` | no |
-| <a name="input_chart_set_parameter"></a> [chart\_set\_parameter](#input\_chart\_set\_parameter) | Override the values of the IITS cert-manager chart using set. | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
-| <a name="input_chart_set_sensitive_parameter"></a> [chart\_set\_sensitive\_parameter](#input\_chart\_set\_sensitive\_parameter) | Override the values of the IITS cert-manager chart using set\_sensitive. | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
+| <a name="input_chart_set_parameter"></a> [chart\_set\_parameter](#input\_chart\_set\_parameter) | Override the values of the IITS cert-manager chart using set. | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_chart_set_sensitive_parameter"></a> [chart\_set\_sensitive\_parameter](#input\_chart\_set\_sensitive\_parameter) | Override the values of the IITS cert-manager chart using set\_sensitive. | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_chart_values"></a> [chart\_values](#input\_chart\_values) | Override the values of the IITS cert-manager chart using value files. | `list(string)` | `[]` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Chart version of the IITS cert-manager chart. | `string` | `"1.14.4"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Chart version of the IITS cert-manager chart. | `string` | `"1.16.1"` | no |
 | <a name="input_release_name"></a> [release\_name](#input\_release\_name) | Name the helm release. | `string` | `"cert-manager"` | no |
 | <a name="input_release_namespace"></a> [release\_namespace](#input\_release\_namespace) | Namespace for the chart releases. | `string` | `"cert-manager"` | no |
 | <a name="input_username"></a> [username](#input\_username) | Desired username for cert-manager DNS administrator user. | `string` | `"cert-manager-dns-admin"` | no |
