@@ -48,8 +48,8 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Name of the VPC. | `string` | n/a | yes |
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | IP range of the VPC | `string` | `"10.0.0.0/16"` | no |
-| <a name="input_dns_config"></a> [dns\_config](#input\_dns\_config) | Common Domain Name Server list for all subnets | `list(string)` | <pre>[<br>  "100.125.4.25",<br>  "100.125.129.199"<br>]</pre> | no |
-| <a name="input_subnets"></a> [subnets](#input\_subnets) | Subnet names and their cidr ranges. | `map(string)` | <pre>{<br>  "database-subnet": "",<br>  "jumphost-subnet": "",<br>  "kubernetes-subnet": ""<br>}</pre> | no |
+| <a name="input_dns_config"></a> [dns\_config](#input\_dns\_config) | Common Domain Name Server list for all subnets | `list(string)` | <pre>[<br/>  "100.125.4.25",<br/>  "100.125.129.199"<br/>]</pre> | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | Subnet names and their cidr ranges. | `map(string)` | <pre>{<br/>  "database-subnet": "",<br/>  "jumphost-subnet": "",<br/>  "kubernetes-subnet": ""<br/>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tag set for project resources | `map(string)` | `{}` | no |
 
 ## Outputs

@@ -100,7 +100,7 @@ No modules.
 | <a name="input_node_storage_encryption_kms_key_name"></a> [node\_storage\_encryption\_kms\_key\_name](#input\_node\_storage\_encryption\_kms\_key\_name) | If KMS volume encryption is enabled, specify a name of an existing kms key. Setting this disables the creation of a new kms key. (default: null) | `string` | `null` | no |
 | <a name="input_node_storage_size"></a> [node\_storage\_size](#input\_node\_storage\_size) | Size of the node data disk in GB (default: 100) | `number` | `100` | no |
 | <a name="input_node_storage_type"></a> [node\_storage\_type](#input\_node\_storage\_type) | Type of node storage SATA, SAS or SSD (default: SATA) | `string` | `"SATA"` | no |
-| <a name="input_node_taints"></a> [node\_taints](#input\_node\_taints) | Enable the scaling for the node pool. Please note that CCE cluster must have autoscaling addon installed. (default: 10) | <pre>list(object({<br>    effect = string<br>    key    = string<br>    value  = string<br>  }))</pre> | <pre>[<br>  {<br>    "effect": "PreferNoSchedule",<br>    "key": "gpu-node",<br>    "value": "true"<br>  }<br>]</pre> | no |
+| <a name="input_node_taints"></a> [node\_taints](#input\_node\_taints) | Enable the scaling for the node pool. Please note that CCE cluster must have autoscaling addon installed. (default: 10) | <pre>list(object({<br/>    effect = string<br/>    key    = string<br/>    value  = string<br/>  }))</pre> | <pre>[<br/>  {<br/>    "effect": "PreferNoSchedule",<br/>    "key": "gpu-node",<br/>    "value": "true"<br/>  }<br/>]</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tags to add to resources that support them. | `map(string)` | `null` | no |
 
 ## Outputs

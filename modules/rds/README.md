@@ -100,9 +100,9 @@ No modules.
 | <a name="input_db_memory"></a> [db\_memory](#input\_db\_memory) | Amount of memory desired for database nodes in GB. (default: 4) | `number` | `4` | no |
 | <a name="input_db_parameters"></a> [db\_parameters](#input\_db\_parameters) | A map of additional parameters for the database instance. Check the DB Engine's documentation. | `map(string)` | `{}` | no |
 | <a name="input_db_port"></a> [db\_port](#input\_db\_port) | Port number for accessing the database. Default ports are: 3306(MySQL), 5432(PostgreSQL) and 1433(SQLServer) | `string` | `"default"` | no |
-| <a name="input_db_size"></a> [db\_size](#input\_db\_size) | Amount of storage desired for the database in GB. (default: 10) | `number` | `100` | no |
+| <a name="input_db_size"></a> [db\_size](#input\_db\_size) | Amount of storage desired for the database in GB. (default: 100) | `number` | `100` | no |
 | <a name="input_db_storage_alarm_threshold"></a> [db\_storage\_alarm\_threshold](#input\_db\_storage\_alarm\_threshold) | CES alarm threshold (in percent) for database storage capacity. Can be disabled by setting to 0. (default: 75) | `number` | `75` | no |
-| <a name="input_db_storage_type"></a> [db\_storage\_type](#input\_db\_storage\_type) | Type of storage desired for the database. Allowed values are COMMON (SATA) or ULTRAHIGH (SSD) (default: ULTRAHIGH) | `string` | `"ULTRAHIGH"` | no |
+| <a name="input_db_storage_type"></a> [db\_storage\_type](#input\_db\_storage\_type) | Type of storage desired for the database. (default: ULTRAHIGH) | `string` | `"ULTRAHIGH"` | no |
 | <a name="input_db_volume_encryption"></a> [db\_volume\_encryption](#input\_db\_volume\_encryption) | Enable OTC KMS volume encryption for the database volumes. (default: true) | `bool` | `true` | no |
 | <a name="input_db_volume_encryption_key_name"></a> [db\_volume\_encryption\_key\_name](#input\_db\_volume\_encryption\_key\_name) | If KMS volume encryption is enabled for the database volumes, use this kms key name instead of creating a new one. (default: null) | `string` | `null` | no |
 | <a name="input_sg_allowed_cidr"></a> [sg\_allowed\_cidr](#input\_sg\_allowed\_cidr) | CIDR ranges that are allowed to connect to the database. (default: <var.subnet\_id.cidr>) | `set(string)` | `[]` | no |
