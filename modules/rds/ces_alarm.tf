@@ -1,8 +1,8 @@
 locals {
   rds_ces_metric_dimensions = {
-    MySQL      = "rds_instance_id"
-    PostgreSQL = "postgresql_instance_id"
-    SQLServer  = "rds_instance_sqlserver_id"
+    MySQL      = "rds_cluster_id"
+    PostgreSQL = "postgresql_cluster_id"
+    SQLServer  = "rds_cluster_sqlserver_id"
   }
   metrics = {
     cpu = {
