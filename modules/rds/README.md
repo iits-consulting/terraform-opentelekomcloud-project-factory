@@ -63,7 +63,7 @@ No modules.
 | [errorcheck_is_valid.db_availability_zones](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
 | [errorcheck_is_valid.db_flavor_constraint](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
 | [errorcheck_is_valid.db_ha_replication_mode_constraint](https://registry.terraform.io/providers/iits-consulting/errorcheck/latest/docs/resources/is_valid) | resource |
-| [opentelekomcloud_ces_alarmrule.db_storage_alarm](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/ces_alarmrule) | resource |
+| [opentelekomcloud_ces_alarmrule.db_ces_alarms](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/ces_alarmrule) | resource |
 | [opentelekomcloud_kms_key_v1.db_encryption_key](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/kms_key_v1) | resource |
 | [opentelekomcloud_networking_secgroup_rule_v2.db_allow_cidr](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/networking_secgroup_rule_v2) | resource |
 | [opentelekomcloud_networking_secgroup_rule_v2.db_allow_out](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs/resources/networking_secgroup_rule_v2) | resource |
@@ -92,16 +92,18 @@ No modules.
 | <a name="input_db_availability_zones"></a> [db\_availability\_zones](#input\_db\_availability\_zones) | Availability zones for the RDS instance. One or two zones are supported for single and primary/standby instances respectively. | `set(string)` | `[]` | no |
 | <a name="input_db_backup_days"></a> [db\_backup\_days](#input\_db\_backup\_days) | Retain time for automated backups in days. (default: 7) | `number` | `"7"` | no |
 | <a name="input_db_backup_interval"></a> [db\_backup\_interval](#input\_db\_backup\_interval) | UTC time window for automated database backups in "HH:MM-HH:MM" format. Must be at least 1 hour (default: 03:00-04:00) | `string` | `"03:00-04:00"` | no |
+| <a name="input_db_cpu_alarm_threshold"></a> [db\_cpu\_alarm\_threshold](#input\_db\_cpu\_alarm\_threshold) | CES alarm threshold (in percent) for database cpu utilization. Can be disabled by setting to 0. | `number` | `80` | no |
 | <a name="input_db_cpus"></a> [db\_cpus](#input\_db\_cpus) | Number of CPU cores desired for database nodes. (default: 2) | `string` | `"2"` | no |
 | <a name="input_db_eip_bandwidth"></a> [db\_eip\_bandwidth](#input\_db\_eip\_bandwidth) | Bandwidth of the EIP of RDS instance, can be disabled by setting to 0. (default: 0) | `number` | `0` | no |
 | <a name="input_db_flavor"></a> [db\_flavor](#input\_db\_flavor) | RDS Flavor string override. This parameter will override parameters for db\_cpu, db\_memory and db\_high\_availability. | `string` | `""` | no |
 | <a name="input_db_ha_replication_mode"></a> [db\_ha\_replication\_mode](#input\_db\_ha\_replication\_mode) | RDS data replication mode for instances with high availability (primary/standby) enabled. Defaults are async(MySQL), async(PostgreSQL) and sync(SQLServer) | `string` | `""` | no |
 | <a name="input_db_high_availability"></a> [db\_high\_availability](#input\_db\_high\_availability) | Whether a single db instance or a high available (primary/standby) db instance is desired. (default: false) | `bool` | `false` | no |
 | <a name="input_db_memory"></a> [db\_memory](#input\_db\_memory) | Amount of memory desired for database nodes in GB. (default: 4) | `number` | `4` | no |
+| <a name="input_db_memory_alarm_threshold"></a> [db\_memory\_alarm\_threshold](#input\_db\_memory\_alarm\_threshold) | CES alarm threshold (in percent) for database memory utilization. Can be disabled by setting to 0. | `number` | `90` | no |
 | <a name="input_db_parameters"></a> [db\_parameters](#input\_db\_parameters) | A map of additional parameters for the database instance. Check the DB Engine's documentation. | `map(string)` | `{}` | no |
 | <a name="input_db_port"></a> [db\_port](#input\_db\_port) | Port number for accessing the database. Default ports are: 3306(MySQL), 5432(PostgreSQL) and 1433(SQLServer) | `string` | `"default"` | no |
 | <a name="input_db_size"></a> [db\_size](#input\_db\_size) | Amount of storage desired for the database in GB. (default: 100) | `number` | `100` | no |
-| <a name="input_db_storage_alarm_threshold"></a> [db\_storage\_alarm\_threshold](#input\_db\_storage\_alarm\_threshold) | CES alarm threshold (in percent) for database storage capacity. Can be disabled by setting to 0. (default: 75) | `number` | `75` | no |
+| <a name="input_db_storage_alarm_threshold"></a> [db\_storage\_alarm\_threshold](#input\_db\_storage\_alarm\_threshold) | CES alarm threshold (in percent) for database storage utilization. Can be disabled by setting to 0. | `number` | `80` | no |
 | <a name="input_db_storage_type"></a> [db\_storage\_type](#input\_db\_storage\_type) | Type of storage desired for the database. (default: ULTRAHIGH) | `string` | `"ULTRAHIGH"` | no |
 | <a name="input_db_volume_encryption"></a> [db\_volume\_encryption](#input\_db\_volume\_encryption) | Enable OTC KMS volume encryption for the database volumes. (default: true) | `bool` | `true` | no |
 | <a name="input_db_volume_encryption_key_name"></a> [db\_volume\_encryption\_key\_name](#input\_db\_volume\_encryption\_key\_name) | If KMS volume encryption is enabled for the database volumes, use this kms key name instead of creating a new one. (default: null) | `string` | `null` | no |
@@ -114,10 +116,12 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_db_instance_ids"></a> [db\_instance\_ids](#output\_db\_instance\_ids) | n/a |
-| <a name="output_db_private_ip"></a> [db\_private\_ip](#output\_db\_private\_ip) | n/a |
-| <a name="output_db_public_ip"></a> [db\_public\_ip](#output\_db\_public\_ip) | n/a |
-| <a name="output_db_root_password"></a> [db\_root\_password](#output\_db\_root\_password) | n/a |
-| <a name="output_db_root_username"></a> [db\_root\_username](#output\_db\_root\_username) | n/a |
-| <a name="output_sg_secgroup_id"></a> [sg\_secgroup\_id](#output\_sg\_secgroup\_id) | n/a |
+| <a name="output_db_cluster"></a> [db\_cluster](#output\_db\_cluster) | Full configuration of the created database cluster, created for flexibility but should not be used if avoidable. |
+| <a name="output_db_cluster_id"></a> [db\_cluster\_id](#output\_db\_cluster\_id) | Database cluster UUID. |
+| <a name="output_db_instance_ids"></a> [db\_instance\_ids](#output\_db\_instance\_ids) | Node ECS UUIDs for members of the database cluster. |
+| <a name="output_db_private_ip"></a> [db\_private\_ip](#output\_db\_private\_ip) | Private IP address for the database cluster. |
+| <a name="output_db_public_ip"></a> [db\_public\_ip](#output\_db\_public\_ip) | Public IP address for the database cluster if var.db\_eip\_bandwidth is specified. Otherwise empty string "". |
+| <a name="output_db_root_password"></a> [db\_root\_password](#output\_db\_root\_password) | Root user password for the database cluster. |
+| <a name="output_db_root_username"></a> [db\_root\_username](#output\_db\_root\_username) | Root user username for the database cluster. |
+| <a name="output_sg_secgroup_id"></a> [sg\_secgroup\_id](#output\_sg\_secgroup\_id) | Security group created for the database cluster. This is particularly useful if custom rules outside of the module are desired. |
 <!-- END_TF_DOCS -->

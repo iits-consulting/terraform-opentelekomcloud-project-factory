@@ -77,37 +77,3 @@ resource "opentelekomcloud_rds_instance_v3" "db_instance" {
     data.opentelekomcloud_rds_flavors_v3.db_flavor,
   ]
 }
-
-locals {
-  rds_ces_metric_dimensions = {
-    MySQL      = "rds_instance_id"
-    PostgreSQL = "postgresql_instance_id"
-    SQLServer  = "rds_instance_sqlserver_id"
-  }
-}
-
-resource "opentelekomcloud_ces_alarmrule" "db_storage_alarm" {
-  count       = var.db_storage_alarm_threshold > 0 ? 1 : 0
-  alarm_level = 2
-  alarm_name  = replace("${var.name}-storage-alarm", "-", "_")
-  metric {
-    namespace   = "SYS.RDS"
-    metric_name = "rds039_disk_util"
-    dynamic "dimensions" {
-      for_each = opentelekomcloud_rds_instance_v3.db_instance.nodes
-      content {
-        name  = local.rds_ces_metric_dimensions[var.db_type]
-        value = dimensions.value.id
-      }
-    }
-  }
-  condition {
-    period              = 1
-    filter              = "average"
-    comparison_operator = ">"
-    value               = var.db_storage_alarm_threshold
-    unit                = "%"
-    count               = 5
-  }
-  alarm_action_enabled = false
-}
