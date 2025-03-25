@@ -1,6 +1,6 @@
-# DEPRECATION WARNING
+# :warning: NOTIFICATION: SPLIT REPOSITORY
 
-Effective March 25, 2025, this repository will be deprecated and no longer maintained. To ensure you continue receiving the latest updates and support, please transition to using our dedicated Terraform module repositories, each maintained separately.
+Effective March 25, 2025, **this repository will be deprecated** and no longer maintained. To ensure you continue receiving the latest updates and support, **please transition to using our dedicated Terraform module repositories**, each maintained separately.
 
 - [acme](https://github.com/iits-consulting/terraform-opentelekomcloud-acme)
 - [cce](https://github.com/iits-consulting/terraform-opentelekomcloud-cce)
@@ -142,3 +142,8 @@ No outputs.
 
 <!-- END_TF_DOCS -->
 
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > 9d63e9e (docs: deprecation warning)
