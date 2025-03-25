@@ -1,3 +1,35 @@
+# DEPRECATION WARNING
+
+Effective March 25, 2025, this repository will be deprecated and no longer maintained. To ensure you continue receiving the latest updates and support, please transition to using our dedicated Terraform module repositories, each maintained separately.
+
+- [acme](https://github.com/iits-consulting/terraform-opentelekomcloud-acme)
+- [cce](https://github.com/iits-consulting/terraform-opentelekomcloud-cce)
+- [cce-gpu-node-pool](https://github.com/iits-consulting/terraform-opentelekomcloud-cce-gpu-node-pool)
+- [cert-manager](https://github.com/iits-consulting/terraform-opentelekomcloud-cert-manager)
+- [crd-installer](https://github.com/iits-consulting/terraform-opentelekomcloud-crd-installer)
+- [cts](https://github.com/iits-consulting/terraform-opentelekomcloud-cts)
+- [dedicated-loadbalancer](https://github.com/iits-consulting/terraform-opentelekomcloud-dedicated-loadbalancer)
+- [enterprise-vpn-connection](https://github.com/iits-consulting/terraform-opentelekomcloud-enterprise-vpn-connection)
+- [enterprise-vpn-gateway](https://github.com/iits-consulting/terraform-opentelekomcloud-enterprise-vpn-gateway)
+- [evs](https://github.com/iits-consulting/terraform-opentelekomcloud-evs)
+- [jumphost](https://github.com/iits-consulting/terraform-opentelekomcloud-jumphost)
+- [keycloak-sso-oids](https://github.com/iits-consulting/terraform-opentelekomcloud-keycloak-sso-oidc)
+- [keycloak-sso-saml](https://github.com/iits-consulting/terraform-opentelekomcloud-keycloak-sso-saml)
+- [loadbalancer](https://github.com/iits-consulting/terraform-opentelekomcloud-loadbalancer)
+- [obs-restricted](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-restricted)
+- [obs-secrets-reader](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-secrets-reader)
+- [obs-secrets-writer](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-secrets-writer)
+- [private-dns](https://github.com/iits-consulting/terraform-opentelekomcloud-private-dns)
+- [projects](https://github.com/iits-consulting/terraform-opentelekomcloud-projects)
+- [public-dns](https://github.com/iits-consulting/terraform-opentelekomcloud-public-dns)
+- [rds](https://github.com/iits-consulting/terraform-opentelekomcloud-rds)
+- [sfs](https://github.com/iits-consulting/terraform-opentelekomcloud-sfs)
+- [snat](https://github.com/iits-consulting/terraform-opentelekomcloud-snat)
+- [state-bucket](https://github.com/iits-consulting/terraform-opentelekomcloud-state-bucket)
+- [vpc](https://github.com/iits-consulting/terraform-opentelekomcloud-vpc)
+- [vpn](https://github.com/iits-consulting/terraform-opentelekomcloud-vpn)
+- [waf](https://github.com/iits-consulting/terraform-opentelekomcloud-waf)
+
 # Common Terraform Modules for Open Telekom Cloud
 
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?)](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/blob/master/LICENSE)
@@ -7,10 +39,11 @@
 These are commonly usable Terraform Modules for the [Open Telekom Cloud](https://open-telekom-cloud.com) based on the
 awesome [Terraform OTC Provider](https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs).
 
-*These modules are developed by [iits-consulting](https://iits-consulting.de/) - your Cloud-Native Innovation Teams as a
-Service!*
+_These modules are developed by [iits-consulting](https://iits-consulting.de/) - your Cloud-Native Innovation Teams as a
+Service!_
 
 ## Usage:
+
 For fully integrated examples please visit the [Terratest Directory](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/Terratest)
 You pick modules which you would like to use like this:
 
@@ -27,6 +60,7 @@ module "vpc" {
 ```
 
 ## Currently Available Modules
+
 - [ACME:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/acme) Create, sign and update HTTPS certificates via OTC DNS
 - [CCE:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cce) A module designed to support full capabilities of OTC CCE while simplifying the configuration for ease of use.
 - [cts:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/cts) This module enables the Cloud Tracing functionality in the OTC.
@@ -49,7 +83,7 @@ module "vpc" {
 
 ## Quickstart
 
-As a quick start we recommend using this template: 
+As a quick start we recommend using this template:
 
 - https://github.com/iits-consulting/otc-terraform-template
 
@@ -60,13 +94,14 @@ Then just adjust the set-env.sh and the showcase/dev/main.tf as you wish
 There are some variables that occur on multiple modules. The ideas behind them are explained here.
 
 | Variable   | Description                          | Example                       |
-|:-----------|:-------------------------------------|:------------------------------|
+| :--------- | :----------------------------------- | :---------------------------- |
 | `context`  | A human-readable name of the project | `website`, `payments-service` |
 | `stage   ` | Name of the environment              | `dev`, `test`, `qa`, `prod`   |
 
 ## Remarks
 
 The following modules are currently not working for Swiss OTC:
+
 - [public_dns:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/public_dns) Create and manage a public DNS zone
 - [waf:](https://github.com/iits-consulting/terraform-opentelekomcloud-project-factory/tree/master/modules/waf) Create Web Application Firewall for a Domain
 
@@ -80,6 +115,7 @@ The following modules are currently not working for Swiss OTC:
    . Copy the backend output of that module to your `settings.tf` file
 3. Use https://github.com/iits-consulting/otc-infrastructure-charts-template if you want to use ArgoCD (GitOps)
 <!-- BEGIN_TF_DOCS -->
+
 ## Requirements
 
 No requirements.
@@ -103,4 +139,6 @@ No inputs.
 ## Outputs
 
 No outputs.
+
 <!-- END_TF_DOCS -->
+
