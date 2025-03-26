@@ -13,7 +13,7 @@ Effective March 25, 2025, **this repository will be deprecated** and no longer m
 - [enterprise-vpn-gateway](https://github.com/iits-consulting/terraform-opentelekomcloud-enterprise-vpn-gateway)
 - [evs](https://github.com/iits-consulting/terraform-opentelekomcloud-evs)
 - [jumphost](https://github.com/iits-consulting/terraform-opentelekomcloud-jumphost)
-- [keycloak-sso-oids](https://github.com/iits-consulting/terraform-opentelekomcloud-keycloak-sso-oidc)
+- [keycloak-sso-oidc](https://github.com/iits-consulting/terraform-opentelekomcloud-keycloak-sso-oidc)
 - [keycloak-sso-saml](https://github.com/iits-consulting/terraform-opentelekomcloud-keycloak-sso-saml)
 - [loadbalancer](https://github.com/iits-consulting/terraform-opentelekomcloud-loadbalancer)
 - [obs-restricted](https://github.com/iits-consulting/terraform-opentelekomcloud-obs-restricted)
