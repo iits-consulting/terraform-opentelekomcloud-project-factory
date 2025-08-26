@@ -7,6 +7,10 @@ variable "username" {
   type        = string
   default     = "cert-manager-dns-admin"
   description = "Desired username for cert-manager DNS administrator user."
+  validation {
+    condition     = length("${var.username}") <= 32
+    error_message = "The username for cert-manager DNS administrator user may only be max 32 characters long."
+  }
 }
 
 variable "release_name" {
